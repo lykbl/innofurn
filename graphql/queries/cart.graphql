@@ -1,4 +1,4 @@
 extend type Query {
     "Get the cart of the current user."
-    myCart: Cart! @guard
+    myCart: Cart!
 }
