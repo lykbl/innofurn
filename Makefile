@@ -1,6 +1,7 @@
 sail:=bin/sail
 artisan:=$(sail) artisan
 rollback-step:=1
+image-name:=php
 
 up:
 	$(sail) build
@@ -41,3 +42,6 @@ artisan:
 
 seed:
 	$(artisan) db:seed --class=$(name)
+
+shell:
+	docker exec -it "$(image-name)" /bin/bash
