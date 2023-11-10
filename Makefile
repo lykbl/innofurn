@@ -1,7 +1,7 @@
 sail:=bin/sail
 artisan:=$(sail) artisan
 rollback-step:=1
-image-name:=php
+image-name:=laravel.test
 
 up:
 	$(sail) build
@@ -45,3 +45,6 @@ seed:
 
 shell:
 	docker exec -it "$(image-name)" /bin/bash
+
+reload:
+	docker exec -it $(image-name) /bin/bash -c 'kill -USR2 $$(ps -ef | grep "php-fpm: master" | grep -v grep | awk "{print \$$2}" | head -1)'
