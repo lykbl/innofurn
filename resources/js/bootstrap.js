@@ -15,18 +15,48 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import gql from "graphql-tag";
+import Pusher from "pusher-js";
+import {ApolloLink} from "apollo-link";
 
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
+import {ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client";
+import PusherLink from "./pusher.js";
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });
+// Pusher.logToConsole = true;
+
+const pusherLink = new PusherLink({
+    pusher: new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
+        cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
+        authEndpoint: `http://localhost/graphql/subscriptions/auth`,
+        // auth: {
+        //     headers: {
+        //         authorization: BEARER_TOKEN,
+        //     },
+        // },
+    }),
+});
+
+const link = ApolloLink.from([
+    pusherLink,
+    createHttpLink({uri: `/graphql`})
+]);
+
+const client = new ApolloClient({
+    link: link,
+    cache: new InMemoryCache(),
+});
+
+const subscription = client.subscribe({
+    query: gql`
+        subscription {
+            stockDecreased(id: 2) {
+                id
+                stock
+            }
+        }
+    `,
+}).subscribe(
+    (e) => console.log('RESULT', e),
+    (e) => console.log(e),
+    () => console.log('DONE')
+);

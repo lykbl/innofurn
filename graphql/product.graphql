@@ -1,0 +1,14 @@
+type Product {
+    id: ID!
+
+    attribute_data: JSON!
+
+    variants: [ProductVariant]
+}
+
+extend type Query {
+    "List products."
+    products(
+        name: String @where(operator: "like")
+    ): [Product!]! @paginate(defaultCount: 10)
+}

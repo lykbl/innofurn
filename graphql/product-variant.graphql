@@ -1,0 +1,26 @@
+type ProductVariant {
+    id: ID!
+    product: Product! @belongsTo(relation: "product_id")
+    stock: Int!
+}
+
+extend type Query {
+    "List product variants of product."
+    productVariants(
+        product: ID! @eq(key: "product_id")
+    ): [ProductVariant!]! @paginate(defaultCount: 10)
+}
+
+extend type Subscription {
+    stockDecreased(id: ID!): ProductVariant
+}
+
+extend type Mutation {
+    decreaseStock(id: ID!): DecreaseStockResult!
+    @broadcast(subscription: "stockDecreased")
+}
+
+type DecreaseStockResult {
+    record: ProductVariant!
+    query: Query!
+}

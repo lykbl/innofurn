@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use MLL\GraphiQL\GraphiQLServiceProvider;
+use Nuwave\Lighthouse\LighthouseServiceProvider;
+use Nuwave\Lighthouse\Pagination\PaginationServiceProvider;
+use Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider;
+use Nuwave\Lighthouse\Validation\ValidationServiceProvider;
 
 return [
 
@@ -165,9 +170,14 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        LighthouseServiceProvider::class,
+        PaginationServiceProvider::class,
+        ValidationServiceProvider::class,
+        SubscriptionServiceProvider::class,
+        GraphiQLServiceProvider::class,
     ])->toArray(),
 
     /*

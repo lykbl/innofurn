@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 /bin
 /public/vendor
+_lighthouse_ide_helper.php
+programmatic-types.graphql
+schema-directives.graphql
+resources/views/vendor
