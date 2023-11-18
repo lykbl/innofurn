@@ -49,5 +49,8 @@ shell:
 reload:
 	docker exec -it $(image-name) /bin/bash -c 'kill -USR2 $$(ps -ef | grep "php-fpm: master" | grep -v grep | awk "{print \$$2}" | head -1)'
 
-graphql-dev:
+graphql-generate:
 	$(artisan) lighthouse:ide-helper
+
+patch-generate:
+	docker exec -it $(image-name) ./bin/vendor-patches generate
