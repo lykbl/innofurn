@@ -54,3 +54,6 @@ graphql-generate:
 
 patch-generate:
 	docker exec -it $(image-name) ./bin/vendor-patches generate
+
+composer-install:
+	docker exec -it $(image-name) composer install

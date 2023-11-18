@@ -63,8 +63,7 @@
     "extra": {
         "patches": {
             "intervention/image": [
-                "patches/intervention-image-src-intervention-image-gd-decoder-php.patch",
-                "patches/intervention-image-add-avif-support.patch"
+                "patches/intervention-image-src-intervention-image-gd-decoder-php.patch"
             ],
             "lunarphp/lunar": [
                 "patches/lunarphp-lunar-packages-core-database-state-converttaxbreakdown-php.patch"
