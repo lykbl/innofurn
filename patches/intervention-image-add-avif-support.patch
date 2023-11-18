@@ -1,0 +1,17 @@
+--- /dev/null
++++ ../src/Intervention/Image/Gd/Decoder.php
+@@ -70,6 +70,14 @@
+                 }
+                 $core = @imagecreatefrombmp($path);
+                 break;
++            case 'image/avif':
++                if (! function_exists('imagecreatefromavif')) {
++                    throw new NotReadableException(
++                        "Unsupported image type. GD/PHP installation does not support AVIF format."
++                    );
++                }
++                $core = @imagecreatefromavif($path);
++                break;
+ 
+             default:
+                 throw new NotReadableException(
