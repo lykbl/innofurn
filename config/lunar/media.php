@@ -1,11 +1,13 @@
 <?php
 
+use App\Media\StorefrontConversions;
 use Lunar\Base\StandardMediaConversions;
 
 return [
 
     'conversions' => [
         StandardMediaConversions::class,
+        StorefrontConversions::class,
     ],
 
     'fallback' => [
