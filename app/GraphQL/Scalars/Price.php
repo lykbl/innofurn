@@ -9,34 +9,31 @@ use GraphQL\Error\Error;
 use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
 
-class Dimension extends ScalarType
+class Price extends ScalarType
 {
     /**
-     * @param ?Converter $value
+     * @param Price $value
      *
-     * @return ?array
+     * @return array
      */
-    public function serialize(mixed $value): ?array
+    public function serialize(mixed $value): array
     {
-        if (!$value) {
-            return null;
-        }
-
         return [
-            'format' => $value->convert()->format(),
-            'value'  => $value->getValue(),
-            'unit'   => $value->getTo(),
+            'format'        => $value->price->formatted(),
+            'value'         => $value->price->value,
+            'currency_code' => $value->price->currency->code,
+            'currency_name' => $value->price->currency->name,
         ];
     }
 
     /**
      * @param Converter $value
      *
-     * @return ?float
+     * @return float
      */
-    public function parseValue(mixed $value): ?float
+    public function parseValue(mixed $value): float
     {
-        return $value ? $value->getValue() : null;
+        return $value->getValue();
     }
 
     public function parseLiteral(Node $valueNode, array $variables = null): void

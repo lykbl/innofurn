@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\GraphQL\Types;
 
 use App\GraphQL\Exceptions\UnknownDimensionException;
@@ -12,9 +14,10 @@ abstract class Dimension
 {
     /**
      * @param ProductVariant $productVariant
-     * @param array $args
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
+     *
      * @return ?Converter
      *
      * @throws UnknownDimensionException
@@ -33,10 +36,10 @@ abstract class Dimension
      */
     private function convertToUnits(string $to, string $dimensionType): string
     {
-        return match($dimensionType) {
+        return match ($dimensionType) {
             'width', 'height', 'length' => "length.$to",
             'weight' => "weight.$to",
-            default => throw new UnknownDimensionException($dimensionType),
+            default  => throw new UnknownDimensionException($dimensionType),
         };
     }
 }

@@ -1,4 +1,4 @@
-type Price {
-    value: Int!
-    currency_id: ID!
-}
+#type Price {
+#    value: Int!
+#    currency_id: ID!
+#}

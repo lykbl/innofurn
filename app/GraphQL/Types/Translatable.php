@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\GraphQL\Types;
 
 use App\Models\Product;
@@ -9,12 +11,12 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 abstract class Translatable
 {
     /**
-     * @param Product $product
-     * @param array $args
+     * @param Product        $product
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
-     * @return string|null
+     * @param ResolveInfo    $resolveInfo
      *
+     * @return string|null
      */
     public function __invoke(Product $product, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): ?string
     {
