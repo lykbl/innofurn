@@ -15,12 +15,16 @@ abstract class Dimension
      * @param array $args
      * @param GraphQLContext $context
      * @param ResolveInfo $resolveInfo
-     * @return Converter
+     * @return ?Converter
      *
      * @throws UnknownDimensionException
      */
-    public function __invoke(ProductVariant $productVariant, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Converter
+    public function __invoke(ProductVariant $productVariant, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): ?Converter
     {
+        if (!$productVariant->isShippable()) {
+            return null;
+        }
+
         return $productVariant->{$resolveInfo->fieldName}->to($this->convertToUnits($args['to'], $resolveInfo->fieldName));
     }
 
@@ -32,7 +36,6 @@ abstract class Dimension
         return match($dimensionType) {
             'width', 'height', 'length' => "length.$to",
             'weight' => "weight.$to",
-            //TODO add exception
             default => throw new UnknownDimensionException($dimensionType),
         };
     }

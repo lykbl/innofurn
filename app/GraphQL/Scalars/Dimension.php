@@ -10,11 +10,15 @@ use GraphQL\Type\Definition\ScalarType;
 class Dimension extends ScalarType
 {
     /**
-     * @param Converter $value
-     * @return array
+     * @param ?Converter $value
+     * @return ?array
      */
-    public function serialize(mixed $value): array
+    public function serialize(mixed $value): ?array
     {
+        if (!$value) {
+            return null;
+        }
+
         return [
             'format' => $value->convert()->format(),
             'value' => $value->getValue(),
@@ -24,11 +28,11 @@ class Dimension extends ScalarType
 
     /**
      * @param Converter $value
-     * @return float
+     * @return ?float
      */
-    public function parseValue(mixed $value): float
+    public function parseValue(mixed $value): ?float
     {
-        return $value->getValue();
+        return $value ? $value->getValue() : null;
     }
 
     public function parseLiteral(Node $valueNode, array $variables = null)
