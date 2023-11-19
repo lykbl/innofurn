@@ -1,0 +1,13 @@
+type Collection implements WithUrls {
+    id: ID!
+    name(lang: Locales = ENGLISH): String
+    breadcrumb(lang: Locales = ENGLISH): String
+
+    urls: [Url]
+    defaultUrl: Url
+}
+
+extend type Query {
+  "Available product root collections"
+  collections: [Collection!] @all(model: "App\\Models\\Collection")
+}

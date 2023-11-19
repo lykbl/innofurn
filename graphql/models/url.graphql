@@ -1,0 +1,4 @@
+type Url {
+    language_id: ID!
+    slug: String!
+}
