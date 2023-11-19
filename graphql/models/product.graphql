@@ -1,0 +1,12 @@
+type Product {
+    id: ID!
+    name(lang: Locales = ENGLISH): String
+    description(lang: Locales = ENGLISH): String
+    variants: [ProductVariant!]
+    brand: Brand!
+}
+
+extend type Query {
+  "Product details."
+  productById(id: ID! @eq): Product! @find(model: "App\\Models\\Product")
+}

@@ -1,0 +1,4 @@
+enum Locales {
+    ENGLISH @enum(value: "en")
+    SPANISH @enum(value: "es")
+}

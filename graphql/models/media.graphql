@@ -1,0 +1,5 @@
+type Media {
+    name: String!
+    original_url: String!
+    conversions(types: [ConversionTypes!]): [String!]
+}

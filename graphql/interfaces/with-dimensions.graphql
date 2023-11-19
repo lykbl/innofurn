@@ -1,0 +1,6 @@
+interface WithDimensions {
+    width(to: Units = CENTIMETERS): Dimension
+    length(to: Units = CENTIMETERS): Dimension
+    height(to: Units = CENTIMETERS): Dimension
+    weight(to: Units = KILOGRAM): Dimension
+}

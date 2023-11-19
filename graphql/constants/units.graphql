@@ -1,0 +1,5 @@
+enum Units {
+    CENTIMETERS @enum(value: "cm")
+
+    KILOGRAM @enum(value: "kg")
+}

@@ -1,0 +1,6 @@
+enum ConversionTypes {
+    ZOOM @enum(value: "zoom")
+    LARGE @enum(value: "large")
+    MEDIUM @enum(value: "medium")
+    SMALL @enum(value: "small")
+}

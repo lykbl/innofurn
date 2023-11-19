@@ -1,8 +1,7 @@
 #import scalar.graphql
-
-#import user.graphql
-#import product.graphql
-#import product-variant.graphql
+#import models/*.graphql
+#import interfaces/*.graphql
+#import constants/*.graphql
 
 type Query
 

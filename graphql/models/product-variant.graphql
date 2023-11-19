@@ -1,0 +1,33 @@
+type ProductVariant implements WithDimensions {
+    id: ID!
+    stock: Int!
+    images: [Media!] @paginate(defaultCount: 4)
+    product: Product!
+    price: Int!
+    prices: [Price!]
+
+    width(to: Units = CENTIMETERS): Dimension
+    length(to: Units = CENTIMETERS): Dimension
+    height(to: Units = CENTIMETERS): Dimension
+    weight(to: Units = KILOGRAM): Dimension
+}
+
+extend type Query {
+    "List product variants of product."
+    productVariantById(id: ID! @eq): ProductVariant! @find(model: "App\\Models\\ProductVariant")
+    test(some: Dimension): String
+}
+
+extend type Subscription {
+    stockDecreased(id: ID!): ProductVariant
+}
+
+extend type Mutation {
+    decreaseStock(id: ID!): DecreaseStockResult!
+    @broadcast(subscription: "stockDecreased")
+}
+
+type DecreaseStockResult {
+    record: ProductVariant!
+    query: Query!
+}
