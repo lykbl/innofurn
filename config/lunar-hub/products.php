@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Disable product variants
@@ -37,22 +38,21 @@ return [
     */
     'sku' => [
         'required' => true,
-        'unique' => true,
+        'unique'   => true,
     ],
 
     'gtin' => [
         'required' => false,
-        'unique' => false,
+        'unique'   => false,
     ],
 
     'mpn' => [
         'required' => false,
-        'unique' => false,
+        'unique'   => false,
     ],
 
     'ean' => [
         'required' => false,
-        'unique' => false,
+        'unique'   => false,
     ],
-
 ];

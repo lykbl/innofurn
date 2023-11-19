@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreateAttributesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'attributes', function (Blueprint $table) {
+        Schema::create($this->prefix.'attributes', function (Blueprint $table): void {
             $table->id();
             $table->string('attribute_type')->index();
             $table->foreignId('attribute_group_id')->constrained($this->prefix.'attribute_groups');
@@ -37,7 +39,7 @@ class CreateAttributesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'attributes');
     }

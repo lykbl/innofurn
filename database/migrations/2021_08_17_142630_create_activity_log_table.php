@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
 
 class CreateActivityLogTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         $tableName = config('activitylog.table_name');
 
-        if (! Schema::hasTable($tableName)) {
-            Schema::create($tableName, function (Blueprint $table) {
+        if (!Schema::hasTable($tableName)) {
+            Schema::create($tableName, function (Blueprint $table): void {
                 $table->bigIncrements('id');
                 $table->string('log_name')->nullable();
                 $table->text('description');
@@ -26,7 +28,7 @@ class CreateActivityLogTable extends Migration
         }
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config('activitylog.table_name'));
     }

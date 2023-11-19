@@ -1,35 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Media;
 
 use Spatie\Image\Exceptions\InvalidManipulation;
 use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia;
 
 class StorefrontConversions
 {
     /**
      * @throws InvalidManipulation
      */
-    public function apply(HasMedia $model): void
+    public function apply($model): void
     {
         $conversions = [
             'zoom' => [
-                'width' => 500,
+                'width'  => 500,
                 'height' => 500,
             ],
             'large' => [
-                'width' => 800,
+                'width'  => 800,
                 'height' => 800,
             ],
             'medium' => [
-                'width' => 500,
+                'width'  => 500,
                 'height' => 500,
             ],
             'small' => [
-                'widht' => 100,
+                'width'  => 100,
                 'height' => 100,
-            ]
+            ],
         ];
 
         foreach ($conversions as $key => $conversion) {

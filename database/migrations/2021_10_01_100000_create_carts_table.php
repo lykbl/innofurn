@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
 
 class CreateCartsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'carts', function (Blueprint $table) {
+        Schema::create($this->prefix.'carts', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->userForeignKey(nullable: true);
             $table->foreignId('merged_id')->nullable()->constrained($this->prefix.'carts');
@@ -22,7 +24,7 @@ class CreateCartsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'carts');
     }

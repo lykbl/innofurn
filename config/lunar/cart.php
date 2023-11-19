@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Lunar\Actions\Carts\GenerateFingerprint;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Session Key
@@ -90,13 +91,13 @@ return [
     |
     */
     'actions' => [
-        'add_to_cart' => Lunar\Actions\Carts\AddOrUpdatePurchasable::class,
+        'add_to_cart'            => Lunar\Actions\Carts\AddOrUpdatePurchasable::class,
         'get_existing_cart_line' => Lunar\Actions\Carts\GetExistingCartLine::class,
-        'update_cart_line' => Lunar\Actions\Carts\UpdateCartLine::class,
-        'remove_from_cart' => Lunar\Actions\Carts\RemovePurchasable::class,
-        'add_address' => Lunar\Actions\Carts\AddAddress::class,
-        'set_shipping_option' => Lunar\Actions\Carts\SetShippingOption::class,
-        'order_create' => Lunar\Actions\Carts\CreateOrder::class,
+        'update_cart_line'       => Lunar\Actions\Carts\UpdateCartLine::class,
+        'remove_from_cart'       => Lunar\Actions\Carts\RemovePurchasable::class,
+        'add_address'            => Lunar\Actions\Carts\AddAddress::class,
+        'set_shipping_option'    => Lunar\Actions\Carts\SetShippingOption::class,
+        'order_create'           => Lunar\Actions\Carts\CreateOrder::class,
     ],
 
     /*
@@ -109,7 +110,6 @@ return [
     |
     */
     'validators' => [
-
         'add_to_cart' => [
             Lunar\Validation\CartLine\CartLineQuantity::class,
         ],
@@ -127,7 +127,6 @@ return [
         'order_create' => [
             Lunar\Validation\Cart\ValidateCartForOrderCreation::class,
         ],
-
     ],
 
     /*

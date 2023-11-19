@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 return [
     /*
@@ -90,7 +92,7 @@ return [
         /*
          * Setting to true enables schema caching.
          */
-        'enable' => env('LIGHTHOUSE_SCHEMA_CACHE_ENABLE', env('APP_ENV') !== 'local'),
+        'enable' => env('LIGHTHOUSE_SCHEMA_CACHE_ENABLE', 'local' !== env('APP_ENV')),
 
         /*
          * File path to store the lighthouse schema.
@@ -146,8 +148,8 @@ return [
     */
 
     'namespaces' => [
-        'models' => ['App', 'App\\Models'],
-        'queries' => 'App\\GraphQL\\Queries',
+        'models'    => ['App', 'App\\Models'],
+        'queries'   => 'App\\GraphQL\\Queries',
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
         ],
@@ -155,10 +157,10 @@ return [
             'App\\GraphQL\\Subscriptions\\Product',
             'App\\GraphQL\\Subscriptions\\ProductVariant',
         ],
-        'types' => 'App\\GraphQL\\Types',
+        'types'      => 'App\\GraphQL\\Types',
         'interfaces' => 'App\\GraphQL\\Interfaces',
-        'unions' => 'App\\GraphQL\\Unions',
-        'scalars' => 'App\\GraphQL\\Scalars',
+        'unions'     => 'App\\GraphQL\\Unions',
+        'scalars'    => 'App\\GraphQL\\Scalars',
         'directives' => 'App\\GraphQL\\Directives',
         'validators' => 'App\\GraphQL\\Validators',
     ],
@@ -174,8 +176,8 @@ return [
     */
 
     'security' => [
-        'max_query_complexity' => GraphQL\Validator\Rules\QueryComplexity::DISABLED,
-        'max_query_depth' => GraphQL\Validator\Rules\QueryDepth::DISABLED,
+        'max_query_complexity'  => GraphQL\Validator\Rules\QueryComplexity::DISABLED,
+        'max_query_depth'       => GraphQL\Validator\Rules\QueryDepth::DISABLED,
         'disable_introspection' => (bool) env('LIGHTHOUSE_SECURITY_DISABLE_INTROSPECTION', false)
             ? GraphQL\Validator\Rules\DisableIntrospection::ENABLED
             : GraphQL\Validator\Rules\DisableIntrospection::DISABLED,
@@ -400,14 +402,14 @@ return [
                 'driver' => 'log',
             ],
             'pusher' => [
-                'driver' => 'pusher',
-                'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@pusher',
+                'driver'     => 'pusher',
+                'routes'     => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
             'echo' => [
-                'driver' => 'echo',
+                'driver'     => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@echoRoutes',
+                'routes'     => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
             ],
         ],
 

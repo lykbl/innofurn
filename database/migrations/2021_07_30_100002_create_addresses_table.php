@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreateAddressesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'addresses', function (Blueprint $table) {
+        Schema::create($this->prefix.'addresses', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('customer_id')->nullable()->constrained($this->prefix.'customers');
             $table->foreignId('country_id')->nullable()->constrained($this->prefix.'countries');
@@ -42,7 +44,7 @@ class CreateAddressesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'addresses');
     }

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Lunar\Pricing\DefaultPriceFormatter;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Pricing Stored Inclusive of Tax
@@ -37,5 +38,4 @@ return [
     'pipelines' => [
         // App\Pipelines\Pricing\Example::class,
     ],
-
 ];

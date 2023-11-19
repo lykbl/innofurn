@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Disable migrations
@@ -12,5 +13,4 @@ return [
     |
     */
     'disable_migrations' => false,
-
 ];

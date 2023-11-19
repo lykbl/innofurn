@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreateProductVariantsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'product_variants', function (Blueprint $table) {
+        Schema::create($this->prefix.'product_variants', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('product_id')->constrained($this->prefix.'products');
             $table->foreignId('tax_class_id')->constrained($this->prefix.'tax_classes');
@@ -38,7 +40,7 @@ class CreateProductVariantsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'product_variants');
     }

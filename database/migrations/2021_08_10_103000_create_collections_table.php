@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreateCollectionsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'collections', function (Blueprint $table) {
+        Schema::create($this->prefix.'collections', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('collection_group_id')->constrained($this->prefix.'collection_groups');
             $table->nestedSet();
@@ -30,7 +32,7 @@ class CreateCollectionsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'collections');
     }

@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Tax Driver
@@ -12,5 +13,4 @@ return [
     |
     */
     'driver' => 'system',
-
 ];

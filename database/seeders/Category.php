@@ -6,8 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\Category\Category as CategoryModel;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use RecursiveArrayIterator;
 
 class Category extends Seeder
 {
@@ -36,15 +34,15 @@ class Category extends Seeder
         }
     }
 
-    private function createCategory(string $name, ?int $parent = null, array $children = [])
+    private function createCategory(string $name, int $parent = null, array $children = []): void
     {
-//        $model = CategoryModel::create(['name' => $name, 'parent' => $parent]);
-//        $model->save();
-//
-//        if (count($children)) {
-//            foreach ($children as $child) {
-//                $this->createCategory($child['name'], $model->id, $child['children'] ?? []);
-//            }
-//        }
+        //        $model = CategoryModel::create(['name' => $name, 'parent' => $parent]);
+        //        $model->save();
+        //
+        //        if (count($children)) {
+        //            foreach ($children as $child) {
+        //                $this->createCategory($child['name'], $model->id, $child['children'] ?? []);
+        //            }
+        //        }
     }
 }

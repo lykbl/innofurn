@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Lunar\Generators\UrlGenerator;
 
 return [
-
     /*
     | Set whether URLs should be required across the system. Setting this as true
     | will affect how validation works when creating/editing products in the hub.
@@ -25,5 +26,4 @@ return [
     |
     */
     'generator' => UrlGenerator::class,
-
 ];

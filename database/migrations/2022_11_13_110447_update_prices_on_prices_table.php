@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class UpdatePricesOnPricesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table($this->prefix.'prices', function (Blueprint $table) {
+        Schema::table($this->prefix.'prices', function (Blueprint $table): void {
             $table->unsignedBigInteger('price')->change();
             $table->unsignedBigInteger('compare_price')->change();
         });
@@ -24,9 +26,9 @@ class UpdatePricesOnPricesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table($this->prefix.'prices', function (Blueprint $table) {
+        Schema::table($this->prefix.'prices', function (Blueprint $table): void {
             $table->unsignedInteger('price')->change();
             $table->unsignedInteger('compare_price')->change();
         });

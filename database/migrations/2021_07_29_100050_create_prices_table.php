@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreatePricesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'prices', function (Blueprint $table) {
+        Schema::create($this->prefix.'prices', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('customer_group_id')->nullable()->constrained($this->prefix.'customer_groups');
             $table->foreignId('currency_id')->nullable()->constrained($this->prefix.'currencies');
@@ -30,7 +32,7 @@ class CreatePricesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'prices');
     }

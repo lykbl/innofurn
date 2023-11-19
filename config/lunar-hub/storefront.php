@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Define your model routes for viewing/previewing here.
@@ -16,5 +17,4 @@ return [
     'model_routes' => [
         Lunar\Models\Product::class => null,
     ],
-
 ];

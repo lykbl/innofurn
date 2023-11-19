@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
 
 class CreateCollectionGroupsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'collection_groups', function (Blueprint $table) {
+        Schema::create($this->prefix.'collection_groups', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('handle')->index();
@@ -16,7 +18,7 @@ class CreateCollectionGroupsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'collection_groups');
     }

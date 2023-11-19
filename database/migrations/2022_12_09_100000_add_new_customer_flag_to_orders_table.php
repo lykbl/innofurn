@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class AddNewCustomerFlagToOrdersTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table($this->prefix.'orders', function (Blueprint $table) {
+        Schema::table($this->prefix.'orders', function (Blueprint $table): void {
             $table->boolean('new_customer')->after('channel_id')->default(false)->index();
         });
     }
@@ -23,9 +25,9 @@ class AddNewCustomerFlagToOrdersTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table($this->prefix.'orders', function (Blueprint $table) {
+        Schema::table($this->prefix.'orders', function (Blueprint $table): void {
             $table->dropColumn('new_customer');
         });
     }

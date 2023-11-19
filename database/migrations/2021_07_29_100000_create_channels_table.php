@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Lunar\Base\Migration;
@@ -11,9 +13,9 @@ class CreateChannelsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create($this->prefix.'channels', function (Blueprint $table) {
+        Schema::create($this->prefix.'channels', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('handle')->unique();
@@ -29,7 +31,7 @@ class CreateChannelsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->prefix.'channels');
     }
