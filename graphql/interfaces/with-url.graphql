@@ -1,0 +1,4 @@
+interface WithUrls {
+    urls: [Url]
+    defaultUrl: Url
+}

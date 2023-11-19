@@ -1,4 +1,7 @@
-type Brand {
+type Brand implements WithUrls {
     id: ID!
     name: String!
+
+    urls: [Url]
+    defaultUrl: Url
 }
