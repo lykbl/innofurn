@@ -14,7 +14,6 @@ type ProductVariant implements WithDimensions {
 extend type Query {
     "List product variants of product."
     productVariantById(id: ID! @eq): ProductVariant! @find(model: "App\\Models\\ProductVariant")
-    test(some: Dimension): String
 }
 
 extend type Subscription {
