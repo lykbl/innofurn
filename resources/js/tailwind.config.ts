@@ -27,6 +27,9 @@ const config: Config = {
       },
     },
   },
+  corePlugins: {
+    // Disable the base outline styles
+  },
   plugins: [require('@tailwindcss/forms')],
 };
 export default config;
