@@ -32,6 +32,7 @@ input {
 }
 
 button, a {
+  outline: 1px;
   &:hover {
     transition: ease;
     transition-duration: 300ms;
