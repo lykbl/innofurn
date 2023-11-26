@@ -10,7 +10,7 @@ type BUTTON_PROPS = {
   style?: BUTTON_STYLES,
   className?: String,
   children?: React.ReactNode,
-  onClick: MouseEventHandler<HTMLButtonElement> | undefined,
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined,
 }
 
 export function Button({ style = BUTTON_STYLES.DEFAULT, className, children, ...props }: BUTTON_PROPS) {
