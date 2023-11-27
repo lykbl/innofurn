@@ -44,7 +44,7 @@ export default function CategoriesMenu() {
         {
           isOpen && <motion.aside
             animate={isOpen ? VARIANT_NAMES.OPEN : VARIANT_NAMES.CLOSED}
-            className='absolute left-0 top-0 flex w-full min-h-full'
+            className='absolute left-0 top-0 flex w-full min-h-full z-10'
           >
             <motion.div
               initial={VARIANT_NAMES.CLOSED}
@@ -54,7 +54,7 @@ export default function CategoriesMenu() {
                 [VARIANT_NAMES.OPEN]: { transform: 'translateX(0%)' },
                 [VARIANT_NAMES.CLOSED]: { transform: 'translateX(-100%)' },
               }}
-              className="bg-gray-50 w-2/12 min-h-screen h-full relative z-[1]"
+              className="bg-gray-50 w-2/12 min-h-screen h-full relative z-20"
             >
               {categories.map(header =>
                 <div key={header} className="border-b-2 py-4">
@@ -67,7 +67,7 @@ export default function CategoriesMenu() {
                     subcategories.length > 3 &&
                     <Accordion>
                       <Accordion.Toggle
-                        className='flex w-full justify-between px-4 py-2 bg-gray-50 rounded hover:outline'
+                        className='px-4 py-2 bg-gray-50 hover:outline'
                         openClassName='outline sticky top-0 z-[1]'
                       >
                         <h4 className="mr-2">See All</h4>
@@ -91,10 +91,7 @@ export default function CategoriesMenu() {
                 [VARIANT_NAMES.OPEN]: { background: 'rgba(0,0,0,0.5)' },
                 [VARIANT_NAMES.CLOSED]: { background: 'rgba(0,0,0,0.0)' },
               }}
-              className={
-                clsx(
-                  'cursor-pointer w-full h-full left-0 top-0 fixed',
-                )}
+              className='cursor-pointer w-full h-full left-0 top-0 fixed'
               onClick={toggle}
             />
           </motion.aside>

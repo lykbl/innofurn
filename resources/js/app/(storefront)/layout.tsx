@@ -15,7 +15,7 @@ export default function RootLayout({
           <Header />
           <Subheader />
         </header>
-        <main className='max-w-screen-2xl w-full mx-auto'>
+        <main className='max-w-screen-2xl w-full px-2 mx-auto'>
           {children}
         </main>
         <footer>

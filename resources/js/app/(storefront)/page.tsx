@@ -1,5 +1,10 @@
+import Link from "@/app/ui/common/link";
+
 export default function Page() {
   return (
-    <p>Main page</p>
+    <>
+      Main page
+      <Link href='/product/test' />
+    </>
   );
 }

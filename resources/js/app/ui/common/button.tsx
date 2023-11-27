@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { MouseEventHandler } from 'react';
+import {twMerge} from "tailwind-merge";
 
 export enum BUTTON_STYLES {
   DEFAULT,
@@ -16,14 +17,14 @@ type BUTTON_PROPS = {
 export function Button({ style = BUTTON_STYLES.DEFAULT, className, children, ...props }: BUTTON_PROPS) {
   return (
     <button
-      className={clsx(
-        'flex p-2 h-full rounded',
-        className,
+      className={twMerge(clsx(
+        'p-2 h-max rounded text-center drop-shadow-md hover:drop-shadow-lg',
         {
-          'hover:outline': style === BUTTON_STYLES.DEFAULT,
+          'border-transparent border hover:border-black': style === BUTTON_STYLES.DEFAULT,
           'bg-blue-500 hover:bg-blue-700 text-white': style === BUTTON_STYLES.BLUE,
-        }
-      )}
+        },
+        className,
+      ))}
       {...props}
     >
       {children}

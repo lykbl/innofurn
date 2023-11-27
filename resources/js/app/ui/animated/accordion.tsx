@@ -76,6 +76,7 @@ const Toggle: FC<ToggleProps> = ({ children, className, openClassName }: ToggleP
     <motion.button
       onClick={toggle}
       className={clsx(
+        'flex w-full justify-between rounded border-transparent border hover:border-black',
         className,
         isOpen && openClassName,
       )}
@@ -88,7 +89,7 @@ const Toggle: FC<ToggleProps> = ({ children, className, openClassName }: ToggleP
           [VARIANT_NAMES.CLOSED]: { rotate: 0 }
         }}
         transition={{ duration: 0.2 }}
-        style={{ originY: 0.55 }}
+        // style={{ originY: 0.55 }}
       >
         <IoIosArrowDown
           size={24}
@@ -110,11 +111,17 @@ function Content({ children, className }: ContentProps): ReactNode {
         exit={VARIANT_NAMES.CLOSED}
         variants={{
           [VARIANT_NAMES.OPEN]: {
+            height: 'auto',
+            opacity: 100,
             transition: {
               type: "spring",
               staggerChildren: 0.015
             }
           },
+          [VARIANT_NAMES.CLOSED]: {
+            height: '0',
+            opacity: 0,
+          }
         }}
       >
         {
@@ -135,7 +142,19 @@ function Content({ children, className }: ContentProps): ReactNode {
             >
               {child}
             </motion.div>
-           ) : children
+           ) :
+            <motion.div
+              variants={{
+                [VARIANT_NAMES.OPEN]: {
+                  height: '100%',
+                },
+                [VARIANT_NAMES.CLOSED]: {
+                  height: '0%',
+                }
+              }}
+            >
+              {children}
+            </motion.div>
         }
       </motion.section>
     )}
