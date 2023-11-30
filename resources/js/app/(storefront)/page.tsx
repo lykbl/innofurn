@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <>
       Main page
-      <Link href='/product/test' />
+      <Link href='/product/test'>Product page</Link>
     </>
   );
 }

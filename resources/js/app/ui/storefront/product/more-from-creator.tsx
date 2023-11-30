@@ -1,8 +1,37 @@
+'use client';
+
 import Link from "@/app/ui/common/link";
-import Image from "next/image";
+import Carousel from "@/app/ui/animated/carousel/carousel";
+import Rating, { RATING_STYLES } from "@/app/ui/storefront/product/rating";
+import { Button, BUTTON_STYLES } from "@/app/ui/common/button";
 import { formatCurrency } from "@/app/lib/utils";
-import Rating from "@/app/ui/storefront/product/rating";
-import { Button } from "@/app/ui/common/button";
+import Image from "next/image";
+
+const carouselItems = Array(10).fill(null).map((el, index) => {
+  return (
+    <div
+      key={index}
+      className='flex flex-col gap-1 rounded bg-neutral-200 p-2 w-max'
+    >
+      <div className='pointer-events-none'>
+        <Image
+          className='rounded'
+          src='/sample-kitchen-image-2.jpg'
+          alt='image'
+          width={268}
+          height={268}
+        />
+        <h3>Atley Throw Pillow</h3>
+        <div className='flex items-center'>
+          <span className='text-lg mr-2'>{formatCurrency(3499)}</span>
+          <span className='text-zinc-500 line-through text-sm'>{formatCurrency(4799)}</span>
+        </div>
+      </div>
+      <Rating starSize={20} totalRating={4.6} reviewsCount={299} style={RATING_STYLES.WITH_RATING}/>
+      <Button style={BUTTON_STYLES.BLUE} className='w-full'>Select Options</Button>
+    </div>
+  )
+})
 
 const MoreFromCreator = () => {
   return (
@@ -10,34 +39,16 @@ const MoreFromCreator = () => {
       <div className='flex items-center justify-between'>
         <h2>
           More from
-          <Link className='ml-2' href='/brand/mercer1'>
-            Mercer41
+          <Link className='ml-2' href='/brand/test'>
+            TestBrand
           </Link>
         </h2>
-        <Link href='/search?brand=mercer' className='text-lg'>See All</Link>
+        <Link href='/search?brand=test' className='text-lg'>See All</Link>
       </div>
-      <div className='flex gap-2'>
-        <div className='flex gap-5'>
-          {Array(5).fill(null).map((el, index) => (
-            <div className='flex-col'>
-              <Image
-                className='rounded'
-                src='/sample-kitchen-image-2.jpg'
-                alt='image'
-                width={268}
-                height={268}
-              />
-              <h3>Atley Throw Pillow</h3>
-              <div className='flex items-center'>
-                <span className='text-lg mr-2'>{formatCurrency(3499)}</span>
-                <span className='text-zinc-500 line-through text-sm'>{formatCurrency(4799)}</span>
-              </div>
-              <Rating />
-              <Button>Select Options</Button>
-            </div>
-          ))}
-        </div>
-      </div>
+      <Carousel
+        className='flex justify-between'
+        items={carouselItems}
+      />
     </div>
   );
 }

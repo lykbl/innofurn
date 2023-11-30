@@ -2,14 +2,13 @@
 
 import React, { useState } from "react";
 import Variants, { Variant } from "@/app/ui/storefront/product/variants";
-import Breadcrumb from "@/app/ui/common/breadcrumb";
 import Image from "next/image";
 import Accordion from "@/app/ui/animated/accordion";
 import Link from "@/app/ui/common/link";
 import { Button } from "@/app/ui/common/button";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
-import Rating from "@/app/ui/storefront/product/rating";
+import Rating, { RATING_STYLES } from "@/app/ui/storefront/product/rating";
 import ExtraOffers from "@/app/ui/storefront/product/extra-offers";
 import CartControl from "@/app/ui/storefront/product/cart-control";
 
@@ -178,7 +177,7 @@ const ProductDetails = () => {
           <div className='flex justify-between items-center'>
             <div className='text-lg flex-col'>
               <p className='font-semibold'>Have a question?</p>
-              <p className='font-normal'>We're here to help.</p>
+              <p className='font-normal'>{'We\'re here to help.'}</p>
             </div>
             <div className='flex gap-2'>
               <Button
@@ -199,13 +198,13 @@ const ProductDetails = () => {
           <div className='flex gap-1 text-xl'>
             <p className=''>See more by</p>
             <Link
-              href='/brand/mercer41'
+              href='/brand/test'
               className='hover:underline hover:text-blue-500'
             >
-              Mercer41
+              TestBrand
             </Link>
           </div>
-          <Rating/>
+          <Rating starSize={24} style={RATING_STYLES.WITH_REVIEWS} totalRating={4.6} reviewsCount={299} />
           <Variants type='colour' options={variantOptions} selectedOption={selectedOption} handleSelect={selectOption}/>
           <ExtraOffers/>
           <CartControl price={selectedOption.price}/>
