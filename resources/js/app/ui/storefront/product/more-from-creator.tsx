@@ -11,15 +11,15 @@ const carouselItems = Array(10).fill(null).map((el, index) => {
   return (
     <div
       key={index}
-      className='flex flex-col gap-1 rounded bg-neutral-200 p-2 w-max'
+      className='flex flex-col gap-1 rounded bg-blue-100 p-2 w-max'
     >
       <div className='pointer-events-none'>
         <Image
           className='rounded'
           src='/sample-kitchen-image-2.jpg'
           alt='image'
-          width={268}
-          height={268}
+          width={275}
+          height={275}
         />
         <h3>Atley Throw Pillow</h3>
         <div className='flex items-center'>
@@ -35,7 +35,7 @@ const carouselItems = Array(10).fill(null).map((el, index) => {
 
 const MoreFromCreator = () => {
   return (
-    <div className='flex-col w-full gap-2 flex'>
+    <div className='flex-col w-full gap-2 flex py-2 border-y border-black'>
       <div className='flex items-center justify-between'>
         <h2>
           More from

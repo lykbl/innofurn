@@ -36,7 +36,7 @@ const Variants = ({ type, options, selectedOption, handleSelect }: VariantsProps
   return (
     <div className='flex gap-2 flex-col'>
       {/*TODO use label instead of id*/}
-      <h3>Choose {type}: {selectedOption.name}</h3>
+      <p>Choose {type}: {selectedOption.name}</p>
       <div className='flex gap-2'>
         {options.map(variant => <Variant key={variant.id} variant={variant} handleClick={() => handleSelect(variant.id)} />)}
       </div>

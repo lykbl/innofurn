@@ -23,7 +23,7 @@ const promotions = [
 export default function Subheader(): ReactNode {
   return (
     <div className='border-b-2'>
-      <div className='flex gap-2 py-2 px-4 max-w-screen-2xl mx-auto justify-between'>
+      <div className='flex gap-2 py-2 px-2 max-w-screen-2xl mx-auto justify-between'>
         <div className='flex items-center'>
           <CategoriesMenu />
           {promotions.map(promotion =>

@@ -8,6 +8,7 @@ interface ControlButtonProps {
   handleClick: MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }
+
 const ControlButton = ({ children, handleClick, className }: ControlButtonProps) => (
   <motion.button
     className={clsx(
@@ -29,17 +30,26 @@ interface ControlsProps {
   size: number,
   itemsCount: number,
 }
-const Controls: FC<ControlsProps> = ({ prev, next, currentIndex, size, itemsCount }) => {
+
+const Controls: FC<ControlsProps> = ({
+  prev, next, currentIndex, size, itemsCount
+}) => {
   return (
     <div>
       {currentIndex > 0 &&
-        <ControlButton handleClick={prev} className='left-2'>
-          <IoIosArrowBack size={24}/>
+        <ControlButton
+          handleClick={prev}
+          className='left-2'
+        >
+          <IoIosArrowBack size={24} />
         </ControlButton>
       }
       {
-        (currentIndex + size < itemsCount) && <ControlButton handleClick={next} className='right-2'>
-          <IoIosArrowForward size={24}/>
+        (currentIndex + size < itemsCount - 1) && <ControlButton
+          handleClick={next}
+          className='right-2'
+        >
+          <IoIosArrowForward size={24} />
         </ControlButton>
       }
     </div>

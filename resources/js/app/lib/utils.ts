@@ -6,6 +6,10 @@ export const formatCurrency = (amount: number) => {
   });
 };
 
+export const calculatePercentage = (amount: number, total: number) => {
+  return Math.round((amount / total) * 100);
+}
+
 export function debounce<T extends (...args: any[]) => any>(callback: T, delay: number) {
   let timeoutId: NodeJS.Timeout;
 

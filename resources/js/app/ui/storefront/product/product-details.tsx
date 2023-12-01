@@ -60,7 +60,7 @@ const ProductDetails = () => {
   return (
       <div className='flex gap-4'>
         <div className='w-1/2'>
-          <div className='flex gap-[20px] flex-wrap'>
+          <div className='flex gap-[20px] flex-wrap mb-2'>
             {images.map(({href, alt}, index) =>
               <div key={index}>
                 <Image
@@ -72,6 +72,7 @@ const ProductDetails = () => {
                 />
               </div>
             )}
+            <Button className='w-full'>Show More</Button>
           </div>
           <div>
             <Accordion>
@@ -122,7 +123,7 @@ const ProductDetails = () => {
                     <Link href='/' className='hover:text-blue-500 hover:underline'>Owner Manual (pdf)</Link>
                   </div>
                   <p>Features: </p>
-                  <table className='table-auto bg-neutral-100 w-full'>
+                  <table className='table-auto bg-blue-100 w-full'>
                     <tbody>
                       <tr>
                         <td> Base Style</td>
@@ -194,7 +195,7 @@ const ProductDetails = () => {
           </div>
         </div>
         <div className='flex flex-col gap-2 w-1/2 sticky'>
-          <h2 className='text-[32px]'>Orchard Hill Faux Sheepskin White Rug</h2>
+          <h2 className='text-4xl'>Orchard Hill Faux Sheepskin White Rug</h2>
           <div className='flex gap-1 text-xl'>
             <p className=''>See more by</p>
             <Link

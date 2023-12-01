@@ -12,7 +12,7 @@ import BasicInput from '@/app/ui/common/input';
 export default async function Header() {
   return (
     <div className='border-b-2'>
-      <div className='flex justify-between max-w-screen-2xl mx-auto py-2 px-4 items-center'>
+      <div className='flex justify-between max-w-screen-2xl mx-auto py-2 px-2 items-center'>
         <div className='flex items-center w-1/5'>
           <Link href='/' className='p-2 rounded border-transparent border hover:border-black'>
             <HeaderLogo />

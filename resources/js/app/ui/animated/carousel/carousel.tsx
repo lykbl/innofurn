@@ -71,14 +71,14 @@ const Carousel = ({ items, className, size = 0 }: CarouselProps) => {
       ref={parentRef}
     >
       <motion.div
-        className={clsx(className, {
+        className={clsx('flex', className, {
           'opacity-0': !maxWidth,
         })}
         custom={scrollOffset}
         animate='scrolled'
         variants={carouselVariants}
       >
-        <Items items={items} childRef={childRef} gap={gap} />
+        <Items items={items} childRef={childRef} gap={gap} itemsCount={items.length} />
       </motion.div>
       <Controls prev={prev} next={next} currentIndex={currentIndex} size={size} itemsCount={items.length} />
     </div>
