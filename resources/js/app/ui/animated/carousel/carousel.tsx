@@ -15,15 +15,21 @@ const carouselVariants = {
   }),
 };
 const calculateMaxWidth = (el: HTMLDivElement) => parseFloat(window.getComputedStyle(el).width);
-const calculateGap = (size: number, maxWidth: number, itemWidth: number) => (maxWidth - (size * itemWidth)) / (size - 1);
+const calculateGap = (
+  size: number,
+  maxWidth: number,
+  itemWidth: number
+) => (maxWidth - (size * itemWidth)) / (size - 1);
 const calculateScroll = (currentIndex: number, gap: number, itemWidth: number) => currentIndex * (itemWidth + gap);
 const calculateMaxItems = (maxWidth: number, itemWidth: number) => Math.floor(maxWidth / itemWidth);
 interface CarouselProps {
   className?: string;
   items: ReactNode[];
-  size?: number;
+  itemsPerPage?: number;
+  controlsSize?: number;
 }
-const Carousel = ({ items, className, size = 0 }: CarouselProps) => {
+
+const Carousel = ({ items, className, itemsPerPage = 0, controlsSize = 24 }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [itemWidth, setItemWidth] = useState<number>(0);
   const [maxWidth, setMaxWidth] = useState<number>(0);
@@ -31,19 +37,19 @@ const Carousel = ({ items, className, size = 0 }: CarouselProps) => {
     if (!node) return;
 
     setItemWidth(node.clientWidth);
-  },[]);
+  }, []);
   const parentRef = useRef<HTMLDivElement>(null);
 
   const maxItems = calculateMaxItems(maxWidth, itemWidth);
-  if (!size || size > maxItems) {
-    size = maxItems
+  if (!itemsPerPage || itemsPerPage > maxItems) {
+    itemsPerPage = maxItems
   }
-  const gap = calculateGap(size, maxWidth, itemWidth);
+  const gap = calculateGap(itemsPerPage, maxWidth, itemWidth);
   const scrollOffset = calculateScroll(currentIndex, gap, itemWidth);
 
   const next = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex + size < items.length ? prevIndex + 1 : prevIndex
+      prevIndex + itemsPerPage < items.length ? prevIndex + 1 : prevIndex
     );
   };
   const prev = () => {
@@ -78,9 +84,21 @@ const Carousel = ({ items, className, size = 0 }: CarouselProps) => {
         animate='scrolled'
         variants={carouselVariants}
       >
-        <Items items={items} childRef={childRef} gap={gap} itemsCount={items.length} />
+        <Items
+          items={items}
+          childRef={childRef}
+          gap={gap}
+          itemsCount={items.length}
+        />
       </motion.div>
-      <Controls prev={prev} next={next} currentIndex={currentIndex} size={size} itemsCount={items.length} />
+      <Controls
+        prev={prev}
+        next={next}
+        currentIndex={currentIndex}
+        itemsPerPage={itemsPerPage}
+        itemsCount={items.length}
+        controlsSize={controlsSize}
+      />
     </div>
   );
 };

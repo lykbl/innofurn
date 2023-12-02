@@ -27,12 +27,18 @@ interface ControlsProps {
   prev: MouseEventHandler<HTMLButtonElement>,
   next: MouseEventHandler<HTMLButtonElement>,
   currentIndex: number,
-  size: number,
+  itemsPerPage: number,
   itemsCount: number,
+  controlsSize: number,
 }
 
 const Controls: FC<ControlsProps> = ({
-  prev, next, currentIndex, size, itemsCount
+  prev,
+  next,
+  currentIndex,
+  itemsPerPage,
+  itemsCount,
+  controlsSize,
 }) => {
   return (
     <div>
@@ -41,15 +47,15 @@ const Controls: FC<ControlsProps> = ({
           handleClick={prev}
           className='left-2'
         >
-          <IoIosArrowBack size={24} />
+          <IoIosArrowBack size={controlsSize} />
         </ControlButton>
       }
       {
-        (currentIndex + size < itemsCount - 1) && <ControlButton
+        (currentIndex + itemsPerPage < itemsCount - 1) && <ControlButton
           handleClick={next}
           className='right-2'
         >
-          <IoIosArrowForward size={24} />
+          <IoIosArrowForward size={controlsSize} />
         </ControlButton>
       }
     </div>

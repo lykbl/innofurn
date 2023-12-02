@@ -162,7 +162,7 @@ const ReviewsSummary = ({}: ReviewsSummaryProps) => {
         <div className='py-2 border-b border-black'>
           <h3>Reviews with images</h3>
           <div className='py-2'>
-            <Carousel items={reviewImages} />
+            <Carousel items={reviewImages} controlsSize={20} />
           </div>
         </div>
         <div className='py-2'>
