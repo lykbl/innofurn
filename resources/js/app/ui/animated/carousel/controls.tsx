@@ -12,7 +12,7 @@ interface ControlButtonProps {
 const ControlButton = ({ children, handleClick, className }: ControlButtonProps) => (
   <motion.button
     className={clsx(
-      'absolute top-[50%] bg-blue-500 border-blue-500 hover:bg-blue-700 hover:border-blue-700 p-2 rounded text-white hover:drop-shadow-lg',
+      'absolute top-[50%] bg-blue-600 border-blue-600 hover:bg-blue-700 hover:border-blue-700 p-2 rounded text-white hover:drop-shadow-lg',
       className,
     )}
     whileTap={{ scale: 0.8 }}

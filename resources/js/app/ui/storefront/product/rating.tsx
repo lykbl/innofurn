@@ -34,7 +34,7 @@ const Rating = ({ starSize = 24, className, style, reviewsCount, totalRating }: 
       </div>
       {
         style === RATING_STYLES.WITH_REVIEWS &&
-        <Link href='/reviews' className='hover:text-blue-500 hover:underline'>({reviewsCount} reviews)</Link>
+        <Link href='/reviews' className='hover:text-blue-600 hover:underline'>({reviewsCount} reviews)</Link>
       }
       {
         style === RATING_STYLES.WITH_RATING && <Link href='/reviews'>({totalRating})</Link>

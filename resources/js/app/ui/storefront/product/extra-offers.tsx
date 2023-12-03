@@ -19,7 +19,7 @@ const ExtraOffers = () => {
             <div className='flex flex-col items-start'>
               <h4 className='text-xl'>{title}</h4>
               <div>
-                <button className='text-blue-500 underline hover:text-blue-700'>
+                <button className='text-blue-600 underline hover:text-blue-700'>
                   {'What\'s Covered'}
                 </button>
                 <div>

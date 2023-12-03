@@ -18,10 +18,10 @@ export function Button({ style = BUTTON_STYLES.DEFAULT, className, children, ...
   return (
     <button
       className={twMerge(clsx(
-        'p-2 h-max rounded text-center drop-shadow-md hover:drop-shadow-lg',
+        'p-2 h-max rounded text-center drop-shadow-md hover:drop-shadow-lg text-white font-medium',
         {
-          'border-transparent border hover:border-black': style === BUTTON_STYLES.DEFAULT,
-          'bg-blue-500 hover:bg-blue-700 text-white': style === BUTTON_STYLES.BLUE,
+          'bg-neutral-950 hover:bg-neutral-700': style === BUTTON_STYLES.DEFAULT,
+          'bg-blue-600 hover:bg-blue-700': style === BUTTON_STYLES.BLUE,
         },
         className,
       ))}

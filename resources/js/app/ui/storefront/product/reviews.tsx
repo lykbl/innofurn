@@ -46,12 +46,12 @@ const RatingBar = ({ fillTo, className }: RatingBarProps) => {
     <div
       ref={ref}
       className={clsx(
-        'border border-blue-500 hover:border-blue-700 rounded drop-shadow-lg bg-gray-100',
+        'border border-blue-600 hover:border-blue-700 rounded drop-shadow-lg bg-gray-100',
         className
       )}
     >
       <motion.div
-        className='h-full w-0 bg-blue-500 group-hover:bg-blue-700 duration-300'
+        className='h-full w-0 bg-blue-600 group-hover:bg-blue-700 duration-300'
         animate={isInView ? { width: `${fillTo}%` } : { width: 0 }}
       />
     </div>
@@ -71,7 +71,7 @@ const ReviewsBreakdown = ({ totalCount }: ReviewsBreakdownProps) => {
         <div className='flex flex-col'>
           {ratings.map((review, index) => (
             <Button
-              className='group flex gap-2 w-full bg-transparent hover:bg-transparent hover:underline text-black hover:text-blue-500'
+              className='group flex gap-2 w-full bg-transparent hover:bg-transparent hover:underline text-black hover:text-blue-600'
               style={BUTTON_STYLES.BLUE}
               key={index}
             >
@@ -101,7 +101,7 @@ interface ReviewsSummaryProps {
 }
 
 const ReviewSample = () => (
-  <div className='flex flex-col text-sm py-2 gap-1 border-b border-black mb-4'>
+  <div className='flex flex-col text-sm py-2 gap-1 border-b border-black mb-4 font-medium'>
     <div className='flex gap-1 items-center mb-2'>
       <span className='rounded-full bg-gray-500 w-[25px] h-[25px]' />
       <span className='text-md'>Dan</span>

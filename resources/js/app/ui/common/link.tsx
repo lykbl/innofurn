@@ -13,7 +13,7 @@ const Link = ({ className, children, href, ...props }: LINK_PROPS) => {
   return (
     <BaseLink
       className={twMerge(clsx(
-        'hover:underline text-blue-500 hover:text-blue-700',
+        'hover:underline text-blue-600 hover:text-blue-700',
         className,
       ))}
       href={href}

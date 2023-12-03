@@ -24,7 +24,7 @@ const Breadcrumb = () => {
   return (
     <div className='flex py-2'>
       {path.map(({name, href}, index) =>
-        <Link key={name} className='flex items-center mr-2 hover:text-blue-500 hover:underline' href={href}>
+        <Link key={name} className='flex items-center mr-2 hover:text-blue-600 hover:underline' href={href}>
           <p className='mr-2'>{name}</p>
           { index < path.length - 1 && <IoIosArrowForward size={16} /> }
         </Link>

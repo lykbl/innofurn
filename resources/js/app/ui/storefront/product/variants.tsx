@@ -18,7 +18,7 @@ interface VariantProp {
 const Variant = ({variant: {id, href, name}, handleClick}: VariantProp) => {
   return (
     <button
-      className='border-2 border-black hover:border-blue-500 rounded'
+      className='border-2 border-black hover:border-blue-600 rounded'
       onClick={() => handleClick(id)}
     >
       <Image src={href} alt={name} width={100} height={100} />

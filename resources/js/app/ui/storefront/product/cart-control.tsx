@@ -49,7 +49,7 @@ const CartControl = ({ price }: CartControlProps) => {
             />
           </Button>
           <Button
-            className='text-blue-500 bg-white border-blue-500 hover:border-blue-700 hover:text-blue-700'
+            className='text-blue-600 bg-white border-blue-600 hover:border-blue-700 hover:text-blue-700'
           >
             <BiSearchAlt
               size={24}

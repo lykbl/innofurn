@@ -60,7 +60,7 @@ const ProductDetails = () => {
   return (
       <div className='flex gap-4'>
         <div className='w-1/2'>
-          <div className='flex gap-[20px] flex-wrap mb-2'>
+          <div className='flex flex-wrap mb-2 justify-between gap-y-2'>
             {images.map(({href, alt}, index) =>
               <div key={index}>
                 <Image
@@ -120,7 +120,7 @@ const ProductDetails = () => {
                 <div>
                   <div className='flex gap-2'>
                     <p>Additional Documents</p>
-                    <Link href='/' className='hover:text-blue-500 hover:underline'>Owner Manual (pdf)</Link>
+                    <Link href='/' className='hover:text-blue-600 hover:underline'>Owner Manual (pdf)</Link>
                   </div>
                   <p>Features: </p>
                   <table className='table-auto bg-blue-100 w-full'>
@@ -182,12 +182,12 @@ const ProductDetails = () => {
             </div>
             <div className='flex gap-2'>
               <Button
-                className='flex p-2 text-blue-500 border-blue-500 hover:border-blue-700 hover:text-blue-700 gap-1'>
+                className='flex p-2 gap-1'>
                 <FaPhoneAlt size={24}/>
                 <span>Call Us</span>
               </Button>
               <Button
-                className='flex p-2 text-blue-500 border-blue-500 hover:border-blue-700 hover:text-blue-700 gap-1'>
+                className='flex p-2 gap-1'>
                 <IoChatboxEllipses size={24}/>
                 <span>Call Us</span>
               </Button>
@@ -200,7 +200,7 @@ const ProductDetails = () => {
             <p className=''>See more by</p>
             <Link
               href='/brand/test'
-              className='hover:underline hover:text-blue-500'
+              className='hover:underline hover:text-blue-600'
             >
               TestBrand
             </Link>
