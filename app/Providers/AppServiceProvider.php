@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
             Price::class          => \App\Models\Price::class,
             Currency::class       => \App\Models\Currency::class,
             Url::class            => \App\Models\Url::class,
-            Collection::class => \App\Models\Collection::class,
+            Collection::class     => \App\Models\Collection::class,
         ]);
 
         ModelManifest::register($models);

@@ -11,10 +11,10 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 abstract class Translatable
 {
     /**
-     * @param TranslatableModel        $product
-     * @param array          $args
-     * @param GraphQLContext $context
-     * @param ResolveInfo    $resolveInfo
+     * @param TranslatableModel $product
+     * @param array             $args
+     * @param GraphQLContext    $context
+     * @param ResolveInfo       $resolveInfo
      *
      * @return string|null
      */

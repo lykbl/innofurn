@@ -35,7 +35,7 @@ logs:
 	tail -n 60 -F $(PWD)/storage/logs/*.log | awk '/INFO/ { print "\033[92m" $$0 "\033[39m" } /DEBUG/ {print "\033[94m" $$0 "\033[39m"} /ERROR/{print "\033[91m" $$0 "\033[39m"} /WARNING/{print "\033[93m" $$0 "\033[39m"} /CRITICAL/{print "\033[95m" $$0 "\033[39m"} !/INFO|DEBUG|ERROR|WARNING|CRITICAL/{print "\033[96m" $$0 "\033[39m"}'
 
 cs-fix:
-	./bin/php-cs-fixer fix
+	docker exec -it $(image-name) ./bin/php-cs-fixer fix
 
 artisan:
 	$(artisan) $(command)

@@ -15,10 +15,9 @@ class Product extends BaseProduct implements Translatable
     {
         return $query
             ->select('lunar_products.*')
-            ->join('lunar_urls', fn (JoinClause $join): JoinClause =>
-                $join
-                    ->on('lunar_urls.element_id', '=', 'lunar_products.id')
-                    ->where('lunar_urls.element_type', '=', BaseProduct::class)
+            ->join('lunar_urls', fn (JoinClause $join): JoinClause => $join
+                ->on('lunar_urls.element_id', '=', 'lunar_products.id')
+                ->where('lunar_urls.element_type', '=', BaseProduct::class)
             );
     }
 }
