@@ -35,3 +35,21 @@ extend type Query {
         name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
 }
+
+extend type Mutation {
+    "Create a new store user."
+    signUp(input: SignUpInput! @spread): User!
+
+    "Log in to a new session and get the user."
+    login(email: String!, password: String!): User!
+
+    "Log out from the current session, showing the user one last time."
+    logout: User @guard
+}
+
+input SignUpInput {
+    firstName: String! @rules(apply: ["required"])
+    lastName: String! @rules(apply: ["required"])
+    email: String! @rules(apply: ["required", "email", "unique:users,email"])
+    password: String! @rules(apply: ["required", "min:8"])
+}
