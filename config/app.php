@@ -178,7 +178,7 @@ return [
         PaginationServiceProvider::class,
         ValidationServiceProvider::class,
         SubscriptionServiceProvider::class,
-        GraphiQLServiceProvider::class,
+        GraphiQLServiceProvider::class, // TODO remove on prod
     ])->toArray(),
 
     /*

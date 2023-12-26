@@ -78,8 +78,18 @@
                 }),
             ],
             defaultHeaders: JSON.stringify({
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            }),
+            shouldPersistHeaders: true,
+            onTabChange: (tabsState) => {
+              const activeTab = tabsState.tabs[tabsState.activeTabIndex];
+              activeTab.headers = JSON.stringify({
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            })
+              });
+            },
+            onEditHeaders: (headers) => {
+                // console.log(headers)
+            },
         });
     }
 

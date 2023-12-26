@@ -153,7 +153,7 @@ return [
         'queries'   => 'App\\GraphQL\\Queries',
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
-            'App\\GraphQL\\Mutations\\User'
+            'App\\GraphQL\\Mutations\\User',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',

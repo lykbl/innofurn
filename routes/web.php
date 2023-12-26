@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-use Illuminate\Auth\Events\Verified;
+use App\Http\Controllers\OAuth\OAuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,19 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return redirect('/');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/logout', function () {
+    Auth::logout();
+
+    return redirect('/');
+});
+
+Route::controller(OAuthController::class)
+    ->prefix('/oauth')
+    ->as('oauth.')
+    ->group(function (): void {
+        Route::get('/redirect/{type}', 'redirect')
+            ->name('redirect');
+        Route::get('/callback/{type}', 'callback')
+            ->name('callback');
+    });

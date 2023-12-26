@@ -1,22 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\GraphQL\Mutations\User;
 
-use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 final class Logout
 {
-    /**
-     * @param null $_
-     * @param array<string, mixed> $args
-     */
-    public function __invoke($_, array $args): ?User
+    public function __invoke($_, array $args): Authenticatable
     {
         $guard = Auth::guard(Arr::first(config('sanctum.guard', 'web')));
-
-        $user = $guard->user();
+        $user  = $guard->user();
         $guard->logout();
 
         return $user;
