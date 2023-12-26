@@ -1,0 +1,15 @@
+type Cart {
+    id: ID!,
+    user: User!,
+    lines: [CartLine]!,
+}
+
+extend type Mutation @guard {
+    addItem(productVariantId: ID! @rules(apply: ["exists:lunar_product_variants,id"]), quantity: Int = 1 @rules(apply: ["min:1", "max:50"])): Cart!
+
+    removeItem(productVariantId: ID! @rules(apply: ["exists:lunar_product_variants,id"]), quantity: Int = 1 @rules(apply: ["min:1", "max:50"])): Cart!
+
+    clearCartItem(productVariantId: ID! @rules(apply: ["exists:lunar_product_variants,id"])): Cart!
+
+    clearCart: Cart!
+}

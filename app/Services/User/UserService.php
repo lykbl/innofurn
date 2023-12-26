@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User;
 
 use App\Exceptions\User\OAuthExistsException;
+use App\Models\CustomerGroups\CustomerGroup;
 use App\Models\OAuth\OAuthTypes;
 use App\Models\OAuth\OAuthUser;
 use App\Models\User;
@@ -34,6 +35,7 @@ class UserService
         ]);
         $customer->save();
         $customer->users()->attach($user->id);
+        $customer->customerGroups()->attach(CustomerGroup::getDefault()->id);
 
         event(new Registered($user));
 

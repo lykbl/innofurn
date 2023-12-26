@@ -6,8 +6,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
+use Lunar\Models\Cart;
 use Lunar\Models\Collection;
 use Lunar\Models\Currency;
+use Lunar\Models\Customer;
+use Lunar\Models\CustomerGroup;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
@@ -39,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
             Currency::class       => \App\Models\Currency::class,
             Url::class            => \App\Models\Url::class,
             Collection::class     => \App\Models\Collection::class,
+            Cart::class           => \App\Models\Cart::class,
+            Customer::class       => \App\Models\Customer::class,
+            CustomerGroup::class  => \App\Models\CustomerGroups\CustomerGroup::class,
         ]);
 
         ModelManifest::register($models);
