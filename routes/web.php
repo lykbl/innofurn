@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\OAuth\OAuthController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', fn () => view('welcome'))->name('home');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    redirect()->route('home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/logout', function () {
+    Auth::logout();
+
+    return redirect()->route('home');
 });
 
-Route::view('/test', 'demo');
+Route::controller(OAuthController::class)
+    ->prefix('/oauth')
+    ->as('oauth.')
+    ->group(function (): void {
+        Route::get('/redirect/{type}', 'redirect')
+            ->name('redirect');
+        Route::get('/callback/{type}', 'callback')
+            ->name('callback');
+    });
