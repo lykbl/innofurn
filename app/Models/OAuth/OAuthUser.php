@@ -8,9 +8,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-/**
- * {@inheritdoc}
- */
 class OAuthUser extends Model
 {
     protected $table = 'oauth_users';

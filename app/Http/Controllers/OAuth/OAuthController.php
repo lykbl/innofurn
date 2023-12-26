@@ -28,7 +28,7 @@ class OAuthController extends Controller
 
     public function callback(OauthRedirectRequest $request): RedirectResponse
     {
-        $response  = new RedirectResponse('/');
+        $response  = new RedirectResponse(route('home'));
         $oauthType = OAuthTypes::from($request->validated('type'));
 
         try {

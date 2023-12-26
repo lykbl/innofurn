@@ -18,20 +18,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('login');
+Route::get('/', fn () => view('welcome'))->name('home');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
-    return redirect('/');
+    redirect()->route('home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::get('/logout', function () {
     Auth::logout();
 
-    return redirect('/');
+    return redirect()->route('home');
 });
 
 Route::controller(OAuthController::class)
