@@ -16,6 +16,6 @@ final class AddItem extends CartMutation
      */
     public function __invoke(mixed $root, array $args): Cart
     {
-        return $this->cartService->addItem($this->user(), (int) $args['productVariantId'], $args['quantity']);
+        return $this->cartService->addItem((int) $args['productVariantId'], $args['quantity']);
     }
 }

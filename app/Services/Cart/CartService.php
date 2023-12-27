@@ -6,59 +6,67 @@ namespace App\Services\Cart;
 
 use App\Models\Cart;
 use App\Models\ProductVariant;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Lunar\Actions\Carts\AddOrUpdatePurchasable;
+use Lunar\Actions\Carts\GetExistingCartLine;
+use Lunar\Actions\Carts\RemovePurchasable;
+use Lunar\Actions\Carts\UpdateCartLine;
+use Lunar\Facades\CartSession;
+use Lunar\Models\CartLine;
 
 class CartService
 {
-    public function addItem(User $user, int $productVariantId, int $quantity): Cart
+    public function addItem(int $productVariantId, int $quantity): Cart
     {
-        $cart = $user->cart;
-        /** @var Cart $cart */
-        $productCartLine = $cart->lines()->where('purchasable_id', $productVariantId)->first();
+        $cart = $this->getCart();
         // TODO add default tax zone migration
-        // TODO pass cart line id instead?
-        if ($productCartLine) {
-            $cart->updateLine($productCartLine->id, $productCartLine->quantity + $quantity); // use helper?
-        } else {
-            $cart->lines()->create([
-                'cart_id'          => $cart->id,
-                'purchasable_type' => ProductVariant::class,
-                'purchasable_id'   => $productVariantId,
-                'quantity'         => $quantity,
-            ]);
-        }
+        $purchasable = ProductVariant::find($productVariantId);
+        AddOrUpdatePurchasable::run($cart, $purchasable, $quantity);
 
-        return $cart;
+        return $cart->refresh();
     }
 
-    public function removeItem(User $user, int $productVariantId, int $adjustment): Cart
+    public function removeItem(int $productVariantId, int $adjustment): Cart
     {
-        $cart = $user->cart;
-        /** @var Cart $cart */
-        $productCartLine = $cart->lines()->where('purchasable_id', $productVariantId)->first();
-        if ($productCartLine && $productCartLine->quantity - $adjustment > 0) {
-            $cart->updateLine($productCartLine->id, $productCartLine->quantity - $adjustment);
-        } else {
-            $cart->remove($productCartLine->id);
+        $cart = $this->getCart();
+        if (!$cartLine = $this->getCartLine($cart, $productVariantId)) {
+            return $cart;
         }
 
-        return $cart;
+        $cartLine->quantity - $adjustment > 0 ?
+            UpdateCartLine::run($cartLine->id, $cartLine->quantity - $adjustment) :
+            RemovePurchasable::run($cart, $cartLine->id);
+
+        return $cart->refresh();
     }
 
-    public function clearCartItem(User $user, int $productVariantId): Cart
+    public function clearCartItem(int $productVariantId): Cart
     {
-        $cart = $user->cart;
-        /** @var Cart $cart */
-        $productCartLine = $cart->lines()->where('purchasable_id', $productVariantId)->first();
-        if ($productCartLine) {
-            $cart->remove($productCartLine->id);
+        $cart = $this->getCart();
+        if (!$cartLine = $this->getCartLine($cart, $productVariantId)) {
+            return $cart;
         }
+        RemovePurchasable::run($cart, $cartLine->id);
 
-        return $cart;
+        return $cart->refresh();
     }
 
-    public function clearCart(User $user): Cart
+    public function clearCart(): Cart
     {
-        return $user->cart->clear();
+        return $this->getCart()->clear()->refresh();
+    }
+
+    private function getCart(): Cart
+    {
+        $user = Auth::user();
+
+        return $user->cart ?? CartSession::current();
+    }
+
+    private function getCartLine(Cart $cart, int $purchasableId): ?CartLine
+    {
+        $purchasableId = ProductVariant::find($purchasableId);
+
+        return GetExistingCartLine::run($cart, $purchasableId);
     }
 }

@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Symfony\Component\Finder\Finder;
-use function Laravel\Prompts\multisearch;
-use function Laravel\Prompts\text;
 
-class
-RunSeeders extends Command
+use function Laravel\Prompts\multisearch;
+
+use Symfony\Component\Finder\Finder;
+
+class RunSeeders extends Command
 {
     protected $signature = 'seeders:run';
 
@@ -23,14 +25,12 @@ RunSeeders extends Command
         );
         $selectedClasses = multisearch(
             label: 'Seeder to run?',
-            options: fn (string $seederClassName) => Arr::where($seeders, static fn (string $seeder) =>
-                str_contains($seeder, $seederClassName)
+            options: fn (string $seederClassName) => Arr::where($seeders, static fn (string $seeder) => str_contains($seeder, $seederClassName)
             ),
             placeholder: 'E.g. ProductVariantSeeder',
         );
         foreach ($selectedClasses as $selectedClass) {
             $this->call('db:seed', ['--class' => $selectedClass]);
         }
-
     }
 }

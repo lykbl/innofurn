@@ -10,6 +10,6 @@ final class ClearCart extends CartMutation
 {
     public function __invoke(mixed $root, array $args): Cart
     {
-        return $this->cartService->clearCart($this->user());
+        return $this->cartService->clearCart();
     }
 }

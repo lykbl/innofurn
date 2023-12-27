@@ -16,6 +16,6 @@ final class ClearCartItem extends CartMutation
      */
     public function __invoke(mixed $root, array $args): Cart
     {
-        return $this->cartService->clearCartItem($this->user(), (int) $args['productVariantId']);
+        return $this->cartService->clearCartItem((int) $args['productVariantId']);
     }
 }

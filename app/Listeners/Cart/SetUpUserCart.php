@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Listeners\Cart;
 
+use App\Models\Cart;
+use App\Models\User;
+use Exception;
 use Illuminate\Auth\Events\Registered;
+use Lunar\Facades\CartSession;
 
 class SetUpUserCart
 {
@@ -14,20 +18,16 @@ class SetUpUserCart
      * @param Registered $event
      *
      * @return void
+     *
+     * @throws Exception
      */
     public function handle(Registered $event): void
     {
-        /** @var \App\Models\User $user */
-        $user = $event->user;
-        // TODO hydrate on sign up
-
-        $cart = new \App\Models\Cart([
-            'currency_id' => \App\Models\Currency::getDefault()->id,
-            'channel_id'  => \App\Models\Channel::getDefault()->id,
-        ]);
-
-        $cart->save();
-        $cart->associate($user);
-        $cart->setCustomer($user->retailCustomers()->first());
+        /* @var User $user */
+        //        $user = $event->user;
+        //        /** @var Cart $cart */
+        //        $cart = CartSession::current();
+        //        $cart->associate($user);
+        //        $cart->setCustomer($user->retailCustomers()->first());
     }
 }
