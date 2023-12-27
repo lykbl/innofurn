@@ -24,3 +24,4 @@ _lighthouse_ide_helper.php
 programmatic-types.graphql
 schema-directives.graphql
 .php-cs-fixer.cache
+_ide_helper.php
