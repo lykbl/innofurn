@@ -44,8 +44,5 @@ Route::controller(OAuthController::class)
     });
 
 Route::get('/test', function (): void {
-    $user = User::find(25);
-    $cart = new \App\Models\Cart();
-    $cart->save();
-    $cart->associate($user);
+    //TODO remove me
 });
