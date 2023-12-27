@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\ModelManifest;
+use Lunar\Models\Cart;
 use Lunar\Models\Collection;
 use Lunar\Models\Currency;
+use Lunar\Models\Customer;
+use Lunar\Models\CustomerGroup;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
 use Lunar\Models\Url;
+use MLL\GraphiQL\GraphiQLServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        if ($this->app->isLocal()) {
+            $this->app->register(IdeHelperServiceProvider::class);
+            $this->app->register(GraphiQLServiceProvider::class);
+        }
     }
 
     /**
@@ -39,6 +48,9 @@ class AppServiceProvider extends ServiceProvider
             Currency::class       => \App\Models\Currency::class,
             Url::class            => \App\Models\Url::class,
             Collection::class     => \App\Models\Collection::class,
+            Cart::class           => \App\Models\Cart::class,
+            Customer::class       => \App\Models\Customer::class,
+            CustomerGroup::class  => \App\Models\CustomerGroups\CustomerGroup::class,
         ]);
 
         ModelManifest::register($models);

@@ -1,0 +1,5 @@
+type CartLine {
+    id: ID!,
+    quantity: Int!,
+    purchasable: ProductVariant!,
+}

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\OAuth\OAuthController;
+use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('welcome'))->name('home');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request): void {
     $request->fulfill();
 
     redirect()->route('home');
@@ -41,3 +42,7 @@ Route::controller(OAuthController::class)
         Route::get('/callback/{type}', 'callback')
             ->name('callback');
     });
+
+Route::get('/test', function (): void {
+    //TODO remove me
+});

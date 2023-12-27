@@ -154,6 +154,7 @@ return [
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
             'App\\GraphQL\\Mutations\\User',
+            'App\\GraphQL\\Mutations\\Cart',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',

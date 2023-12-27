@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-use MLL\GraphiQL\GraphiQLServiceProvider;
 use Nuwave\Lighthouse\LighthouseServiceProvider;
 use Nuwave\Lighthouse\Pagination\PaginationServiceProvider;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider;
@@ -178,7 +177,6 @@ return [
         PaginationServiceProvider::class,
         ValidationServiceProvider::class,
         SubscriptionServiceProvider::class,
-        GraphiQLServiceProvider::class, // TODO remove on prod
     ])->toArray(),
 
     /*

@@ -1,5 +1,4 @@
 sail:=bin/sail
-artisan:=$(sail) artisan
 rollback-step:=1
 image-name:=laravel.test
 
@@ -37,11 +36,11 @@ logs:
 cs-fix:
 	docker exec -it $(image-name) ./bin/php-cs-fixer fix
 
-artisan:
-	$(artisan) $(command)
+#artisan-run:
+#	docker exec -it $(image-name) php artisan
 
 seed:
-	$(artisan) db:seed --class=$(name)
+	docker exec -it $(image-name) php artisan seeders:run
 
 shell:
 	docker exec -it "$(image-name)" /bin/bash

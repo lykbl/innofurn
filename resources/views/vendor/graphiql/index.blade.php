@@ -86,8 +86,10 @@
               activeTab.headers = JSON.stringify({
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
               });
+              console.log('tab changed');
             },
             onEditHeaders: (headers) => {
+              console.log(headers, ' on edit');
                 // console.log(headers)
             },
         });

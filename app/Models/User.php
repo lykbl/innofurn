@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\CustomerGroups\CustomerGroupTypes;
 use App\Models\OAuth\OAuthUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,5 +56,19 @@ class User extends Authenticatable implements MustVerifyEmail
     public function oauthUser(): HasOne
     {
         return $this->hasOne(OAuthUser::class, 'user_id', 'id');
+    }
+
+    public function retailCustomers(): BelongsToMany
+    {
+        return $this
+            ->customers()
+            ->whereHas('customerGroups', function ($query): void {
+                $query->where('handle', CustomerGroupTypes::Retail->value);
+            });
+    }
+
+    public function cart(): HasOne
+    {
+        return $this->hasOne(Cart::class, 'user_id', 'id');
     }
 }
