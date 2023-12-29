@@ -8,13 +8,21 @@ use GraphQL\Error\Error;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class Login
+final class Login extends UserMutation
 {
     /**
+     * @param mixed $root
+     * @param array $args
+     * @param GraphQLContext $context
+     * @param ResolveInfo $resolveInfo
+     * @return Authenticatable
+     *
      * @throws Error
      */
-    public function __invoke($_, array $args): Authenticatable
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Authenticatable
     {
         $guard = Auth::guard(Arr::first(config('sanctum.guard', 'web')));
 
