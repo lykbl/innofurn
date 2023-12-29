@@ -10,12 +10,12 @@ use Exception;
 final class ClearCartItem extends CartMutation
 {
     /**
-     * @param array{productVariantId: int, quantity: int} $args
+     * @param array{productVariantId: int} $args
      *
      * @throws Exception
      */
     public function __invoke(mixed $root, array $args): Cart
     {
-        return $this->cartService->clearCartItem((int) $args['productVariantId']);
+        return $this->cartService->clearCartItem($args['productVariantId']);
     }
 }
