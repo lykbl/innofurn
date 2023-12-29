@@ -1,7 +1,10 @@
 #import scalar.graphql
-#import models/*.graphql
+#import types/*.graphql
 #import interfaces/*.graphql
 #import constants/*.graphql
+#import queries/*.graphql
+#import mutations/*.graphql
+#import subscriptions/*.graphql
 
 type Query
 

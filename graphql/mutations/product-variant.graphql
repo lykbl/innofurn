@@ -1,0 +1,10 @@
+extend type Mutation {
+    decreaseStock(id: ID!): DecreaseStockResult!
+    @broadcast(subscription: "stockDecreased")
+}
+
+# TODO use type here?
+type DecreaseStockResult {
+    record: ProductVariant!
+    query: Query!
+}

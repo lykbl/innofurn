@@ -1,0 +1,5 @@
+type Cart {
+    id: ID!,
+    user: User,
+    lines: [CartLine]!,
+}

@@ -1,0 +1,12 @@
+type ProductVariant implements WithDimensions {
+    id: ID!
+    stock: Int!
+    images: [Media!] @paginate(defaultCount: 4)
+    product: Product!
+    price(currency_id: Int @rules(apply: ["exists:lunar_currencies,id"])): Price!
+
+    width(to: Units = CENTIMETERS): Dimension
+    length(to: Units = CENTIMETERS): Dimension
+    height(to: Units = CENTIMETERS): Dimension
+    weight(to: Units = KILOGRAM): Dimension
+}

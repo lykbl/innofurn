@@ -1,9 +1,3 @@
-type Cart {
-    id: ID!,
-    user: User,
-    lines: [CartLine]!,
-}
-
 extend type Mutation {
     addItem(productVariantId: Int! @rules(apply: ["exists:lunar_product_variants,id"]), quantity: Int = 1 @rules(apply: ["min:1", "max:50"])): Cart!
 

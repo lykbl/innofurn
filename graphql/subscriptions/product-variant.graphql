@@ -1,0 +1,3 @@
+extend type Subscription {
+    stockDecreased(id: ID!): ProductVariant
+}
