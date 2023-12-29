@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\OAuth\OAuthController;
-use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +43,5 @@ Route::controller(OAuthController::class)
     });
 
 Route::get('/test', function (): void {
-    //TODO remove me
+    // TODO remove me
 });

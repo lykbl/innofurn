@@ -16,6 +16,6 @@ final class RemoveItem extends CartMutation
      */
     public function __invoke(mixed $root, array $args): Cart
     {
-        return $this->cartService->removeItem((int) $args['productVariantId'], $args['quantity']);
+        return $this->cartService->removeItem($args['productVariantId'], $args['quantity']);
     }
 }
