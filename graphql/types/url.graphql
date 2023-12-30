@@ -1,4 +1,4 @@
 type Url {
-    language_id: ID!
+    language_id: IntID!
     slug: String!
 }

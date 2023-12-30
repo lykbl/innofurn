@@ -1,7 +1,7 @@
 "Account of a person who utilizes this application."
 type User {
     "Unique primary key."
-    id: ID!
+    id: IntID!
 
     "Non-unique name."
     name: String!

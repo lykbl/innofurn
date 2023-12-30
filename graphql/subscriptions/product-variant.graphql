@@ -1,3 +1,3 @@
 extend type Subscription {
-    stockDecreased(id: ID!): ProductVariant
+    stockDecreased(id: IntID!): ProductVariant
 }

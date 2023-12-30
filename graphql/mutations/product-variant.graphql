@@ -1,5 +1,5 @@
 extend type Mutation {
-    decreaseStock(id: ID!): DecreaseStockResult!
+    decreaseStock(id: IntID!): DecreaseStockResult!
     @broadcast(subscription: "stockDecreased")
 }
 

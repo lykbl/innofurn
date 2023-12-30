@@ -1,4 +1,4 @@
 extend type Query {
     "List product variants of product."
-    productVariantById(id: ID! @eq): ProductVariant! @find(model: "App\\Models\\ProductVariant")
+    productVariantById(id: IntID! @eq): ProductVariant! @find(model: "App\\Models\\ProductVariant")
 }

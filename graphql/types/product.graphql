@@ -1,5 +1,5 @@
 type Product implements WithUrls {
-    id: ID!
+    id: IntID!
     name(lang: Locales = ENGLISH): String
     description(lang: Locales = ENGLISH): String
     variants: [ProductVariant!]

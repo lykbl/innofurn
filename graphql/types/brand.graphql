@@ -1,5 +1,5 @@
 type Brand implements WithUrls {
-    id: ID!
+    id: IntID!
     name: String!
 
     urls: [Url]

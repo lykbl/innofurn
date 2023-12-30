@@ -1,6 +1,28 @@
 extend type Query {
     "Product details."
-    productById(id: ID! @eq): Product! @find(model: "App\\Models\\Product")
+    productById(id: IntID! @eq): Product! @find(model: "App\\Models\\Product")
 
     productBySlug(slug: String! @eq(key: "slug")): Product @find(model: "App\\Models\\Product", scopes: ["WithSlug"])
+
+    findProducts(input: QueryProductsInput! @spread): [ProductVariant!]!
+}
+
+input OptionFilterInput {
+    optionTypeId: IntID!
+    valueIds: [IntID!]!
+}
+
+input PriceFilterInput {
+    min: Int
+    max: Int
+    currency: IntID!
+}
+
+input QueryProductsInput {
+    options: [OptionFilterInput!]
+    type: IntID
+    name: String
+    collection: IntID
+    brand: IntID
+    price: PriceFilterInput
 }

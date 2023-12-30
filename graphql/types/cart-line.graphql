@@ -1,5 +1,5 @@
 type CartLine {
-    id: ID!,
+    id: IntID!,
     quantity: Int!,
     purchasable: ProductVariant!,
 }

@@ -6,3 +6,5 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 scalar Dimension
 
 scalar Price
+
+scalar IntID

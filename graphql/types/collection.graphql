@@ -1,5 +1,5 @@
 type Collection implements WithUrls {
-    id: ID!
+    id: IntID!
     name(lang: Locales = ENGLISH): String
     breadcrumb(lang: Locales = ENGLISH): String
 
