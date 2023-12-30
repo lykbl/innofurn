@@ -38,6 +38,6 @@ class Price extends ScalarType
 
     public function parseLiteral(Node $valueNode, array $variables = null): void
     {
-        throw new Error('Dimension scalar can not be used as an argument');
+        throw new Error('Price scalar can not be used as an argument');
     }
 }
