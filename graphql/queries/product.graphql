@@ -1,0 +1,6 @@
+extend type Query {
+    "Product details."
+    productById(id: IntID! @eq): Product! @find(model: "App\\Models\\Product")
+
+    productBySlug(slug: String! @eq(key: "slug")): Product @find(model: "App\\Models\\Product", scopes: ["WithSlug"])
+}

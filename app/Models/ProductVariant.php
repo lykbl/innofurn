@@ -6,6 +6,6 @@ namespace App\Models;
 
 use Lunar\Models\ProductVariant as BaseProductVariant;
 
-class ProductVariant extends BaseProductVariant
+class ProductVariant extends BaseProductVariant implements Translatable
 {
 }

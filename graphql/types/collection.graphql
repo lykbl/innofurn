@@ -1,13 +1,8 @@
 type Collection implements WithUrls {
-    id: ID!
+    id: IntID!
     name(lang: Locales = ENGLISH): String
     breadcrumb(lang: Locales = ENGLISH): String
 
     urls: [Url]
     defaultUrl: Url
-}
-
-extend type Query {
-    "Available product root collections"
-    rootCollections: [Collection!] @all @whereNull(key: "parent_id", value: true)
 }

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations\User;
 
-use App\Services\User\UserService;
 use Exception;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class SignUp
+final class SignUp extends UserMutation
 {
-    public function __construct(private readonly UserService $userService)
-    {
-    }
-
-    /** @param array{
+    /**
+     * @param array{
      *     firstName: string,
      *     lastName: string,
      *     password: string,
@@ -22,7 +21,7 @@ final class SignUp
      *
      * @throws Exception
      */
-    public function __invoke(mixed $root, array $args)
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Authenticatable
     {
         try {
             return $this->userService->signUp(
