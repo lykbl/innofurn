@@ -11,11 +11,10 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 final class AddItem extends CartMutation
 {
     /**
-     *
-     * @param mixed $root
-     * @param array $args
+     * @param mixed          $root
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
      *
      * @return Cart
      */

@@ -149,8 +149,12 @@ return [
     */
 
     'namespaces' => [
-        'models'    => ['App', 'App\\Models'],
-        'queries'   => 'App\\GraphQL\\Queries',
+        'models'  => ['App', 'App\\Models'],
+        'queries' => [
+            'App\\GraphQL\\Queries',
+            'App\\GraphQL\\Queries\\Product',
+            'App\\GraphQL\\Queries\\ProductVariant',
+        ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
             'App\\GraphQL\\Mutations\\User',

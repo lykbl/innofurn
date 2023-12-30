@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\GraphQL\Scalars;
 
@@ -9,6 +11,8 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\Printer;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
+
+use function is_int;
 
 class IntID extends ScalarType
 {
@@ -24,7 +28,7 @@ class IntID extends ScalarType
     /** @throws SerializationError */
     public function serialize($value): int
     {
-        $canCast = \is_int($value);
+        $canCast = is_int($value);
 
         if (!$canCast || $value <= 0) {
             $notID = Utils::printSafe($value);
@@ -37,7 +41,7 @@ class IntID extends ScalarType
     /** @throws Error */
     public function parseValue($value): int
     {
-        if (\is_int($value) && $value > 0) {
+        if (is_int($value) && $value > 0) {
             return $value;
         }
 

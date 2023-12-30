@@ -11,11 +11,11 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 final class ClearCartItem extends CartMutation
 {
     /**
-     *
-     * @param mixed $root
-     * @param array $args
+     * @param mixed          $root
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
+     *
      * @return Cart
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Cart

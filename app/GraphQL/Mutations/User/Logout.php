@@ -13,10 +13,11 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 final class Logout extends UserMutation
 {
     /**
-     * @param mixed $root
-     * @param array $args
+     * @param mixed          $root
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
+     *
      * @return Authenticatable
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Authenticatable
