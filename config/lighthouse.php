@@ -154,11 +154,13 @@ return [
             'App\\GraphQL\\Queries',
             'App\\GraphQL\\Queries\\Product',
             'App\\GraphQL\\Queries\\ProductVariant',
+            'App\\GraphQL\\Queries\\Review',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
             'App\\GraphQL\\Mutations\\User',
             'App\\GraphQL\\Mutations\\Cart',
+            'App\\GraphQL\\Mutations\\Review',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',

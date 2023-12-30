@@ -8,3 +8,5 @@ scalar Dimension
 scalar Price
 
 scalar IntID
+
+scalar Rating

@@ -15,16 +15,16 @@ reup:
 	make up
 
 migrate-create:
-	$(artisan) make:migration name=$(name)
+	docker exec -it $(image-name) php artisan make:migration name=$(name)
 
 post-deploy:
 	vendor/bin/sail artisan clear-compiled && chmod -R 777 public/
 
 migrate-up:
-	$(artisan) migrate
+	docker exec -it $(image-name) php artisan migrate
 
 migrate-down:
-	$(artisan) migrate:rollback --step=$(rollback-step)
+	docker exec -it $(image-name) php artisan migrate:rollback --step=$(rollback-step)
 
 config-clear:
 	$(artisan) config:clear
