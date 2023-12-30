@@ -24,10 +24,10 @@ input PriceFilterInput {
 }
 
 input ProductVariantFilter {
-    options: [OptionFilterInput!]
+    optionsFilter: [OptionFilterInput!]
     type: IntID
     name: String
     collection: IntID
     brand: IntID
-    price: PriceFilterInput
+    priceFilter: PriceFilterInput
 }

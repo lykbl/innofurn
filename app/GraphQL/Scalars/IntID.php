@@ -28,14 +28,12 @@ class IntID extends ScalarType
     /** @throws SerializationError */
     public function serialize($value): int
     {
-        $canCast = is_int($value);
-
-        if (!$canCast || $value <= 0) {
-            $notID = Utils::printSafe($value);
-            throw new SerializationError("IntID can only represent a positive integer: {$notID}");
+        if (is_int($value) && $value > 0) {
+            return $value;
         }
 
-        return $value;
+        $notID = Utils::printSafe($value);
+        throw new SerializationError("IntID can only represent a positive integer: {$notID}");
     }
 
     /** @throws Error */
@@ -46,7 +44,7 @@ class IntID extends ScalarType
         }
 
         $notID = Utils::printSafeJson($value);
-        throw new Error("ID can only represent a positive integer: {$notID}");
+        throw new Error("ID can only represent a positive integer: $notID");
     }
 
     public function parseLiteral(Node $valueNode, array $variables = null): string
