@@ -3,11 +3,11 @@ extend type Mutation @guard {
     archiveReview(id: IntID!): Boolean!
 }
 
-input CreateReviewInput {
+input CreateReviewInput @validator {
     title: String!
     body: String!
     rating: Rating!
-    productVariantId: IntID! @rules(apply: ["exists:lunar_product_variants,id"])
+    productVariantId: IntID!
 }
 
 # TODO add admin guard

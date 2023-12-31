@@ -171,7 +171,10 @@ return [
         'unions'     => 'App\\GraphQL\\Unions',
         'scalars'    => 'App\\GraphQL\\Scalars',
         'directives' => 'App\\GraphQL\\Directives',
-        'validators' => 'App\\GraphQL\\Validators',
+        'validators' => [
+            'App\\GraphQL\\Validators',
+            'App\\GraphQL\\Validators\\Review',
+        ],
     ],
 
     /*
