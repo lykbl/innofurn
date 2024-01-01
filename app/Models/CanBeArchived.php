@@ -6,7 +6,13 @@ namespace App\Models;
 
 trait CanBeArchived
 {
-    protected const ARCHIVED_AT = 'archived_at';
+    public function initializeCanBeArchived(): void
+    {
+        if (!isset($this->casts[$this->getArchivedAtColumn()])) {
+            $this->casts[$this->getArchivedAtColumn()] = 'datetime';
+        }
+        $this->fillable[] = $this->getArchivedAtColumn();
+    }
 
     public function archive(): bool
     {

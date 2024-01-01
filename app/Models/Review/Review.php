@@ -10,11 +10,13 @@ use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends Model
 {
     use NeedsApproval;
     use CanBeArchived;
+    use SoftDeletes;
 
     protected $fillable = [
         'product_variant_id',
@@ -22,8 +24,6 @@ class Review extends Model
         'title',
         'body',
         'rating',
-        'approved_at',
-        'archived_at',
     ];
 
     public function productVariant(): BelongsTo

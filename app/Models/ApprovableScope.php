@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Scope;
 
 class ApprovableScope implements Scope
 {
-    private $extensions = ['Approve', 'Disapprove', 'WithApproved', 'WithoutApproved', 'OnlyApproved'];
+    private $extensions = ['Approve', 'Disapprove', 'WithUnapproved', 'WithoutApproved', 'OnlyApproved'];
 
     public function apply(Builder $builder, Model $model): void
     {
@@ -42,9 +42,9 @@ class ApprovableScope implements Scope
         });
     }
 
-    protected function addWithApproved(Builder $builder): void
+    protected function addWithUnapproved(Builder $builder): void
     {
-        $builder->macro('withApproved', function (Builder $builder): Builder {
+        $builder->macro('withUnapproved', function (Builder $builder): Builder {
             return $builder->withoutGlobalScope($this);
         });
     }

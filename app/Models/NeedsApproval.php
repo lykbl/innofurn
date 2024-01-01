@@ -6,11 +6,17 @@ namespace App\Models;
 
 trait NeedsApproval
 {
-    protected const APPROVED_AT = 'approved_at';
-
-    public static function bootSoftDeletes(): void
+    public static function bootNeedsApproval(): void
     {
         static::addGlobalScope(new ApprovableScope());
+    }
+
+    public function initializeNeedsApproval(): void
+    {
+        if (!isset($this->casts[$this->getApprovedAtColumn()])) {
+            $this->casts[$this->getApprovedAtColumn()] = 'datetime';
+        }
+        $this->fillable[] = $this->getApprovedAtColumn();
     }
 
     public function approve(): bool

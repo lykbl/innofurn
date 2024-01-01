@@ -19,7 +19,7 @@ final class CreateReviewInputValidator extends Validator
                     $user = auth()->user();
                     if (!$user) {
                         $fail('User is not authenticated');
-                    } elseif (Review::where([['user_id', '=', $user->id], ['product_variant_id', '=', $value]])->first()) {
+                    } elseif (Review::withUnapproved()->where([['user_id', '=', $user->id], ['product_variant_id', '=', $value]])->first()) {
                         $fail('Product review was already created');
                     }
                 },

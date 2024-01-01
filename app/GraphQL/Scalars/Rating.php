@@ -21,7 +21,7 @@ class Rating extends ScalarType
      */
     public function serialize($value): int
     {
-        if (is_int($value) && $value > 0 && $value < 6) {
+        if (is_int($value) && $value >= 1 && $value <= 5) {
             return $value;
         }
 
@@ -34,7 +34,7 @@ class Rating extends ScalarType
      */
     public function parseValue($value): int
     {
-        if (is_int($value) && $value > 0 && $value < 6) {
+        if (is_int($value) && $value >= 1 && $value <= 5) {
             return $value;
         }
 
@@ -47,7 +47,7 @@ class Rating extends ScalarType
      */
     public function parseLiteral(Node $valueNode, array $variables = null): string
     {
-        if ($valueNode instanceof IntValueNode && $valueNode->value > 0 && $valueNode->value < 6) {
+        if ($valueNode instanceof IntValueNode && $valueNode->value >= 1 && $valueNode->value <= 5) {
             return $valueNode->value;
         }
 
