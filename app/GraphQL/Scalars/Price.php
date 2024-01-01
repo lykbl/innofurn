@@ -18,6 +18,8 @@ class Price extends ScalarType
      */
     public function serialize(mixed $value): array
     {
+        // TODO add validation and throw error?
+
         return [
             'format'        => $value->price->formatted(),
             'value'         => $value->price->value,

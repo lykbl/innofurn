@@ -1,0 +1,18 @@
+extend type Mutation @guard {
+    createReview(input: CreateReviewInput! @spread): Review!
+    archiveReview(id: IntID!): Boolean!
+}
+
+input CreateReviewInput @validator {
+    title: String!
+    body: String!
+    rating: Rating!
+    productVariantId: IntID!
+}
+
+# TODO add admin guard
+extend type Mutation {
+    approveReview(id: IntID!): Boolean!
+    disapproveReview(id: IntID!): Boolean!
+    deleteReview(id: IntID!): Boolean!
+}

@@ -19,6 +19,7 @@ class Dimension extends ScalarType
     public function serialize(mixed $value): ?array
     {
         if (!$value) {
+            // TODO throw error?
             return null;
         }
 
