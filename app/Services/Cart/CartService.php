@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Cart;
 
 use App\Models\Cart;
+use App\Models\Channel;
+use App\Models\Currency;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Auth;
 use Lunar\Actions\Carts\AddOrUpdatePurchasable;
@@ -12,6 +14,7 @@ use Lunar\Actions\Carts\GetExistingCartLine;
 use Lunar\Actions\Carts\RemovePurchasable;
 use Lunar\Actions\Carts\UpdateCartLine;
 use Lunar\Facades\CartSession;
+use Lunar\Managers\CartSessionManager;
 use Lunar\Models\CartLine;
 
 class CartService
@@ -19,6 +22,7 @@ class CartService
     public function addItem(int $productVariantId, int $quantity): Cart
     {
         $cart = $this->getCart();
+        /** @var CartSessionManager $cartManager */
         // TODO add default tax zone migration
         $purchasable = ProductVariant::find($productVariantId);
         AddOrUpdatePurchasable::run($cart, $purchasable, $quantity);
@@ -58,9 +62,18 @@ class CartService
 
     private function getCart(): Cart
     {
-        $user = Auth::user();
+        $user       = Auth::user();
+        $activeCart = $user?->activeCart;
+        if (!$activeCart) {
+            $activeCart = \Lunar\Models\Cart::create([
+                'currency_id' => Currency::getDefault()->id,
+                'channel_id'  => Channel::getDefault()->id,
+                'user_id'     => $user->id,
+                'customer_id' => $user->retailCustomers()->first()->id,
+            ]); // TODO use session only when guest
+        }
 
-        return $user->cart ?? CartSession::current();
+        return $activeCart; // ?? CartSession::current();
     }
 
     private function getCartLine(Cart $cart, int $purchasableId): ?CartLine

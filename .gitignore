@@ -25,3 +25,4 @@ programmatic-types.graphql
 schema-directives.graphql
 .php-cs-fixer.cache
 _ide_helper.php
+.phpstorm.meta.php

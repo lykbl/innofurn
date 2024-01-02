@@ -1,0 +1,16 @@
+extend type Mutation @guard {
+    createPaymentIntent(input: CreatePaymentIntentInput!): Boolean!
+
+    capturePaymentIntent(input : CapturePaymentIntentInput!): Boolean!
+}
+
+input CreatePaymentIntentInput {
+    billingAddressId: IntID!
+    shippingAddressId: IntID!
+    shippingMethodId: IntID!
+}
+
+
+input CapturePaymentIntentInput {
+    pk: String
+}

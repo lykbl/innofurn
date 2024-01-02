@@ -161,6 +161,8 @@ return [
             'App\\GraphQL\\Mutations\\User',
             'App\\GraphQL\\Mutations\\Cart',
             'App\\GraphQL\\Mutations\\Review',
+            'App\\GraphQL\\Mutations\\Checkout',
+            'App\\GraphQL\\Mutations\\Address',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',

@@ -42,4 +42,8 @@ return [
         'client_secret' => env('OAUTH_GOOGLE_CLIENT_SECRET'),
         'redirect'      => env('OAUTH_GOOGLE_REDIRECT'),
     ],
+    'stripe' => [
+        'key'        => env('STRIPE_SECRET'),
+        'public_key' => env('STRIPE_PK'),
+    ],
 ];

@@ -6,15 +6,19 @@ namespace App\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\ModelManifest;
+use Lunar\Models\Address;
 use Lunar\Models\Cart;
 use Lunar\Models\Collection;
 use Lunar\Models\Currency;
 use Lunar\Models\Customer;
 use Lunar\Models\CustomerGroup;
+use Lunar\Models\Order;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
 use Lunar\Models\ProductVariant;
+use Lunar\Models\Transaction;
 use Lunar\Models\Url;
 use MLL\GraphiQL\GraphiQLServiceProvider;
 
@@ -34,9 +38,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(ShippingModifiers $shippingModifiers): void
     {
         $this->overrideModels();
+        $shippingModifiers->add(
+            ShippingOptionsProvider::class
+        );
     }
 
     private function overrideModels(): void
@@ -51,6 +58,9 @@ class AppServiceProvider extends ServiceProvider
             Cart::class           => \App\Models\Cart::class,
             Customer::class       => \App\Models\Customer::class,
             CustomerGroup::class  => \App\Models\CustomerGroups\CustomerGroup::class,
+            Transaction::class    => \App\Models\Transaction::class,
+            Order::class          => \App\Models\Order::class,
+            Address::class        => \App\Models\Address::class,
         ]);
 
         ModelManifest::register($models);
