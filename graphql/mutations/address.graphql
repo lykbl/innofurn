@@ -1,0 +1,22 @@
+extend type Mutation @guard {
+    createAddress(input: CreateAddressInput!): Address!
+}
+
+input CreateAddressInput {
+    title: String
+    firstName: String!
+    lastName: String!
+    companyName: String
+    lineOne: String!
+    lineTwo: String
+    lineThree: String
+    city: String!
+    state: String
+    postcode: String!
+    countryId: IntID!
+    deliveryInstructions: String
+    contactEmail: Email
+    contactPhone: Phone
+    shippingDefault: Boolean!
+    billingDefault: Boolean!
+}

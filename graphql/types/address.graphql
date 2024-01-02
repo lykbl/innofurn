@@ -1,0 +1,20 @@
+type Address {
+    id: IntID!
+    customerId: IntID!
+    title: String
+    firstName: String!
+    lastName: String!
+    companyName: String
+    lineOne: String!
+    lineTwo: String
+    lineThree: String
+    city: String!
+    state: String
+    postcode: String!
+    countryId: IntID!
+    deliveryInstructions: String
+    contactEmail: String
+    contactPhone: String
+    shippingDefault: Boolean!
+    billingDefault: Boolean!
+}

@@ -13,6 +13,5 @@ input CreateReviewInput @validator {
 # TODO add admin guard
 extend type Mutation {
     approveReview(id: IntID!): Boolean!
-    disapproveReview(id: IntID!): Boolean!
     deleteReview(id: IntID!): Boolean!
 }

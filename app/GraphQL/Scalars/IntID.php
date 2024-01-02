@@ -33,7 +33,7 @@ class IntID extends ScalarType
         }
 
         $notID = Utils::printSafe($value);
-        throw new SerializationError("IntID can only represent a positive integer: {$notID}");
+        throw new SerializationError("IntID can only represent a positive integer: $notID");
     }
 
     /** @throws Error */
@@ -54,6 +54,6 @@ class IntID extends ScalarType
         }
 
         $notID = Printer::doPrint($valueNode);
-        throw new Error("ID can only represent a positive integer: {$notID}", $valueNode);
+        throw new Error("ID can only represent a positive integer: $notID", $valueNode);
     }
 }
