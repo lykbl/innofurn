@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Checkout;
 
 use App\Models\Address;
+use App\Models\Customer;
 use Lunar\Facades\Payments;
 use Lunar\Facades\ShippingManifest;
 use Lunar\Models\Cart;
@@ -13,13 +14,14 @@ use Stripe\PaymentIntent;
 
 class CheckoutService
 {
-    public function createPaymentIntent(int $billingAddressId, int $shippingAddressId, int|string $shippingMethodId): PaymentIntent
+    public function createPaymentIntent(?int $billingAddressId, ?int $shippingAddressId, string $shippingMethodId): PaymentIntent
     {
-        // todo validate belongs to user
-        $billingAddress  = Address::find($billingAddressId);
-        $shippingAddress = Address::find($shippingAddressId);
         /** @var Cart $cart */
         $cart = auth()->user()->activeCart;
+        /** @var Customer $customer */
+        $customer        = auth()->user()->retailCustomer;
+        $billingAddress  = $billingAddressId ? Address::find($billingAddressId) : $customer->defaultBillingAddress();
+        $shippingAddress = $shippingAddressId ? Address::find($shippingAddressId) : $customer->defaultShippingAddress();
         $cart
             ->setShippingAddress($shippingAddress)
             ->setBillingAddress($billingAddress)
@@ -27,9 +29,6 @@ class CheckoutService
 
         /** @var PaymentIntent $paymentIntent */
         $paymentIntent = StripeFacade::createIntent($cart);
-        Payments::driver('stripe')
-            ->withData(['payment_intent' => $paymentIntent->id])
-            ->cart($cart);
         $cart->createOrder();
 
         return $paymentIntent;

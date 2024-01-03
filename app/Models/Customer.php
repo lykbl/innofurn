@@ -8,4 +8,13 @@ use Lunar\Models\Customer as BaseCustomer;
 
 class Customer extends BaseCustomer
 {
+    public function defaultShippingAddress(): Address
+    {
+        return $this->addresses()->where('shipping_default', true)->first();
+    }
+
+    public function defaultBillingAddress(): Address
+    {
+        return $this->addresses()->where('billing_default', true)->first();
+    }
 }

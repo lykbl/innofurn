@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -62,6 +63,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this
             ->customers()
+            ->whereHas('customerGroups', function ($query): void {
+                $query->where('handle', CustomerGroupTypes::Retail->value);
+            });
+    }
+
+    public function retailCustomer(): HasOneThrough
+    {
+        return $this
+            ->hasOneThrough(Customer::class, CustomerUserPivot::class, 'user_id', 'id', 'id', 'customer_id')
             ->whereHas('customerGroups', function ($query): void {
                 $query->where('handle', CustomerGroupTypes::Retail->value);
             });

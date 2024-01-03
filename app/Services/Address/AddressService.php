@@ -10,33 +10,48 @@ use Illuminate\Support\Str;
 
 class AddressService
 {
-    public function create(array $createAddressInput): Address
+    public function create(array $addressInput): Address
     {
-        $customer = auth()->user()->retailCustomers()->first();
-        $address  = new Address([
+        $customer = auth()->user()->retailCustomer;
+        $this->resetDefaults($customer->id, $addressInput['shippingDefault'], $addressInput['billingDefault']);
+        $address = new Address([
             'customer_id' => $customer->id,
-            ...Arr::mapWithKeys($createAddressInput, fn ($value, $key) => [Str::snake($key) => $value]),
+            ...Arr::mapWithKeys($addressInput, fn ($value, $key) => [Str::snake($key) => $value]),
         ]);
         $address->save();
 
         return $address;
     }
 
-    public function update(array $updateAddressInput): Address
+    public function update(array $addressInput): Address
     {
-        if (true === $updateAddressInput['defaultShippingAddress']) {
-        }
-
-        $address = Address::find($updateAddressInput['id'])
+        $customer = auth()->user()->retailCustomer;
+        $this->resetDefaults($customer->id, $addressInput['shippingDefault'], $addressInput['billingDefault']);
+        $address = Address::find($addressInput['id']);
+        $address
             ->update(
-                Arr::mapWithKeys($updateAddressInput, fn ($value, $key) => [Str::snake($key) => $value]))
+                Arr::mapWithKeys($addressInput, fn ($value, $key) => [Str::snake($key) => $value])
+            )
         ;
 
-        return $address;
+        return $address->refresh();
     }
 
-    public function delete(int $id): void
+    public function delete(int $id): bool
     {
-        Address::find($id)->delete();
+        return Address::find($id)->delete();
+    }
+
+    private function resetDefaults(int $customerId, bool $shipping, bool $billing): void
+    {
+        if ($shipping) {
+            $column = 'shipping_default';
+            Address::where(['customer_id' => $customerId])->update([$column => false]);
+        }
+
+        if ($billing) {
+            $column = 'billing_default';
+            Address::where(['customer_id' => $customerId])->update([$column => false]);
+        }
     }
 }

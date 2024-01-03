@@ -77,7 +77,7 @@ class CartService
             'currency_id' => Currency::getDefault()->id,
             'channel_id'  => Channel::getDefault()->id,
             'user_id'     => $user->id,
-            'customer_id' => $user->retailCustomers()->first()->id,
+            'customer_id' => $user->retailCustomer->id,
         ]);
         $cart->save();
 
