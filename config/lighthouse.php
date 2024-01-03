@@ -3,6 +3,52 @@
 declare(strict_types=1);
 
 return [
+
+    /*
+   |--------------------------------------------------------------------------
+   | Namespaces
+   |--------------------------------------------------------------------------
+   |
+   | These are the default namespaces where Lighthouse looks for classes to
+   | extend functionality of the schema. You may pass in either a string
+   | or an array, they are tried in order and the first match is used.
+   |
+   */
+    'namespaces' => [
+        'models'  => [
+            'App',
+            'App\\Models'
+        ],
+        'queries' => [
+            'App\\GraphQL\\Queries',
+            'App\\GraphQL\\Queries\\Product',
+            'App\\GraphQL\\Queries\\ProductVariant',
+            'App\\GraphQL\\Queries\\Review',
+        ],
+        'mutations' => [
+            'App\\GraphQL\\Mutations\\ProductVariant',
+            'App\\GraphQL\\Mutations\\User',
+            'App\\GraphQL\\Mutations\\Cart',
+            'App\\GraphQL\\Mutations\\Review',
+            'App\\GraphQL\\Mutations\\Checkout',
+            'App\\GraphQL\\Mutations\\Address',
+        ],
+        'subscriptions' => [
+            'App\\GraphQL\\Subscriptions\\Product',
+            'App\\GraphQL\\Subscriptions\\ProductVariant',
+        ],
+        'types'      => 'App\\GraphQL\\Types',
+        'interfaces' => 'App\\GraphQL\\Interfaces',
+        'unions'     => 'App\\GraphQL\\Unions',
+        'scalars'    => 'App\\GraphQL\\Scalars',
+        'directives' => 'App\\GraphQL\\Directives',
+        'validators' => [
+            'App\\GraphQL\\Validators',
+            'App\\GraphQL\\Validators\\Review',
+            'App\\GraphQL\\Validators\\Checkout',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Route Configuration
@@ -135,46 +181,6 @@ return [
          * Duration in seconds the query should remain cached, null means forever.
          */
         'ttl' => env('LIGHTHOUSE_QUERY_CACHE_TTL', 24 * 60 * 60),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Namespaces
-    |--------------------------------------------------------------------------
-    |
-    | These are the default namespaces where Lighthouse looks for classes to
-    | extend functionality of the schema. You may pass in either a string
-    | or an array, they are tried in order and the first match is used.
-    |
-    */
-
-    'namespaces' => [
-        'models'  => ['App', 'App\\Models'],
-        'queries' => [
-            'App\\GraphQL\\Queries',
-            'App\\GraphQL\\Queries\\Product',
-            'App\\GraphQL\\Queries\\ProductVariant',
-            'App\\GraphQL\\Queries\\Review',
-        ],
-        'mutations' => [
-            'App\\GraphQL\\Mutations\\ProductVariant',
-            'App\\GraphQL\\Mutations\\User',
-            'App\\GraphQL\\Mutations\\Cart',
-            'App\\GraphQL\\Mutations\\Review',
-        ],
-        'subscriptions' => [
-            'App\\GraphQL\\Subscriptions\\Product',
-            'App\\GraphQL\\Subscriptions\\ProductVariant',
-        ],
-        'types'      => 'App\\GraphQL\\Types',
-        'interfaces' => 'App\\GraphQL\\Interfaces',
-        'unions'     => 'App\\GraphQL\\Unions',
-        'scalars'    => 'App\\GraphQL\\Scalars',
-        'directives' => 'App\\GraphQL\\Directives',
-        'validators' => [
-            'App\\GraphQL\\Validators',
-            'App\\GraphQL\\Validators\\Review',
-        ],
     ],
 
     /*

@@ -1,0 +1,27 @@
+extend type Mutation @guard {
+    createAddress(input: AddressInput!): Address! @can(ability: "create")
+
+    updateAddress(input: AddressInput!): Address! @can(ability: "edition", find: "input.id")
+
+    deleteAddress(id: IntID!): Boolean! @can(ability: "interact", find: "id")
+}
+
+input AddressInput {
+    id: IntID
+    title: String
+    firstName: String!
+    lastName: String!
+    companyName: String
+    lineOne: String!
+    lineTwo: String
+    lineThree: String
+    city: String!
+    state: String
+    postcode: String!
+    countryId: IntID!
+    deliveryInstructions: String
+    contactEmail: Email
+    contactPhone: Phone
+    shippingDefault: Boolean!
+    billingDefault: Boolean!
+}

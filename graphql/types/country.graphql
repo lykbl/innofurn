@@ -1,0 +1,12 @@
+type Country {
+    id: IntID!
+    name: String!
+    iso3: String!
+    iso2: String!
+    phoneCode: String!
+    capital: String!
+    currency: String!
+    native: String!
+    emoji: String! # TODO Add emoji scalar
+    emojiU: String! # TODO Add emoji scalar
+}

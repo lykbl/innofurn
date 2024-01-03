@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\OAuth\OAuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,4 +46,15 @@ Route::controller(OAuthController::class)
 
 Route::get('/test', function (): void {
     // TODO remove me
+});
+
+// TODO remove me
+Route::post('/login', function (Illuminate\Http\Request $request) {
+    $guard = Auth::guard(Arr::first(config('sanctum.guard', 'web')));
+
+    if ($guard->attempt(['email' => 'test04@gmail.com', 'password' => '12345678!'])) {
+        $request->session()->regenerate();
+    }
+
+    return new JsonResponse(['status' => 'ok']);
 });

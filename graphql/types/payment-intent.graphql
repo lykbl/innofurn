@@ -1,0 +1,3 @@
+type PaymentIntent {
+    clientSecret: String!
+}

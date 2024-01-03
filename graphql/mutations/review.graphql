@@ -1,18 +1,17 @@
 extend type Mutation @guard {
-    createReview(input: CreateReviewInput! @spread): Review!
+    createReview(input: CreateReviewInput! @spread): Review! @can(ability: "create", injectArgs: true, model: "App\\Models\\Review\\Review")
     archiveReview(id: IntID!): Boolean!
 }
 
-input CreateReviewInput @validator {
+input CreateReviewInput {
     title: String!
     body: String!
     rating: Rating!
-    productVariantId: IntID!
+    productVariantId: IntID! @rules(apply: ["exists:lunar_product_variants,id"])
 }
 
 # TODO add admin guard
 extend type Mutation {
     approveReview(id: IntID!): Boolean!
-    disapproveReview(id: IntID!): Boolean!
     deleteReview(id: IntID!): Boolean!
 }
