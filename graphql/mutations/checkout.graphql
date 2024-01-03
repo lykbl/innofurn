@@ -1,5 +1,5 @@
 extend type Mutation @guard {
-    createPaymentIntent(input: CreatePaymentIntentInput!): Boolean!
+    createPaymentIntent(input: CreatePaymentIntentInput!): PaymentIntent! #TODO verify this when garphql is connected
 
     capturePaymentIntent(input : CapturePaymentIntentInput!): Boolean!
 }
@@ -10,7 +10,6 @@ input CreatePaymentIntentInput {
     shippingMethodId: IntID!
 }
 
-
 input CapturePaymentIntentInput {
-    pk: String
+    paymentIntentId: String!
 }

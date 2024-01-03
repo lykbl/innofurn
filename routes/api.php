@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// TODO remove this
 Route::controller(TestController::class)->middleware('auth:sanctum')->group(function (): void {
     Route::post('/create-payment-intent', 'createPaymentIntent');
     Route::post('/capture-payment-intent', 'capturePaymentIntent');

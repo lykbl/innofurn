@@ -8,6 +8,7 @@ use App\Services\Checkout\CheckoutService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+// TODO remove me
 readonly class TestController
 {
     public function __construct(private CheckoutService $checkoutService)

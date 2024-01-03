@@ -8,8 +8,6 @@ export default function CheckoutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log('checkout layout');
-
   return (
     children
   );

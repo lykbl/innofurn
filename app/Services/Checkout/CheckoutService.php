@@ -9,7 +9,6 @@ use Lunar\Facades\Payments;
 use Lunar\Facades\ShippingManifest;
 use Lunar\Models\Cart;
 use Lunar\Stripe\Facades\StripeFacade;
-use Lunar\Stripe\StripePaymentType;
 use Stripe\PaymentIntent;
 
 class CheckoutService
@@ -21,36 +20,30 @@ class CheckoutService
         $shippingAddress = Address::find($shippingAddressId);
         /** @var Cart $cart */
         $cart = auth()->user()->activeCart;
-        $cart->setShippingAddress($shippingAddress);
-        $cart->setBillingAddress($billingAddress);
-        $cart->setShippingOption(ShippingManifest::getOption($cart, $shippingMethodId));
-        /** @var StripePaymentType $stripePayment */
-        $stripePayment = Payments::driver('stripe');
+        $cart
+            ->setShippingAddress($shippingAddress)
+            ->setBillingAddress($billingAddress)
+            ->setShippingOption(ShippingManifest::getOption($cart, $shippingMethodId));
+
         /** @var PaymentIntent $paymentIntent */
         $paymentIntent = StripeFacade::createIntent($cart);
-        $stripePayment->withData([
-            'payment_intent' => $paymentIntent->id,
-        ]);
-        $stripePayment->cart($cart);
+        Payments::driver('stripe')
+            ->withData(['payment_intent' => $paymentIntent->id])
+            ->cart($cart);
         $cart->createOrder();
 
         return $paymentIntent;
     }
 
-    public function captureIntent(string $paymentIntentId)
+    public function captureIntent(string $paymentIntentId): bool
     {
         /** @var Cart $cart */
         $cart = auth()->user()->activeCart;
-        /** @var StripePaymentType $stripePayment */
-        $stripePayment = Payments::driver('stripe');
-        $stripePayment->cart($cart);
-        /* @var PaymentIntent $paymentIntent */
-        $stripePayment->withData([
-            'payment_intent' => $paymentIntentId,
-        ]);
-        $stripePayment->authorize();
-        $cart->completed_at = now();
-        $cart->save();
+        Payments::driver('stripe')
+            ->cart($cart)
+            ->withData(['payment_intent' => $paymentIntentId])
+            ->authorize();
+        $cart->update(['completed_at' => now()]);
 
         return true;
     }

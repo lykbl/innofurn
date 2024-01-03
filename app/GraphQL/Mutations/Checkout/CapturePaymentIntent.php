@@ -9,10 +9,8 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class CapturePaymentIntent extends CheckoutMutation
 {
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): bool
     {
-        $this->checkoutService->captureIntent();
-
-        return true;
+        return $this->checkoutService->captureIntent($args['paymentIntentId']);
     }
 }

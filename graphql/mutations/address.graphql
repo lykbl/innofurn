@@ -1,8 +1,12 @@
 extend type Mutation @guard {
-    createAddress(input: CreateAddressInput!): Address!
+    createAddress(input: AddressInput!): Address!
+
+    updateAddress(input: AddressInput!): Address!
+
+    deleteAddress(id: IntID!): Boolean!
 }
 
-input CreateAddressInput {
+input AddressInput {
     title: String
     firstName: String!
     lastName: String!

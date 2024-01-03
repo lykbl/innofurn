@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Channel;
 use App\Models\Currency;
 use App\Models\ProductVariant;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Lunar\Actions\Carts\AddOrUpdatePurchasable;
 use Lunar\Actions\Carts\GetExistingCartLine;
@@ -62,18 +63,25 @@ class CartService
 
     private function getCart(): Cart
     {
-        $user       = Auth::user();
-        $activeCart = $user?->activeCart;
-        if (!$activeCart) {
-            $activeCart = \Lunar\Models\Cart::create([
-                'currency_id' => Currency::getDefault()->id,
-                'channel_id'  => Channel::getDefault()->id,
-                'user_id'     => $user->id,
-                'customer_id' => $user->retailCustomers()->first()->id,
-            ]); // TODO use session only when guest
+        $user = Auth::user();
+        if (!$user) {
+            return CartSession::current();
         }
 
-        return $activeCart; // ?? CartSession::current();
+        return $user->activeCart ?? $this->createCartForUser($user);
+    }
+
+    private function createCartForUser(User $user): Cart
+    {
+        $cart = Cart::create([
+            'currency_id' => Currency::getDefault()->id,
+            'channel_id'  => Channel::getDefault()->id,
+            'user_id'     => $user->id,
+            'customer_id' => $user->retailCustomers()->first()->id,
+        ]);
+        $cart->save();
+
+        return $cart;
     }
 
     private function getCartLine(Cart $cart, int $purchasableId): ?CartLine

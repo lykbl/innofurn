@@ -111,7 +111,6 @@ function CheckoutForm() {
 }
 
 export default function Page() {
-  console.log('checkout page')
   const stripePromise = loadStripe(
     "pk_test_51IqhrJJv2dzDDjOjDBuSb240GhU920A8zQhCXC6NHYexqcippO3F4gH2KDYznj8Pu4uDwBVFi16r8e31MVnTyhbj00ue2Xp0rI");
   const [clientSecret, setClientSecret] = useState<string>('');

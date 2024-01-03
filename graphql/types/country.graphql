@@ -7,6 +7,6 @@ type Country {
     capital: String!
     currency: String!
     native: String!
-    emoji: String! # Add emoji scalar
-    emojiU: String! # Add emoji scalar
+    emoji: String! # TODO Add emoji scalar
+    emojiU: String! # TODO Add emoji scalar
 }

@@ -20,7 +20,7 @@ return [
         'api/*',
         'sanctum/csrf-cookie',
         'graphql',
-        '/login',
+        '/login', // TODO remove this
     ],
 
     'allowed_methods' => ['*'],
@@ -35,5 +35,5 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => true, // TODO revert this
 ];
