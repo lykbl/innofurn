@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-class CustomerUserPivot extends \Illuminate\Database\Eloquent\Relations\Pivot
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+class CustomerUserPivot extends Pivot
 {
     protected $table = 'lunar_customer_user';
 }
