@@ -1,0 +1,5 @@
+extend type Query {
+    chatRoomMessages: [ChatMessage!]!
+    @orderBy(column: "created_at" direction: DESC)
+    @paginate(model: "App\\Models\\Chat\\ChatMessage", defaultCount: 10)
+}

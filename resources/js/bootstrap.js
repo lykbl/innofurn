@@ -19,7 +19,7 @@ import gql from "graphql-tag";
 import Pusher from "pusher-js";
 import {ApolloLink} from "apollo-link";
 
-import {ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client";
+import { ApolloClient, concat, createHttpLink, InMemoryCache } from "@apollo/client";
 import PusherLink from "./pusher.js";
 
 // Pusher.logToConsole = true;
@@ -28,11 +28,12 @@ const pusherLink = new PusherLink({
     pusher: new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
         cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
         authEndpoint: `http://localhost/graphql/subscriptions/auth`,
-        // auth: {
-        //     headers: {
-        //         authorization: BEARER_TOKEN,
-        //     },
-        // },
+        auth: {
+            headers: {
+                // 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                // 'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN')),
+            },
+        },
     }),
 });
 
@@ -41,22 +42,65 @@ const link = ApolloLink.from([
     createHttpLink({uri: `/graphql`})
 ]);
 
+const authMiddleware = new ApolloLink((operation, forward) => {
+    // add the authorization to the headers
+    operation.setContext(({ headers = {} }) => ({
+        headers: {
+            ...headers,
+            'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+            // authorization: localStorage.getItem('token') || null,
+        }
+    }));
+
+    return forward(operation);
+});
+
 const client = new ApolloClient({
-    link: link,
+    link: concat(authMiddleware, link),
     cache: new InMemoryCache(),
 });
 
-const subscription = client.subscribe({
-    query: gql`
-        subscription {
-            stockDecreased(id: 2) {
-                id
-                stock
+const joinChat = client.mutate({
+    mutation: gql`
+        mutation {
+            createChatRoom {
+                record { 
+                    id
+                }
+                query {
+                    chatRoomMessages(first: 0, page: 1) {
+                        data {
+                            id
+                            body
+                            createdAt
+                        }
+                        paginatorInfo {
+                            firstItem
+                            lastItem
+                            total
+                        }
+                    }
+                }
             }
         }
     `,
-}).subscribe(
-    (e) => console.log('RESULT', e),
-    (e) => console.log(e),
-    () => console.log('DONE')
-);
+}).then((result) => {
+    console.log('JOIN RESULT', result);
+    const chatRoomId = result.data.createChatRoom.record.id;
+    const messages = result.data.createChatRoom.query.chatRoomMessages.data;
+    console.log('ChatROomId', chatRoomId, 'Messages', messages);
+    const subscription = client.subscribe({
+        query: gql`
+            subscription {
+                updateChatRoom(chatRoomId: 1) {
+                    id
+                    body
+                }
+            }
+        `,
+    }).subscribe(
+      (e) => console.log('RESULT', e),
+      (e) => console.log(e),
+      () => console.log('DONE')
+    );
+})

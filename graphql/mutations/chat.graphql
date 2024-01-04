@@ -1,0 +1,17 @@
+extend type Mutation {
+    sendMessageToChatRoom(input: CreateChatMessageInput! @spread): ChatMessage!
+    @can(ability: "sendMessage", model: "App\\Models\\Chat\\ChatMessage", injectArgs: true)
+    @broadcast(subscription: "updateChatRoom")
+
+    createChatRoom: CreateChatRoomResult!
+}
+
+type CreateChatRoomResult {
+    record: ChatRoom!
+    query: Query!
+}
+
+input CreateChatMessageInput {
+    chatRoomId: IntID!
+    body: String!
+}
