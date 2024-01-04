@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     /*
    |--------------------------------------------------------------------------
    | Namespaces
@@ -15,9 +14,9 @@ return [
    |
    */
     'namespaces' => [
-        'models'  => [
+        'models' => [
             'App',
-            'App\\Models'
+            'App\\Models',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
@@ -32,10 +31,12 @@ return [
             'App\\GraphQL\\Mutations\\Review',
             'App\\GraphQL\\Mutations\\Checkout',
             'App\\GraphQL\\Mutations\\Address',
+            'App\\GraphQL\\Mutations\\Chat',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',
             'App\\GraphQL\\Subscriptions\\ProductVariant',
+            'App\\GraphQL\\Subscriptions\\Chat',
         ],
         'types'      => 'App\\GraphQL\\Types',
         'interfaces' => 'App\\GraphQL\\Interfaces',

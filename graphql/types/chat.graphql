@@ -1,0 +1,13 @@
+type ChatRoom {
+    id: IntID!
+    user: User!
+    messages: [ChatMessage!]!
+}
+
+type ChatMessage {
+    id: IntID!
+    body: String!
+    chatRoom: ChatRoom!
+    createdAt: DateTime!
+    customer: Customer!
+}

@@ -44,6 +44,10 @@ Route::controller(OAuthController::class)
             ->name('callback');
     });
 
+Route::get('/chat-test', function () {
+    return view('demo');
+});
+
 Route::get('/test', function (): void {
     // TODO remove me
 });
