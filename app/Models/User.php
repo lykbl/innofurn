@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Chat\ChatRoom;
 use App\Models\CustomerGroups\CustomerGroupTypes;
 use App\Models\OAuth\OAuthUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -81,10 +80,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activeCart(): HasOne
     {
         return $this->hasOne(Cart::class, 'user_id', 'id')->whereNull('completed_at');
-    }
-
-    public function activeChatRoom(): HasOne
-    {
-        return $this->hasOne(ChatRoom::class, 'user_id', 'id');
     }
 }

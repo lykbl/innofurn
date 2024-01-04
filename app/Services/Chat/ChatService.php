@@ -32,11 +32,12 @@ class ChatService
         return $activeChatRoom;
     }
 
-    public function sendMessageToChatRoom(string $body, int $chatRoomId): ChatMessage
+    public function sendMessageToChatRoom(string $body, int $chatRoomId, int $customerId = null): ChatMessage
     {
         return ChatMessage::create([
             'body'         => $body,
             'chat_room_id' => $chatRoomId,
+            'customer_id'  => $customerId,
         ]);
     }
 }
