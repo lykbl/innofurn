@@ -3,21 +3,20 @@
 import Link from "@/app/ui/common/link";
 // import { useSuspenseQuery } from "@apollo/client"; //TODO REVERT?
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
-// import { gql } from "@/app/__generated__";
-import { gql } from "@apollo/client";
-import { useEffect } from "react";
+import { gql } from '@/app/gql/gql';
 
 const GET_COLLECTIONS = gql(/* GraphQL */`
     query GetRootCollections {
         rootCollections {
             id
+            name
         }
     }
 `);
 
 export default function Page() {
   const { data } = useSuspenseQuery(
-    GET_COLLECTIONS as any,
+    GET_COLLECTIONS,
     {
       variables: {},
     }
@@ -29,6 +28,11 @@ export default function Page() {
     <>
       Main page
       <Link href='/product/test'>Product page</Link>
+      <div>
+        {data?.rootCollections?.map((collection) => (
+          <div key={collection.id}>{collection.name}</div>
+        ))}
+      </div>
     </>
   );
 }
