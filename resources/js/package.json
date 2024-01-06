@@ -6,9 +6,13 @@
         "prettier": "prettier --write --ignore-unknown .",
         "prettier:check": "prettier --check --ignore-unknown .",
         "start": "next start",
-        "seed": "node -r dotenv/config ./scripts/seed.js"
+        "seed": "node -r dotenv/config ./scripts/seed.js",
+        "compile": "graphql-codegen",
+        "watch": "graphql-codegen -w"
     },
     "dependencies": {
+        "@apollo/client": "^3.8.0-rc.2",
+        "@apollo/experimental-nextjs-app-support": "^0.6.0",
         "@stripe/react-stripe-js": "^2.4.0",
         "@stripe/stripe-js": "^2.2.2",
         "@tailwindcss/forms": "^0.5.7",
@@ -17,6 +21,7 @@
         "axios": "^1.6.3",
         "clsx": "^2.0.0",
         "framer-motion": "^10.16.5",
+        "graphql": "^16.8.1",
         "next": "^14.0.2",
         "postcss": "^8.4.32",
         "react": "18.2.0",
@@ -24,10 +29,13 @@
         "react-icons": "^4.12.0",
         "react-use": "^17.4.0",
         "tailwind-merge": "^2.0.0",
-        "tailwindcss": "^3.4.0",
-        "typescript": "5.2.2"
+        "tailwindcss": "^3.4.0"
     },
     "devDependencies": {
+        "@graphql-codegen/cli": "^5.0.0",
+        "@graphql-codegen/client-preset": "^4.1.0",
+        "@graphql-typed-document-node/core": "^3.2.0",
+        "@parcel/watcher": "^2.3.0",
         "@types/bcrypt": "^5.0.1",
         "@types/react": "18.2.21",
         "@types/react-dom": "18.2.14",
@@ -38,7 +46,8 @@
         "eslint-config-prettier": "9.0.0",
         "prettier": "^3.0.3",
         "prettier-plugin-tailwindcss": "0.5.4",
-        "sass": "^1.69.5"
+        "sass": "^1.69.5",
+        "typescript": "^5.3.3"
     },
     "engines": {
         "node": ">=18.17.0"
