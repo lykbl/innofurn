@@ -22,8 +22,6 @@ export default function Page() {
     }
   );
 
-  console.log(data);
-
   return (
     <>
       Main page

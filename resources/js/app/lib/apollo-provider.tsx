@@ -11,7 +11,7 @@ import React from "react";
 
 function createClient() {
   const httpLink = new HttpLink({
-    uri: "http://localhost/graphql",
+    uri: process.env.GRAPHQL_ENDPOINT,
   });
 
   return new NextSSRApolloClient({

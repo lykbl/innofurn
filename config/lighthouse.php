@@ -223,7 +223,7 @@ return [
          * Limit the maximum amount of items that clients can request from paginated lists.
          * Setting this to `null` means the count is unrestricted.
          */
-        'max_count' => null,
+        'max_count' => 50,
     ],
 
     /*
@@ -417,19 +417,19 @@ return [
          * Subscription broadcasting drivers with config options.
          */
         'broadcasters' => [
-            'log' => [
-                'driver' => 'log',
-            ],
+//            'log' => [
+//                'driver' => 'log',
+//            ],
             'pusher' => [
                 'driver'     => 'pusher',
                 'routes'     => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
-            'echo' => [
-                'driver'     => 'echo',
-                'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes'     => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
-            ],
+//            'echo' => [
+//                'driver'     => 'echo',
+//                'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
+//                'routes'     => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+//            ],
         ],
 
         /*
