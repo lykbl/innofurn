@@ -1,4 +1,6 @@
 extend type Query {
+    checkMe: User @guard
+
     "Find a single user by an identifying attribute."
     user(
         "Search by primary key."

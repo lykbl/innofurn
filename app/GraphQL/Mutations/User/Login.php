@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations\User;
 
+use App\Models\User;
 use GraphQL\Error\Error;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Arr;
@@ -27,9 +28,12 @@ final class Login extends UserMutation
     {
         $guard = Auth::guard(Arr::first(config('sanctum.guard', 'web')));
 
-        if (!$guard->attempt($args)) {
+        $user = User::where('email', $args['email'])->first();
+        if (!$user) {
             throw new Error('Invalid credentials.');
         }
+
+        $guard->loginUsingId($user->id);
 
         return $guard->user();
     }
