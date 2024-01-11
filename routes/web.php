@@ -62,3 +62,7 @@ Route::post('/login', function (Illuminate\Http\Request $request) {
 
     return new JsonResponse(['status' => 'ok']);
 });
+
+Route::get('/apollo-demo', function () {
+    return view('apollo-demo');
+});

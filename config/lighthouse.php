@@ -17,12 +17,14 @@ return [
         'models' => [
             'App',
             'App\\Models',
+            'App\\Models\\Review\\',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
             'App\\GraphQL\\Queries\\Product',
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Review',
+            'App\\GraphQL\\Queries\\User',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',

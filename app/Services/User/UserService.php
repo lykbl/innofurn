@@ -9,6 +9,7 @@ use App\Models\CustomerGroups\CustomerGroup;
 use App\Models\OAuth\OAuthTypes;
 use App\Models\OAuth\OAuthUser;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,12 +19,16 @@ use Lunar\Models\Customer;
 
 class UserService
 {
-    public function signUp(string $firstName, string $lastName, ?string $password, string $email): User
+    public function signUp(string $email, string $firstName = null, string $lastName = null): User
     {
+        $faker     = Factory::create();
+        $firstName = $firstName ?? $faker->firstName;
+        $lastName  = $lastName ?? $faker->lastName;
+
         /** @var User $user */
         $user = User::create([
             'name'     => "$firstName $lastName",
-            'password' => $password ?? Hash::make(Str::random(32)),
+            'password' => Hash::make(Str::random(32)),
             'email'    => $email,
         ]);
         $user->save();
@@ -62,7 +67,7 @@ class UserService
         if (!$user) {
             $name                   = $socialiteUser->getName() ?? $socialiteUser->getNickname();
             [$firstName, $lastName] = 2 === count(explode(' ', $name)) ? explode(' ', $name) : [$name, ''];
-            $user                   = $this->signUp($firstName, $lastName, null, $socialiteUser->getEmail());
+            $user                   = $this->signUp($socialiteUser->getEmail(), $firstName, $lastName);
             $oauthUser              = OAuthUser::create([
                 'oauth_id' => $socialiteUser->getId(),
                 'type'     => $type->value,
