@@ -1,4 +1,3 @@
 extend type Query {
-    getUserReviewsTest: [Review!] @guard @all(model: "App\\Models\\Review\\Review") @whereAuth(relation: "user")
     getUserReviews: [Review!] @guard
 }
