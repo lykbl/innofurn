@@ -9,5 +9,5 @@ type ChatMessage {
     body: String!
     chatRoom: ChatRoom!
     createdAt: DateTime!
-    customer: Customer!
+    author: Customer!
 }
