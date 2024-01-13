@@ -12,6 +12,7 @@ final class UpdateChatRoom extends GraphQLSubscription
 {
     public function authorize(Subscriber $subscriber, Request $request): bool
     {
+        return true;
         $chatRoomId = (int) $subscriber->args['chatRoomId']; // TODO verify this when connected to frontend
         if ($user = $subscriber->context->user) {
             $activeChatRoom = $user->retailCustomer->activeChatRoom;
@@ -28,6 +29,10 @@ final class UpdateChatRoom extends GraphQLSubscription
 
     public function filter(Subscriber $subscriber, mixed $root): bool
     {
-        return true;
+        if ($root->customer_id) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

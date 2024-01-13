@@ -99,5 +99,4 @@ function getObserver(observerOrNext, onError, onComplete) {
         };
     }
 }
-
 export default PusherLink;

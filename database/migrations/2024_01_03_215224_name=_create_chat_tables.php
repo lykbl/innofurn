@@ -15,9 +15,9 @@ return new class() extends Migration {
         Schema::create('chat_rooms', function (Blueprint $blueprint): void {
             $blueprint->id();
             $blueprint->unsignedBigInteger('customer_id')->nullable();
-            $blueprint->foreign('customer_id')->references('id')->on('lunar_customers');
-            $blueprint->softDeletes();
+            $blueprint->foreign('customer_id')->references('id')->on('lunar_customers'); //TODO Can be removed?
             $blueprint->timestamps();
+            $blueprint->softDeletes();
         });
 
         Schema::create('chat_messages', function (Blueprint $blueprint): void {
@@ -25,6 +25,8 @@ return new class() extends Migration {
             $blueprint->foreignId('chat_room_id')->references('id')->on('chat_rooms')->constrained();
             $blueprint->unsignedBigInteger('customer_id')->nullable();
             $blueprint->foreign('customer_id')->references('id')->on('lunar_customers');
+            $blueprint->unsignedBigInteger('staff_id')->nullable();
+            $blueprint->foreign('staff_id')->references('id')->on('lunar_staff');
             $blueprint->addColumn('text', 'body');
             $blueprint->timestamps();
             $blueprint->softDeletes();

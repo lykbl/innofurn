@@ -4,10 +4,12 @@ type ChatRoom {
     messages: [ChatMessage!]!
 }
 
+union Author = Customer | Staff
+
 type ChatMessage {
     id: IntID!
     body: String!
     chatRoom: ChatRoom!
+    author: Author!
     createdAt: DateTime!
-    author: Customer!
 }

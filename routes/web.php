@@ -64,5 +64,5 @@ Route::post('/login', function (Illuminate\Http\Request $request) {
 });
 
 Route::get('/apollo-demo', function () {
-    return view('apollo-demo');
+    return view('demo');
 });

@@ -30,8 +30,6 @@ const pusherLink = new PusherLink({
         authEndpoint: `http://localhost/graphql/subscriptions/auth`,
         auth: {
             headers: {
-                // 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
-                // 'X-XSRF-TOKEN': decodeURIComponent(getCookie('XSRF-TOKEN')),
             },
         },
     }),
@@ -92,7 +90,7 @@ const joinChat = client.mutate({
     const subscription = client.subscribe({
         query: gql`
             subscription {
-                updateChatRoom(chatRoomId: 1) {
+                updateChatRoom {
                     id
                     body
                 }

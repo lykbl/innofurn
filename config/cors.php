@@ -20,6 +20,7 @@ return [
         'api/*',
         'sanctum/csrf-cookie',
         'graphql',
+        'graphql/subscriptions/auth',
         '/login', // TODO remove this
     ],
 

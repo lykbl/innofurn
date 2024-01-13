@@ -3,4 +3,5 @@ type Customer {
     firstName: String!
     lastName: String!
     name: String!
+    role: String!
 }

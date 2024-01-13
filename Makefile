@@ -27,7 +27,7 @@ migrate-down:
 	docker exec -it $(image-name) php artisan migrate:rollback --step=$(rollback-step)
 
 config-clear:
-	$(artisan) config:clear
+	docker exec -it $(image-name) php artisan config:clear
 
 colorize=printf $(terminalCommand)$(asciiGreen)"%s"$(terminalCommand)$(asciiDefault) "$1"
 logs:
@@ -49,7 +49,7 @@ reload:
 	docker exec -it $(image-name) /bin/bash -c 'kill -USR2 $$(ps -ef | grep "php-fpm: master" | grep -v grep | awk "{print \$$2}" | head -1)'
 
 graphql-generate:
-	$(artisan) lighthouse:ide-helper
+	docker exec -it $(image-name) php artisan lighthouse:ide-helper
 
 patch-generate:
 	docker exec -it $(image-name) ./bin/vendor-patches generate

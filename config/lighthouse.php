@@ -25,6 +25,7 @@ return [
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Review',
             'App\\GraphQL\\Queries\\User',
+            'App\\GraphQL\\Queries\\Chat',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
