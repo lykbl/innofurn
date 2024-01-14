@@ -1,5 +1,5 @@
 extend type Query {
-    chatRoomMessages(first: Int! page: Int = 1): [ChatMessage!]!
+    chatRoomMessages(first: Int! page: Int!): [ChatMessage!]!
     @paginate(resolver: "App\\GraphQL\\Queries\\Chat\\ChatRoomMessages")
 #    @paginate(builder: "App\\GraphQL\\Queries\\Chat\\ChatRoomMessages", defaultCount: 10, maxCount: 10)
 #    @orderBy(column: "created_at" direction: DESC)

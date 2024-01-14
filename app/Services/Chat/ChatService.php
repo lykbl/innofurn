@@ -14,15 +14,15 @@ class ChatService
     public function getChatRoomMessages(?User $user, int $first, int $page)
     {
         $activeChatRoom = $user->retailCustomer->activeChatRoom;
-        $query = $activeChatRoom
-            ->messages()
+        $query = ChatMessage::query()->where('chat_room_id', $activeChatRoom->id);
+
+        $total = $query->count();
+        /** @var Collection $messages */
+        $messages = $query
             ->limit($first)
             ->offset(($page - 1) * $first)
-            ->orderBy('created_at', 'desc');
-
-        /** @var Collection $messages */
-        $messages = $query->get();
-        $total = $query->count();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return [$messages->reverse(), $total];
     }
