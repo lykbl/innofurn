@@ -15,6 +15,12 @@ class SendMessageToChatRoom extends ChatMutation
     {
         $customerId = Auth::user()?->retailCustomer->id;
 
+        sleep(6);
+        $failRate = random_int(0, 100);
+//        if ($failRate < 30) {
+            throw new \Exception('Failed to send message');
+//        }
+
         return $this->chatService->sendMessageToChatRoom(...$args, customerId: $customerId);
     }
 }

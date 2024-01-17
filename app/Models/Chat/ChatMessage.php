@@ -18,6 +18,7 @@ class ChatMessage extends Model
         'chat_room_id',
         'customer_id',
         'staff_id',
+        'status',
     ];
 
     protected $visible = [
