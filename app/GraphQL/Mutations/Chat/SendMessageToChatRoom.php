@@ -17,9 +17,9 @@ class SendMessageToChatRoom extends ChatMutation
 
         sleep(6);
         $failRate = random_int(0, 100);
-//        if ($failRate < 30) {
+        if ($failRate < 30) {
             throw new \Exception('Failed to send message');
-//        }
+        }
 
         return $this->chatService->sendMessageToChatRoom(...$args, customerId: $customerId);
     }
