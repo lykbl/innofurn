@@ -1,5 +1,5 @@
 type ChatRoom {
-    id: IntID!
+    id: ID!
     user: User!
     messages: [ChatMessage!]!
 }
@@ -14,7 +14,7 @@ enum CHAT_MESSAGE_STATUSES {
 }
 
 type ChatMessage {
-    id: IntID!
+    id: ID!
     body: String!
     chatRoom: ChatRoom!
     author: Author!

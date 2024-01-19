@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Chat;
 
 use App\Models\Chat\ChatMessage;
+use App\Models\Chat\ChatMessageStatuses;
 use App\Models\Chat\ChatRoom;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -55,6 +56,7 @@ class ChatService
             'chat_room_id' => $chatRoomId,
             'customer_id'  => $customerId,
             'staff_id'     => $staffId,
+            'status'       => ChatMessageStatuses::DELIVERED->value,
         ]);
     }
 }
