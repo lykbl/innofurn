@@ -12,6 +12,5 @@ type CreateChatRoomResult {
 }
 
 input CreateChatMessageInput {
-    chatRoomId: IntID!
     body: String!
 }

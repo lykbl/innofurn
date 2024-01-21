@@ -12,8 +12,8 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::table('chat_messages', function (Blueprint $table): void {
-            $table->enum('status', ['delivered', 'read'])->after('body');
+        Schema::table('chat_rooms', function (Blueprint $table): void {
+            $table->timestamp('closed_at')->nullable()->after('customer_id');
         });
     }
 
@@ -22,8 +22,8 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::table('chat_messages', function (Blueprint $table): void {
-            $table->dropColumn('status');
+        Schema::table('chat_rooms', function (Blueprint $table): void {
+            $table->dropColumn('closed_at');
         });
     }
 };
