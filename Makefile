@@ -1,5 +1,4 @@
 sail:=bin/sail
-rollback-step:=1
 image-name:=laravel.test
 
 up:
@@ -15,19 +14,19 @@ reup:
 	make up
 
 migrate-create:
-	docker exec -it $(image-name) php artisan make:migration name=$(name)
-
-post-deploy:
-	vendor/bin/sail artisan clear-compiled && chmod -R 777 public/
+	$(sail) artisan make:migration name=$(name)
 
 migrate-up:
-	docker exec -it $(image-name) php artisan migrate
+	$(sail) artisan migrate
 
 migrate-down:
-	docker exec -it $(image-name) php artisan migrate:rollback --step=$(rollback-step)
+	$(sail) artisan migrate:rollback --step=1
+
+post-deploy:
+	$(sail) artisan clear-compiled && chmod -R 777 public/
 
 config-clear:
-	docker exec -it $(image-name) php artisan config:clear
+	$(sail) config:clear
 
 colorize=printf $(terminalCommand)$(asciiGreen)"%s"$(terminalCommand)$(asciiDefault) "$1"
 logs:
@@ -40,7 +39,7 @@ cs-fix:
 #	docker exec -it $(image-name) php artisan
 
 seed:
-	docker exec -it $(image-name) php artisan seeders:run
+	$(sail) artisan seeders:run
 
 shell:
 	docker exec -it "$(image-name)" /bin/bash
@@ -49,7 +48,7 @@ reload:
 	docker exec -it $(image-name) /bin/bash -c 'kill -USR2 $$(ps -ef | grep "php-fpm: master" | grep -v grep | awk "{print \$$2}" | head -1)'
 
 graphql-generate:
-	docker exec -it $(image-name) php artisan lighthouse:ide-helper
+	$(sail) artisan lighthouse:ide-helper
 
 patch-generate:
 	docker exec -it $(image-name) ./bin/vendor-patches generate
