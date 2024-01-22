@@ -15,7 +15,7 @@ class ChatService
     public function getChatRoomMessages(?User $user, int $first, int $page)
     {
         $activeChatRoom = $user->retailCustomer->activeChatRoom;
-        $query = ChatMessage::query()->where('chat_room_id', $activeChatRoom->id);
+        $query          = ChatMessage::query()->where('chat_room_id', $activeChatRoom->id);
 
         $total = $query->count();
         /** @var Collection $messages */
@@ -27,6 +27,7 @@ class ChatService
 
         return [$messages->reverse(), $total];
     }
+
     public function createChatRoom(?User $user): ChatRoom
     {
         if ($user) {

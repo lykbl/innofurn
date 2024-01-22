@@ -14,6 +14,6 @@ final class Author
 {
     public function __invoke(ChatMessage $chatMessage, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Customer|Staff
     {
-        return $chatMessage->customer_id !== null ? $chatMessage->customer : $chatMessage->staff;
+        return null !== $chatMessage->customer_id ? $chatMessage->customer : $chatMessage->staff;
     }
 }

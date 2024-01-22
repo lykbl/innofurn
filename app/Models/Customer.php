@@ -24,4 +24,9 @@ class Customer extends BaseCustomer
     {
         return $this->hasOne(ChatRoom::class);
     }
+
+    public function getNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

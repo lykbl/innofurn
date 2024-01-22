@@ -12,6 +12,6 @@ final class Name
 {
     public function __invoke(Customer $customer, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): string
     {
-        return $customer->first_name . ' ' . $customer->last_name;
+        return $customer->first_name.' '.$customer->last_name;
     }
 }

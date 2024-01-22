@@ -15,6 +15,7 @@ class ChatPolicy
         $chatRoom = ChatRoom::find($args['chatRoomId']);
         $customer = $user->retailCustomer;
 
+        //TODO allow for staff
         return
             $customer->id === $chatRoom->customer_id
             ? Response::allow()

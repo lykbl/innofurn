@@ -29,6 +29,7 @@ final class UpdateChatRoom extends GraphQLSubscription
 
     public function filter(Subscriber $subscriber, mixed $root): bool
     {
+        return true;
         if ($root->customer_id) {
             return false;
         } else {
