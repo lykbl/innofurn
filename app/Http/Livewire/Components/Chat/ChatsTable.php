@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Components\Chat;
 
 use App\Models\Chat\ChatRoom;
@@ -14,7 +16,7 @@ class ChatsTable extends Table
     /**
      * {@inheritDoc}
      */
-    public function build()
+    public function build(): void
     {
         $this->tableBuilder->baseColumns([
             TextColumn::make('id'),
@@ -30,7 +32,7 @@ class ChatsTable extends Table
         ]);
 
         $this->tableBuilder->addAction(Action::make('view')->label('Join Chat')->url(function ($record) {
-           return route('adminhub.chats.join', $record->id);
+            return route('adminhub.chats.join', $record->id);
         }));
     }
 

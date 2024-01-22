@@ -5,19 +5,19 @@ declare(strict_types=1);
 use Lunar\Hub\Http\Middleware\Authenticate;
 
 Route::group([
-    'prefix' => config('lunar-hub.system.path', 'hub'),
+    'prefix'     => config('lunar-hub.system.path', 'hub'),
     'middleware' => config('lunar-hub.system.middleware', ['web']),
-], function () {
+], function (): void {
     Route::group([
         'middleware' => [
-            Authenticate::class
+            Authenticate::class,
         ],
-    ], function ($router) {
+    ], function ($router): void {
         Route::group([
             'prefix' => 'chats',
-        ], __DIR__ . '/includes/chats.php');
+        ], __DIR__.'/includes/chats.php');
         Route::group([
             'prefix' => 'tickets',
-        ], __DIR__ . '/includes/tickets.php');
+        ], __DIR__.'/includes/tickets.php');
     });
 });

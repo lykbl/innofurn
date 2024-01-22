@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\ShippingModifiers;
 use Lunar\Facades\ModelManifest;
-use Lunar\Hub\Facades\Menu;
 use Lunar\Models\Address;
 use Lunar\Models\Cart;
 use Lunar\Models\Collection;

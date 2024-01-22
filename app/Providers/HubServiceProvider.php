@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Livewire;
 use Lunar\Hub\Facades\Menu;
-use Lunar\Hub\Menu\MenuSlot;
 
 class HubServiceProvider extends ServiceProvider
 {
@@ -21,11 +19,11 @@ class HubServiceProvider extends ServiceProvider
             return;
         }
 
-        $this->loadRoutesFrom(app_path() . '/../routes/adminhub/index.php');
+        $this->loadRoutesFrom(app_path().'/../routes/adminhub/index.php');
         $this->extendMenuBuilder();
 
-//        $this->loadViewsFrom(__DIR__ . '/../resources/views/adminhub/', 'adminhub');
-//        $this->registerViewComponents();
+        //        $this->loadViewsFrom(__DIR__ . '/../resources/views/adminhub/', 'adminhub');
+        //        $this->registerViewComponents();
     }
 
     private function extendMenuBuilder(): void
@@ -41,7 +39,7 @@ class HubServiceProvider extends ServiceProvider
             ->group('hub.support')
             ->name(__('adminhub::menu.sidebar.support'));
         $supportGroup
-            ->addItem(function ($item) {
+            ->addItem(function ($item): void {
                 $item
                     ->name(__('adminhub::menu.sidebar.chats'))
                     ->handle('hub.chats')
@@ -49,7 +47,7 @@ class HubServiceProvider extends ServiceProvider
                     ->icon('chat');
             });
         $supportGroup
-            ->addItem(function ($item) {
+            ->addItem(function ($item): void {
                 $item
                     ->name(__('adminhub::menu.sidebar.issue-tickets'))
                     ->handle('hub.tickets')
@@ -58,9 +56,9 @@ class HubServiceProvider extends ServiceProvider
             });
     }
 
-    private function registerViewComponents()
+    private function registerViewComponents(): void
     {
         // Blade Components
-//        Blade::componentNamespace('App\\Views\\Components', 'hub');
+        //        Blade::componentNamespace('App\\Views\\Components', 'hub');
     }
 }

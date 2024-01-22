@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Pages\Chat;
 
 use Illuminate\View\View;
 use Livewire\Component;
 
-class
-ChatsJoin extends Component
-
+class ChatsJoin extends Component
 {
     /**
      * Render the livewire component.
