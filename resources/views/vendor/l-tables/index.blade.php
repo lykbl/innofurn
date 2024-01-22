@@ -304,6 +304,10 @@
                                 </tr>
                             @endforeach
                         </tbody>
+
+                        <tfoot class="lt-bg-white p-4">
+
+                        </tfoot>
                     </table>
                 @else
                     <x-l-tables::support.no-entries :message="$this->emptyMessage" />

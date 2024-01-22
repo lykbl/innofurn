@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Livewire\Pages\Chat\ChatsIndex;
-use App\Http\Livewire\Pages\Chat\ChatsJoin;
+use App\Http\Livewire\Pages\Ticket\TicketsIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
 //    'middleware' => 'can:chats:manage-tickets',
 ], function (): void {
-    Route::get('/', ChatsIndex::class)->name('adminhub.tickets.index');
+    Route::get('/', TicketsIndex::class)->name('adminhub.tickets.index');
 
     Route::group([
         'prefix' => '{chat}',

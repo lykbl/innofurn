@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Pages\Chat;
+namespace App\Http\Livewire\Pages\ChatRoom;
 
 use Illuminate\View\View;
 use Livewire\Component;
 
-class ChatsJoin extends Component
+class ChatRoomShow extends Component
 {
     /**
      * Render the livewire component.
@@ -16,6 +16,6 @@ class ChatsJoin extends Component
      */
     public function render()
     {
-        return view('adminhub.livewire.pages.chats.join');
+        return view('adminhub.livewire.pages.chats.show');
     }
 }

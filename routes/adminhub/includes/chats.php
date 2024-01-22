@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Livewire\Pages\Chat\ChatsIndex;
-use App\Http\Livewire\Pages\Chat\ChatsJoin;
+use App\Http\Livewire\Pages\ChatRoom\ChatRoomShow;
+use App\Http\Livewire\Pages\ChatRoom\ChatRoomsIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::group([
 //    'middleware' => 'can:chats:manage-chats',
 ], function (): void {
-    Route::get('/', ChatsIndex::class)->name('adminhub.chats.index');
+    Route::get('/', ChatRoomsIndex::class)->name('adminhub.chats.index');
 
     Route::group([
         'prefix' => '{chat}',
     ], function (): void {
-        Route::get('/', ChatsJoin::class)->name('adminhub.chats.join');
+        Route::get('/', ChatRoomShow::class)->name('adminhub.chats.show');
     });
 });

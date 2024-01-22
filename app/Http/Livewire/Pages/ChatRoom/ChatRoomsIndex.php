@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Pages\Chat;
+namespace App\Http\Livewire\Pages\ChatRoom;
 
 use Illuminate\View\View;
 use Livewire\Component;
 
-class ChatsIndex extends Component
+class ChatRoomsIndex extends Component
 {
     /**
      * Render the livewire component.

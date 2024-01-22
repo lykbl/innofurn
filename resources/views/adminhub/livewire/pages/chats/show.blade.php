@@ -1,3 +1,9 @@
 <div>
-    @include('partials.hubs.editing.sections')
+    Chat goes here...
+
+    @script
+    <script>
+
+    </script>
+    @endscript
 </div>
