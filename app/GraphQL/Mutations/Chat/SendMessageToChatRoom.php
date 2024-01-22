@@ -6,7 +6,6 @@ namespace App\GraphQL\Mutations\Chat;
 
 use App\Models\Chat\ChatMessage;
 use Auth;
-use Exception;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
