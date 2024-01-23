@@ -6,11 +6,11 @@ type ChatRoom {
 
 union Author = Customer | Staff
 
-enum CHAT_MESSAGE_STATUSES {
-    delivered
-    read
-    error
-    pending
+enum ChatMessageStatus {
+    DELIVERED @enum(value: "delivered")
+    READ @enum(value: "read")
+    ERROR @enum(value: "error")
+    PENDING @enum(value: "pending")
 }
 
 type ChatMessage {
@@ -19,5 +19,5 @@ type ChatMessage {
     chatRoom: ChatRoom!
     author: Author!
     createdAt: DateTime!
-    status: CHAT_MESSAGE_STATUSES!
+    status: ChatMessageStatus!
 }
