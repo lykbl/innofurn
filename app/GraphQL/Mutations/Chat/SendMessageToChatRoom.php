@@ -15,6 +15,6 @@ class SendMessageToChatRoom extends ChatMutation
     {
         $customerId = Auth::user()?->retailCustomer->id;
 
-        return $this->chatService->sendMessageToChatRoom(...$args, customerId: $customerId);
+        return $this->chatService->sendMessageToChatRoom(body: $args['body'], chatRoomId: (int) $args['chatRoomId'], customerId: $customerId);
     }
 }

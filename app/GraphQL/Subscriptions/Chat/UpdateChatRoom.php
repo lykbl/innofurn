@@ -36,4 +36,17 @@ final class UpdateChatRoom extends GraphQLSubscription
             return true;
         }
     }
+
+    public function encodeTopic(Subscriber $subscriber, string $fieldName): string
+    {
+//        return 'chatRoom.' . $subscriber->args['chatRoomId'];
+        return 'chatRoom.1';
+    }
+
+    public function decodeTopic(string $fieldName, mixed $root): string
+    {
+        $chatRoomId = $root->chatRoom->id;
+
+        return 'chatRoom.'.$chatRoomId;
+    }
 }
