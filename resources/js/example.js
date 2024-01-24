@@ -21,7 +21,7 @@ import Pusher from "pusher-js";
 import { ApolloLink } from "apollo-link";
 
 import { ApolloClient, concat, createHttpLink, InMemoryCache } from "@apollo/client";
-import PusherLink from "./pusher.js";
+import PusherLink from "./chat/pusher.js";
 
 // Pusher.logToConsole = true;
 

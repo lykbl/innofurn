@@ -61,6 +61,7 @@
     const fetcher = GraphiQL.createFetcher({
         url: '{{ $url }}',
         subscriptionUrl: '{{ $subscriptionUrl }}',
+        credentials: 'include',
     });
 
     function GraphiQLWithExplorer() {

@@ -21,10 +21,6 @@ class ChatMessage extends Model
         'status',
     ];
 
-    protected $visible = [
-        'created_at',
-    ];
-
     public function chatRoom(): BelongsTo
     {
         return $this->belongsTo(ChatRoom::class);

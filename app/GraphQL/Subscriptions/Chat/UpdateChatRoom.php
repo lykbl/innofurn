@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Subscriptions\Chat;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Lunar\Hub\Models\Staff;
 use Nuwave\Lighthouse\Schema\Types\GraphQLSubscription;
 use Nuwave\Lighthouse\Subscriptions\Subscriber;
 
@@ -12,16 +14,16 @@ final class UpdateChatRoom extends GraphQLSubscription
 {
     public function authorize(Subscriber $subscriber, Request $request): bool
     {
-        return true;
-        $chatRoomId = (int) $subscriber->args['chatRoomId']; // TODO verify this when connected to frontend
-        if ($user = $subscriber->context->user) {
-            $activeChatRoom = $user->retailCustomer->activeChatRoom;
+        $author = $subscriber->context->user;
+        //        $chatRoomId = (int) $subscriber->args['chatRoomId']; // TODO verify this when connected to frontend
+        if ($author instanceof User) {
+            $chatRoomId     = 1;
+            $activeChatRoom = $author->retailCustomer->activeChatRoom;
 
             return $activeChatRoom->id === $chatRoomId;
         }
-
-        if (session()->has('chatRoomId')) {
-            return session()->get('chatRoomId') === $chatRoomId;
+        if ($author instanceof Staff) {
+            return true;
         }
 
         return false;
@@ -39,7 +41,7 @@ final class UpdateChatRoom extends GraphQLSubscription
 
     public function encodeTopic(Subscriber $subscriber, string $fieldName): string
     {
-//        return 'chatRoom.' . $subscriber->args['chatRoomId'];
+        //        return 'chatRoom.' . $subscriber->args['chatRoomId'];
         return 'chatRoom.1';
     }
 

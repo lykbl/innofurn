@@ -12,6 +12,10 @@ export default defineConfig({
             postcss: [
                 // tailwindcss(),
             ],
+            paths: [
+              'resources/js/**/*.js',
+              'resources/views/**/*.js',
+            ],
         }),
     ],
 });

@@ -18,5 +18,6 @@ Route::group([
         'prefix' => '{chat}',
     ], function (): void {
         Route::get('/', ChatRoomShow::class)->name('adminhub.chats.show');
+        //        Route::get('/', fn () => view('adminhub.livewire.pages.chats.show'))->name('adminhub.chats.show');
     });
 });

@@ -1,17 +1,9 @@
-<div>
-    Chat goes here...
+<div class="flex-col space-y-4">
+    <div class="flex items-center justify-between">
+        <strong class="text-lg font-bold md:text-2xl">
+            {{ __('adminhub::components.chats.show.title') }}
+        </strong>
+    </div>
 
-    @if ($newMessageReceived)
-        <div>
-            I just got a message!!
-        </div>
-    @endif
-    @foreach ($messages as $message)
-        <div>
-            {{ $message->id }}
-            {{ $message->body }}
-        </div>
-    @endforeach
-
-    @vite(['resources/js/chat-subscription-provider.js'])
+    @livewire('components.chat-room.chat-room-provider')
 </div>
