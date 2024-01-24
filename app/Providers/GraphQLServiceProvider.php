@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Models\Chat\ChatMessageStatuses;
+use App\Domains\Chat\Models\ChatMessageStatuses;
 use GraphQL\Type\Definition\PhpEnumType;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;

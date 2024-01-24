@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Http\Livewire\Pages\ChatRoom\ChatRoomShow;
-use App\Http\Livewire\Pages\ChatRoom\ChatRoomsIndex;
+use App\Livewire\Chat\Pages\ChatRoomShow;
+use App\Livewire\Chat\Pages\ChatRoomsIndex;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -18,6 +18,7 @@ return [
             'App',
             'App\\Models',
             'App\\Models\\Review\\',
+            'App\\Domains\\Chat\\Models',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
@@ -25,7 +26,7 @@ return [
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Review',
             'App\\GraphQL\\Queries\\User',
-            'App\\GraphQL\\Queries\\Chat',
+            'App\\GraphQL\\Chat\\Queries',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
@@ -34,14 +35,17 @@ return [
             'App\\GraphQL\\Mutations\\Review',
             'App\\GraphQL\\Mutations\\Checkout',
             'App\\GraphQL\\Mutations\\Address',
-            'App\\GraphQL\\Mutations\\Chat',
+            'App\\GraphQL\\Chat\\Mutations',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',
             'App\\GraphQL\\Subscriptions\\ProductVariant',
-            'App\\GraphQL\\Subscriptions\\Chat',
+            'App\\GraphQL\\Chat\\Subscriptions',
         ],
-        'types'      => 'App\\GraphQL\\Types',
+        'types' => [
+            'App\\GraphQL\\Types',
+            'App\\GraphQL\\ChatMessage\\Types',
+        ],
         'interfaces' => 'App\\GraphQL\\Interfaces',
         'unions'     => 'App\\GraphQL\\Unions',
         'scalars'    => 'App\\GraphQL\\Scalars',

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Livewire\Pages\Ticket\TicketsIndex;
+use App\Livewire\Ticket\TicketsIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
