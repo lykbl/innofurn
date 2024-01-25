@@ -21,21 +21,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     (e) => console.log(e),
     () => console.log('DONE')
   );
-
-  const mutation = await apolloClient.mutate({
-    mutation: gql`
-        mutation SendMessage ($input: CreateChatMessageInput!) {
-            sendMessageToChatRoom(input: $input) {
-                id
-                body
-            }
-        }
-    `,
-    variables: {
-      input: {
-        body: 'from hub',
-        chatRoomId: 1
-      }
-    }
-  });
 })

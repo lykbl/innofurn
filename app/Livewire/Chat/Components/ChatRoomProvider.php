@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire\Chat\Components;
 
+use App\Domains\Chat\ChatService;
 use App\Domains\Chat\Models\ChatMessage;
-use App\Domains\Chat\Models\ChatRoom;
 use Livewire\Component;
 
 class ChatRoomProvider extends Component
@@ -16,9 +16,18 @@ class ChatRoomProvider extends Component
 
     public $listeners = ['updateChatRoom' => 'receiveNewMessage'];
 
-    public function mount(): void
+    public const PAGE_SIZE = 5;
+
+    public function mount(ChatService $chatService): void
     {
-        $this->messages = ChatRoom::find(1)->messages;
+        $query = $chatService->chatRoomMessagesQuery(1);
+
+        $this->messages = $query
+            ->limit(self::PAGE_SIZE)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->reverse()
+        ;
     }
 
     public function receiveNewMessage(ChatMessage $newMessage): void
