@@ -44,7 +44,15 @@
     <script defer
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"
+    />
+    <!-- And -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     @livewireStyles
+    @vite('resources/css/app.css')
 </head>
 <body class="antialiased bg-gray-50 dark:bg-gray-900"
       x-data="{
