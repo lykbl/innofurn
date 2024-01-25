@@ -8,24 +8,15 @@ use App\Domains\Chat\Models\ChatMessage;
 use App\Domains\Chat\Models\ChatMessageStatuses;
 use App\Domains\Chat\Models\ChatRoom;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class ChatService
 {
-    public function getChatRoomMessages(?User $user, int $first, int $page)
+    public function chatRoomMessagesQuery(int $chatRoomId): Builder
     {
-        $activeChatRoom = $user->retailCustomer->activeChatRoom;
-        $query          = ChatMessage::query()->where('chat_room_id', $activeChatRoom->id);
-
-        $total = $query->count();
-        /** @var Collection $messages */
-        $messages = $query
-            ->limit($first)
-            ->offset(($page - 1) * $first)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return [$messages->reverse(), $total];
+        return ChatMessage::query()
+            ->where('chat_room_id', $chatRoomId)
+        ;
     }
 
     public function createChatRoom(?User $user): ChatRoom

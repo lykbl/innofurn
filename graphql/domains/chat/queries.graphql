@@ -1,4 +1,11 @@
 extend type Query {
-    chatRoomMessages(first: Int! page: Int!): [ChatMessage!]!
-    @paginate(resolver: "App\\GraphQL\\Chat\\Queries\\ChatRoomMessages", defaultCount: 10, maxCount: 30)
+    chatRoomMessages(input: ChatRoomMessagesInput! @spread): [ChatMessage!]!
+    @paginate(builder: "App\\GraphQL\\Chat\\Queries\\ChatRoomMessages", defaultCount: 20, maxCount: 50)
+    @reverse
+}
+
+input ChatRoomMessagesInput {
+    chatRoomId: IntID!,
+    first: Int!,
+    page: Int!,
 }
