@@ -26,19 +26,19 @@ const asyncAuthLink = setContext(
 const pusherLink = new PusherLink({
   pusher: new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'eu',
-    authEndpoint: `http://localhost/graphql/subscriptions/auth`,
+    authEndpoint: `${import.meta.env.APP_HOST}/graphql/subscriptions/auth`,
     auth: {
       headers: {},
     },
   }),
 });
 
-const echoClient = window.Echo || new Echo({
-  broadcaster: 'pusher',
-  key: import.meta.env.VITE_PUSHER_APP_KEY,
-  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-  forceTLS: true
-});
+// const echoClient = window.Echo || new Echo({
+//   broadcaster: 'pusher',
+//   key: import.meta.env.VITE_PUSHER_APP_KEY,
+//   cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+//   forceTLS: true
+// });
 
 // const echoLink = createLighthouseSubscriptionLink(echoClient)
 
@@ -48,13 +48,12 @@ const apolloClient = new ApolloClient({
     // echoLink,
     pusherLink,
     createHttpLink({
-      uri: '/graphql',
+      uri: `${import.meta.env.APP_HOST}/graphql`,
       credentials: 'include',
     }),
   ]),
   cache: new InMemoryCache(),
 })
 
-window.ApolloClient = apolloClient;
-window.gql = gql;
-export default apolloClient;
+// window.ApolloClient = apolloClient;
+// window.gql = gql;

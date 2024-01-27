@@ -6,7 +6,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/chat-subscription-provider.js', // TODO do better?
+                'resources/js/apollo-client.js',
             ],
             refresh: true,
             postcss: [

@@ -50,12 +50,15 @@
 			</div>
 		</div>
 	</form>
-	@vite(['resources/js/chat/listeners-provider.js'])
+	@vite(['resources/js/apollo-client.js'])
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
       const chatRoomId = @js($chatRoom->id);
 			const apolloClient = window.ApolloClient;
       const gql = window.gql;
+      if (!apolloClient) {
+        return;
+			}
       const subscription = apolloClient.subscribe({
         query: gql`
         	subscription ChatRoomUpdates($chatRoomId: IntID!) {
@@ -76,7 +79,6 @@
           }
         },
         (e) => console.log(e),
-        () => console.log('DONE')
       );
 		})
 	</script>
