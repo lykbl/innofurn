@@ -18,6 +18,7 @@ return [
             'App',
             'App\\Models',
             'App\\Models\\Review\\',
+            'App\\Domains\\Chat\\Models',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
@@ -25,6 +26,7 @@ return [
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Review',
             'App\\GraphQL\\Queries\\User',
+            'App\\GraphQL\\Chat\\Queries',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\ProductVariant',
@@ -33,14 +35,16 @@ return [
             'App\\GraphQL\\Mutations\\Review',
             'App\\GraphQL\\Mutations\\Checkout',
             'App\\GraphQL\\Mutations\\Address',
-            'App\\GraphQL\\Mutations\\Chat',
+            'App\\GraphQL\\Chat\\Mutations',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',
             'App\\GraphQL\\Subscriptions\\ProductVariant',
-            'App\\GraphQL\\Subscriptions\\Chat',
+            'App\\GraphQL\\Chat\\Subscriptions',
         ],
-        'types'      => 'App\\GraphQL\\Types',
+        'types' => [
+            'App\\GraphQL\\Types',
+        ],
         'interfaces' => 'App\\GraphQL\\Interfaces',
         'unions'     => 'App\\GraphQL\\Unions',
         'scalars'    => 'App\\GraphQL\\Scalars',
@@ -88,7 +92,7 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-//            Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
+            Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
             // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
@@ -113,7 +117,8 @@ return [
     |
     */
 
-    'guards' => ['sanctum'],
+//    'guards' => [],
+    'guards' => ['staff', 'sanctum'],
 
     /*
     |--------------------------------------------------------------------------
@@ -408,7 +413,7 @@ return [
          * Setting this to `null` means the subscriptions are stored forever. This may cause
          * stale subscriptions to linger indefinitely in case cleanup fails for any reason.
          */
-        'storage_ttl' => env('LIGHTHOUSE_SUBSCRIPTION_STORAGE_TTL', null),
+        'storage_ttl' => env('LIGHTHOUSE_SUBSCRIPTION_STORAGE_TTL', 15 * 60),
 
         /*
          * Default subscription broadcaster.

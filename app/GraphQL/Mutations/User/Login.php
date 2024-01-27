@@ -33,8 +33,6 @@ final class Login extends UserMutation
             throw new Error('Invalid credentials.');
         }
 
-        $guard->loginUsingId($user->id);
-
-        return $guard->user();
+        return $guard->loginUsingId($user->id);
     }
 }

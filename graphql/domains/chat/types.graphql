@@ -1,0 +1,23 @@
+type ChatRoom {
+    id: IntID!
+    user: User!
+    messages: [ChatMessage!]!
+}
+
+union Author = Customer | Staff
+
+enum ChatMessageStatus {
+    DELIVERED @enum(value: "delivered")
+    READ @enum(value: "read")
+    ERROR @enum(value: "error")
+    PENDING @enum(value: "pending")
+}
+
+type ChatMessage {
+    id: ID!
+    body: String!
+    chatRoom: ChatRoom!
+    author: Author!
+    createdAt: DateTime! @rename(attribute: "created_at")
+    status: ChatMessageStatus!
+}

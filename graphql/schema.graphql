@@ -6,6 +6,8 @@
 #import mutations/*.graphql
 #import subscriptions/*.graphql
 
+#import domains/chat/*.graphql
+
 type Query
 
 type Subscription

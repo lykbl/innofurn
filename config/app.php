@@ -177,6 +177,7 @@ return [
         PaginationServiceProvider::class,
         ValidationServiceProvider::class,
         SubscriptionServiceProvider::class,
+        App\Providers\HubServiceProvider::class,
     ])->toArray(),
 
     /*

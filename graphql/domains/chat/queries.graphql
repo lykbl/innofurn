@@ -1,0 +1,6 @@
+extend type Query {
+    chatRoomMessages(chatRoomId: IntID!, first: Int!, page: Int!): [ChatMessage!]!
+    @paginate(builder: "App\\GraphQL\\Chat\\Queries\\ChatRoomMessages", defaultCount: 20, maxCount: 50)
+    @orderBy(column: "created_at", direction: DESC)
+    @reverse
+}
