@@ -2,23 +2,7 @@ import { gql } from "@apollo/client";
 import apolloClient from "../apollo-client.js";
 document.addEventListener('DOMContentLoaded', async function() {
   //TODO disconnects?
-  const subscription = apolloClient.subscribe({
-    query: gql`
-        subscription {
-            updateChatRoom {
-                id
-                body
-            }
-        }
-    `,
-  }).subscribe(
-    (fetchResult) => {
-      const newMessage = fetchResult.data.updateChatRoom;
-      if (newMessage) {
-        Livewire.emit('updateChatRoom', newMessage);
-      }
-    },
-    (e) => console.log(e),
-    () => console.log('DONE')
-  );
+  return 123;
+  console.log('liverwire data', Livewire)
+
 })

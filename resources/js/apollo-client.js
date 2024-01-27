@@ -55,4 +55,6 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
+window.ApolloClient = apolloClient;
+window.gql = gql;
 export default apolloClient;

@@ -7,5 +7,12 @@ export default {
   theme: {
     extend: {},
   },
+  corePlugins: {
+    // preflight: false,
+  },
   plugins: [require("rippleui")],
+  /** @type {import('rippleui').Config} */
+  rippleui: {
+    // defaultStyle: false,
+  },
 }

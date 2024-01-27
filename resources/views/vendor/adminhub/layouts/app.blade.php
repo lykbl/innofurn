@@ -49,8 +49,6 @@
             href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"
     />
     <!-- And -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     @livewireStyles
     @vite('resources/css/app.css')
 </head>

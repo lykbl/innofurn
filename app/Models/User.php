@@ -77,9 +77,4 @@ class User extends Authenticatable implements MustVerifyEmail
                 $query->where('handle', CustomerGroupTypes::Retail->value);
             });
     }
-
-    public function activeCart(): HasOne
-    {
-        return $this->hasOne(Cart::class, 'user_id', 'id')->whereNull('completed_at');
-    }
 }

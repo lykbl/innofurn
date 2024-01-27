@@ -35,6 +35,7 @@ final class Login extends UserMutation
 
         $guard->loginUsingId($user->id);
 
-        return $guard->user();
+        // TODO wtf guard dead?
+        return $user;
     }
 }

@@ -6,23 +6,37 @@ namespace App\Livewire\Chat\Components;
 
 use App\Domains\Chat\ChatService;
 use App\Domains\Chat\Models\ChatMessage;
+use App\Domains\Chat\Models\ChatRoom;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
 class ChatRoomProvider extends Component
 {
-    public bool $newMessageReceived = false;
+    private const PAGE_SIZE = 5;
 
-    public $messages;
+    /**
+     * @var Collection<ChatMessage>
+     */
+    public Collection $chatMessages;
+
+    public ChatRoom $chatRoom;
 
     public $listeners = ['updateChatRoom' => 'receiveNewMessage'];
 
-    public const PAGE_SIZE = 5;
+    public $input = '';
 
-    public function mount(ChatService $chatService): void
+    protected $rules = [
+        'input' => 'required|string',
+    ];
+
+    public function mount(ChatRoom $chatRoom, ChatService $chatService): void
     {
-        $query = $chatService->chatRoomMessagesQuery(1);
+        $this->chatRoom = $chatRoom;
+        $query          = $chatService->chatRoomMessagesQuery($this->chatRoom->id);
 
-        $this->messages = $query
+        $this->chatMessages = $query
             ->limit(self::PAGE_SIZE)
             ->orderBy('created_at', 'desc')
             ->get()
@@ -32,9 +46,18 @@ class ChatRoomProvider extends Component
 
     public function receiveNewMessage(ChatMessage $newMessage): void
     {
-        $this->newMessageReceived = true;
+        $this->chatMessages->push($newMessage);
+    }
 
-        $this->messages[] = $newMessage;
+    public function save(ChatService $chatService): void
+    {
+        $this->validateOnly('input');
+
+        $staff       = Auth::guard('staff')->user();
+        $chatMessage = $chatService->sendMessageToChatRoom($this->input, $this->chatRoom->id, staffId: $staff->id);
+        $this->chatMessages->push($chatMessage);
+        Subscription::broadcast('updateChatRoom', $chatMessage);
+        $this->reset(['input']);
     }
 
     public function render()

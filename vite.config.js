@@ -13,6 +13,7 @@ export default defineConfig({
                 // tailwindcss(),
             ],
             paths: [
+              'resources/css/**/*.css',
               'resources/js/**/*.js',
               'resources/views/**/*.js',
             ],

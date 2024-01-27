@@ -1,5 +1,5 @@
 type ChatRoom {
-    id: ID!
+    id: IntID!
     user: User!
     messages: [ChatMessage!]!
 }
@@ -18,6 +18,6 @@ type ChatMessage {
     body: String!
     chatRoom: ChatRoom!
     author: Author!
-    createdAt: DateTime!
+    createdAt: DateTime! @rename(attribute: "created_at")
     status: ChatMessageStatus!
 }

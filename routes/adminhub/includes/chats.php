@@ -6,18 +6,14 @@ use App\Livewire\Chat\Pages\ChatRoomShow;
 use App\Livewire\Chat\Pages\ChatRoomsIndex;
 use Illuminate\Support\Facades\Route;
 
-/*
- * Channel routes.
- */
 Route::group([
-//    'middleware' => 'can:chats:manage-chats',
+//    'middleware' => 'can:chats:manage-chats', //TODO implement when roles are ready
 ], function (): void {
     Route::get('/', ChatRoomsIndex::class)->name('adminhub.chats.index');
 
     Route::group([
-        'prefix' => '{chat}',
+        'prefix' => '{chatRoom}',
     ], function (): void {
         Route::get('/', ChatRoomShow::class)->name('adminhub.chats.show');
-        //        Route::get('/', fn () => view('adminhub.livewire.pages.chats.show'))->name('adminhub.chats.show');
     });
 });

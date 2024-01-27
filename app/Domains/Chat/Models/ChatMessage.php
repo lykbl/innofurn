@@ -35,4 +35,14 @@ class ChatMessage extends Model
     {
         return $this->belongsTo(Staff::class);
     }
+
+    public function author(): BelongsTo
+    {
+        return $this->staff_id ? $this->staff() : $this->customer();
+    }
+
+    public function isAdmin(): bool
+    {
+        return null !== $this->staff_id;
+    }
 }

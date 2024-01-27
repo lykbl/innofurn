@@ -12,6 +12,6 @@ class ChatRoomMessages extends ChatQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
     {
-        return $this->chatService->chatRoomMessagesQuery(...$args);
+        return $this->chatService->chatRoomMessagesQuery($args['chatRoomId']);
     }
 }

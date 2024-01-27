@@ -44,7 +44,6 @@ return [
         ],
         'types' => [
             'App\\GraphQL\\Types',
-            'App\\GraphQL\\ChatMessage\\Types',
         ],
         'interfaces' => 'App\\GraphQL\\Interfaces',
         'unions'     => 'App\\GraphQL\\Unions',

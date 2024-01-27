@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Chat\Subscriptions;
 
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Lunar\Hub\Models\Staff;
@@ -15,9 +16,8 @@ final class UpdateChatRoom extends GraphQLSubscription
     public function authorize(Subscriber $subscriber, Request $request): bool
     {
         $author = $subscriber->context->user;
-        //        $chatRoomId = (int) $subscriber->args['chatRoomId']; // TODO verify this when connected to frontend
         if ($author instanceof User) {
-            $chatRoomId     = 1;
+            $chatRoomId     = $subscriber->args['chatRoomId'];
             $activeChatRoom = $author->retailCustomer->activeChatRoom;
 
             return $activeChatRoom->id === $chatRoomId;
@@ -31,24 +31,23 @@ final class UpdateChatRoom extends GraphQLSubscription
 
     public function filter(Subscriber $subscriber, mixed $root): bool
     {
-        return true;
-        if ($root->customer_id) {
-            return false;
-        } else {
-            return true;
-        }
+        $author       = $root->author;
+        $subscriberId = $subscriber->context->user->id;
+
+        return match (true) {
+            $author instanceof Staff    => $subscriberId !== $author->id,
+            $author instanceof Customer => $subscriberId !== $author->user->id,
+            default                     => false,
+        };
     }
 
     public function encodeTopic(Subscriber $subscriber, string $fieldName): string
     {
-        //        return 'chatRoom.' . $subscriber->args['chatRoomId'];
-        return 'chatRoom.1';
+        return 'chatRoom.'.$subscriber->args['chatRoomId'];
     }
 
     public function decodeTopic(string $fieldName, mixed $root): string
     {
-        $chatRoomId = $root->chatRoom->id;
-
-        return 'chatRoom.'.$chatRoomId;
+        return 'chatRoom.'.$root->chatRoom->id;
     }
 }

@@ -5,5 +5,5 @@
         </strong>
     </div>
 
-    @livewire('components.chat-room.chat-room-provider')
+    @livewire('components.chat-room.chat-room-provider', ['chatRoom' => $chatRoom])
 </div>
