@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Types\ProductVariant;
 
+use App\Domains\ProductVariant\ProductVariant;
 use App\Models\Currency;
 use App\Models\Price as PriceModel;
-use App\Models\ProductVariant;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 

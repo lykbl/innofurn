@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\ProductVariant;
+use App\Domains\ProductVariant\ProductVariant;
 use Illuminate\Database\Seeder;
 
 class ProductVariantSeeder extends Seeder

@@ -7,6 +7,7 @@
 #import subscriptions/*.graphql
 
 #import domains/chat/*.graphql
+#import domains/product-variant/*.graphql
 
 type Query
 

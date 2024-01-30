@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $models = collect([
             Product::class        => \App\Models\Product::class,
-            ProductVariant::class => \App\Models\ProductVariant::class,
+            ProductVariant::class => \App\Domains\ProductVariant\ProductVariant::class,
             Price::class          => \App\Models\Price::class,
             Currency::class       => \App\Models\Currency::class,
             Url::class            => \App\Models\Url::class,

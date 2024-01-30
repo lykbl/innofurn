@@ -22,7 +22,7 @@ class HubServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(app_path().'/../routes/adminhub/index.php');
         $this->extendMenuBuilder();
 
-        //$this->registerViewComponents();
+        // $this->registerViewComponents();
     }
 
     private function extendMenuBuilder(): void

@@ -13,6 +13,6 @@ class CheckMe extends UserQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): User
     {
-        return Auth::user();
+        return Auth::guard('web')->user();
     }
 }

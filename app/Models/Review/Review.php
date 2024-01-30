@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models\Review;
 
+use App\Domains\ProductVariant\ProductVariant;
 use App\Models\CanBeArchived;
 use App\Models\NeedsApproval;
-use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

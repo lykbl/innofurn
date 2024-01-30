@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries\ProductVariant;
+namespace App\GraphQL\ProductVariant\Queries;
 
+use App\Domains\ProductVariant\ProductVariantService;
 use App\GraphQL\ResolverInterface;
-use App\Services\ProductVariant\ProductVariantService;
 
 abstract class ProductVariantQuery implements ResolverInterface
 {

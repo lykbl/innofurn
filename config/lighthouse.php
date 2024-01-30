@@ -23,13 +23,12 @@ return [
         'queries' => [
             'App\\GraphQL\\Queries',
             'App\\GraphQL\\Queries\\Product',
-            'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Review',
             'App\\GraphQL\\Queries\\User',
             'App\\GraphQL\\Chat\\Queries',
+            'App\\GraphQL\\ProductVariant\\Queries',
         ],
         'mutations' => [
-            'App\\GraphQL\\Mutations\\ProductVariant',
             'App\\GraphQL\\Mutations\\User',
             'App\\GraphQL\\Mutations\\Cart',
             'App\\GraphQL\\Mutations\\Review',
@@ -39,7 +38,6 @@ return [
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Product',
-            'App\\GraphQL\\Subscriptions\\ProductVariant',
             'App\\GraphQL\\Chat\\Subscriptions',
         ],
         'types' => [

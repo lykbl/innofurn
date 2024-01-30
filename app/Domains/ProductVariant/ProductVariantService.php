@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services\ProductVariant;
+namespace App\Domains\ProductVariant;
 
-use App\GraphQL\Queries\ProductVariant\ProductVariantOrderByEnum;
-use App\Models\ProductVariant;
+use App\GraphQL\ProductVariant\Queries\ProductVariantOrderByEnum;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductVariantService
@@ -23,6 +22,7 @@ class ProductVariantService
             ->from('lunar_product_variants as lpv')
             ->select(['lpv.*'])
             ->join('lunar_products as lp', 'lpv.product_id', '=', 'lp.id')
+            ->join('lunar_prices', 'lunar_prices.priceable_id', '=', 'lpv.id')
             ->when($type, function (Builder $query, string $type) {
                 return $query->where('lp.product_type_id', $type);
             })
@@ -42,7 +42,6 @@ class ProductVariantService
                 ['min' => $minPrice, 'max' => $maxPrice, 'currency' => $currencyId] = $priceFilter;
 
                 return $query
-                    ->join('lunar_prices', 'lunar_prices.priceable_id', '=', 'lpv.id')
                     ->where('lunar_prices.currency_id', $currencyId)
                     ->when($minPrice, fn (Builder $query) => $query->where('lunar_prices.price', '>=', $minPrice))
                     ->when($maxPrice, fn (Builder $query) => $query->where('lunar_prices.price', '<=', $maxPrice));

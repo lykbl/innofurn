@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries\ProductVariant;
+namespace App\GraphQL\ProductVariant\Queries;
 
 enum ProductVariantOrderByEnum: string
 {

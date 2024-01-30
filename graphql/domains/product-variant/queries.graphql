@@ -2,7 +2,7 @@ extend type Query {
     findProducts(
         filter: ProductVariantFilter!
         orderBy: ProductVariantOrderBy
-    ): [ProductVariant!]! @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProducts", defaultCount: 20, maxCount: 50)
+    ): [ProductVariant!]! @paginate(builder: "App\\GraphQL\\ProductVariant\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 }
 
 enum ProductVariantOrderBy {
