@@ -62,6 +62,6 @@ class ChatRoomProvider extends Component
 
     public function render()
     {
-        return view('adminhub.livewire.components.chat.chat-room-provider');
+        return view('adminhub::components.chat.chat-room-provider');
     }
 }

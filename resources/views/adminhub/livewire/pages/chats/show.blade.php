@@ -5,5 +5,7 @@
         </strong>
     </div>
 
-    @livewire('components.chat-room.chat-room-provider', ['chatRoom' => $chatRoom])
+    <livewire:chat.components.chat-room-provider
+        :chatRoom="$chatRoom"
+    />
 </div>

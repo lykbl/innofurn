@@ -18,6 +18,6 @@ class ChatRoomShow extends Component
 
     public function render()
     {
-        return view('adminhub.livewire.pages.chats.show', ['chat' => $this->chatRoom]);
+        return view('adminhub::pages.chats.show', ['chat' => $this->chatRoom]);
     }
 }

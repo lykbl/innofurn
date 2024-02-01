@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\FieldTypes\ColorFieldType;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Facades\FieldTypeManifest;
 use Lunar\Hub\Facades\Menu;
 
 class HubServiceProvider extends ServiceProvider
@@ -20,9 +23,13 @@ class HubServiceProvider extends ServiceProvider
         }
 
         $this->loadRoutesFrom(app_path().'/../routes/adminhub/index.php');
+        $this->loadViewsFrom(app_path().'/../resources/views/adminhub/livewire', 'adminhub');
         $this->extendMenuBuilder();
 
-        // $this->registerViewComponents();
+        FieldTypeManifest::add(
+            ColorFieldType::class
+        );
+        $this->registerViewComponents();
     }
 
     private function extendMenuBuilder(): void
@@ -58,6 +65,6 @@ class HubServiceProvider extends ServiceProvider
     private function registerViewComponents(): void
     {
         // Blade Components
-        //        Blade::componentNamespace('App\\Views\\Components', 'hub');
+        Blade::componentNamespace('App\\Livewire', 'adminhub');
     }
 }
