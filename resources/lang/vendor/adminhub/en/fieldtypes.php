@@ -23,4 +23,9 @@ return [
     'toggle.off_label' => 'Off Value',
     'youtube.label' => 'YouTube Video',
     'richtext.config' => 'You can you enter any available configuration below supported by :url.',
+    'color-picker' => [
+        'type' => 'Color Picker',
+        'label' => ['label' => 'Color Name (e.g. Lime)'],
+        'radio-button' => ['label' => 'Radio Button Color'],
+    ],
 ];
