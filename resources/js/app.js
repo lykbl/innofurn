@@ -1,7 +1,7 @@
-import Alpine from 'alpinejs'
 import Picker from "vanilla-picker";
+import { apolloClient } from "./apollo-client.js";
+import { gql } from "@apollo/client";
 
-window.Alpine = Alpine;
 window.Picker = Picker;
-
-Alpine.start()
+window.ApolloClient = apolloClient;
+window.gql = gql;

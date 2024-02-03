@@ -4,7 +4,7 @@ import { ApolloLink } from "apollo-link";
 import { setContext } from "@apollo/client/link/context";
 import Cookies from 'js-cookie';
 import PusherLink from "./chat/pusher-link.js";
-import Echo from "laravel-echo";
+// import Echo from "laravel-echo";
 // import { createLighthouseSubscriptionLink } from "./chat/echo-link.js";
 
 let csrfRequesting = false;
@@ -26,7 +26,7 @@ const asyncAuthLink = setContext(
 const pusherLink = new PusherLink({
   pusher: new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'eu',
-    authEndpoint: `${import.meta.env.APP_HOST}/graphql/subscriptions/auth`,
+    authEndpoint: `${import.meta.env.VITE_GRAPHQL_URL}/subscriptions/auth`,
     auth: {
       headers: {},
     },
@@ -42,13 +42,13 @@ const pusherLink = new PusherLink({
 
 // const echoLink = createLighthouseSubscriptionLink(echoClient)
 
-const apolloClient = new ApolloClient({
+export const apolloClient = new ApolloClient({
   link: ApolloLink.from([
     asyncAuthLink, //TODO can be removed?
     // echoLink,
     pusherLink,
     createHttpLink({
-      uri: `${import.meta.env.APP_HOST}/graphql`,
+      uri: `${import.meta.env.VITE_GRAPHQL_URL}`,
       credentials: 'include',
     }),
   ]),
