@@ -44,13 +44,13 @@
     <script defer
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"
-    />
     <!-- And -->
     @livewireStyles
-    @vite('resources/css/app.css')
+{{--    @vite('resources/css/app.css')--}}
+{{--    <link--}}
+{{--      rel="stylesheet"--}}
+{{--      href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"--}}
+{{--    />--}}
 </head>
 <body class="antialiased bg-gray-50 dark:bg-gray-900"
       x-data="{
@@ -111,5 +111,6 @@
 @endif
 
 @vite(['resources/js/app.js'])
+<script src="{{ asset('vendor/lunar/admin-hub/app.js') }}"></script>
 </body>
 </html>
