@@ -8,6 +8,8 @@
 
 #import domains/chat/*.graphql
 #import domains/product-variant/*.graphql
+#import domains/media/*.graphql
+#import domains/rating/*.graphql
 
 type Query
 

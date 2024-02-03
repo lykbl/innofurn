@@ -1,5 +1,5 @@
 type Media {
     name: String!
-    original_url: String!
+    originalUrl: String! @rename(attribute: "original_url")
     conversions(types: [ConversionTypes!]): [String!]
 }

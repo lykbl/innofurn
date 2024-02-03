@@ -14,5 +14,3 @@ scalar Rating
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
 scalar Phone
-
-scalar AttributeData
