@@ -30,7 +30,7 @@ class HubServiceProvider extends ServiceProvider
         FieldTypeManifest::add(
             ColorFieldType::class
         );
-        //        LunarHub::remoteScript()
+        LunarHub::remoteScript('https://cdn.jsdelivr.net/npm/vanilla-picker@2.12.2/dist/vanilla-picker.min.js');
         //        LunarHub::remoteStyle('https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css');
 
         $this->registerViewComponents();

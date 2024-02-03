@@ -9,7 +9,12 @@ use Lunar\Exceptions\FieldTypeException;
 
 class ColorFieldType implements FieldType
 {
-    protected string $value = '#fff';
+    protected ?string $value;
+
+    public function __construct($value = '')
+    {
+        $this->setValue($value);
+    }
 
     /**
      * @return string|null
@@ -45,11 +50,11 @@ class ColorFieldType implements FieldType
 
     public function getSettingsView(): string
     {
-        return 'adminhub.livewire.field-types.color-picker.settings';
+        return 'adminhub::livewire.field-types.color-picker.settings';
     }
 
     public function getView(): string
     {
-        return 'adminhub::livewire.field-types.color-picker.view';
+        return 'adminhub::field-types.color-picker.view';
     }
 }

@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet"/>
 
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css'])
     @livewireTableStyles
     <link href="{{ asset('vendor/lunar/admin-hub/app.css?v=1') }}" rel="stylesheet">
 
@@ -38,8 +38,7 @@
 
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 
-    <script defer
-            src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
     <!-- And -->
     @livewireStyles
