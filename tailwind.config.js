@@ -10,7 +10,7 @@ export default {
   corePlugins: {
     // preflight: false,
   },
-  plugins: [require("rippleui")],
+  // plugins: [require("rippleui")],
   /** @type {import('rippleui').Config} */
   rippleui: {
     // defaultStyle: false,

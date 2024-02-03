@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\FieldTypeManifest;
 use Lunar\Hub\Facades\Menu;
+use Lunar\Hub\LunarHub;
 
 class HubServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,9 @@ class HubServiceProvider extends ServiceProvider
         FieldTypeManifest::add(
             ColorFieldType::class
         );
+//        LunarHub::remoteScript()
+//        LunarHub::remoteStyle('https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css');
+
         $this->registerViewComponents();
     }
 
