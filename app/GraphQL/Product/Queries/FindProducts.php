@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\ProductVariant\Queries;
+namespace App\GraphQL\Product\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\GraphQL\ProductVariant\Queries\ProductVariantOrderByEnum;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class FindProducts extends ProductVariantQuery
+class FindProducts extends ProductQuery
 {
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         return $this->productVariantService->buildSearchQuery(...$args['filter'], orderBy: ProductVariantOrderByEnum::from(Str::lower($args['orderBy'])));
     }

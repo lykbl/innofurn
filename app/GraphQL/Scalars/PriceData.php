@@ -8,23 +8,22 @@ use Cartalyst\Converter\Converter;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
+use Lunar\Base\Casts\Price as PriceDataCast;
 
-class Price extends ScalarType
+class PriceData extends ScalarType
 {
     /**
-     * @param Price $value
+     * @param PriceDataCast $value
      *
      * @return array
      */
     public function serialize(mixed $value): array
     {
-        // TODO add validation and throw error?
-
         return [
-            'format'       => $value->price->formatted(),
-            'value'        => $value->price->value,
-            'currencyCode' => $value->price->currency->code,
-            'currencyName' => $value->price->currency->name,
+            'format'       => $value->formatted(),
+            'value'        => $value->value,
+            'currencyCode' => $value->currency->code,
+            'currencyName' => $value->currency->name,
         ];
     }
 

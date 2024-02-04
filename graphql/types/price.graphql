@@ -1,4 +1,0 @@
-#type Price {
-#    value: Int!
-#    currency_id: ID!
-#}

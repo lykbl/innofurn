@@ -1,0 +1,33 @@
+extend type Query {
+    findProducts(
+        filter: ProductFilter!
+        orderBy: ProductOrderBy
+    ): [Product!]! @paginate(builder: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
+}
+
+enum ProductOrderBy {
+    NAME_ASC
+    NAME_DESC
+    PRICE_ASC
+    PRICE_DESC
+}
+
+#input OptionFilterInput {
+#    optionTypeId: IntID!
+#    valueIds: [IntID!]!
+#}
+#
+#input PriceFilterInput {
+#    min: Int
+#    max: Int
+#    currency: IntID!
+#}
+
+input ProductFilter {
+    optionsFilter: [OptionFilterInput!]
+    type: IntID
+    name: String
+    collection: IntID
+    brand: IntID
+    priceFilter: PriceFilterInput
+}

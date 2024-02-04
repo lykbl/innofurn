@@ -5,8 +5,6 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 
 scalar Dimension
 
-scalar Price
-
 scalar IntID
 
 scalar Rating
@@ -14,3 +12,5 @@ scalar Rating
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
 scalar Phone
+
+scalar PriceData

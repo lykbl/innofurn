@@ -1,0 +1,6 @@
+type Price {
+    id: IntID!
+    price: PriceData! #TODO Fires a ton of currency queries
+#    price: Int!
+    currency: ID!
+}

@@ -2,7 +2,7 @@ type Product implements WithUrls {
     id: IntID!
     name(lang: Locales = ENGLISH): String
     description(lang: Locales = ENGLISH): String
-    variants: [ProductVariant!]
+    variants: [ProductVariant!] #@belongsToMany
     brand: Brand!
     collections: [Collection]
 

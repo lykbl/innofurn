@@ -11,6 +11,8 @@
 #import domains/product-variant/*.graphql
 #import domains/media/*.graphql
 #import domains/rating/*.graphql
+#import domains/product/*.graphql
+#import domains/prices/*.graphql
 
 type Query
 
