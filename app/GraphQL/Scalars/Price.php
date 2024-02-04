@@ -21,10 +21,10 @@ class Price extends ScalarType
         // TODO add validation and throw error?
 
         return [
-            'format'        => $value->price->formatted(),
-            'value'         => $value->price->value,
-            'currency_code' => $value->price->currency->code,
-            'currency_name' => $value->price->currency->name,
+            'format'       => $value->price->formatted(),
+            'value'        => $value->price->value,
+            'currencyCode' => $value->price->currency->code,
+            'currencyName' => $value->price->currency->name,
         ];
     }
 
