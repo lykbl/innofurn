@@ -1,8 +1,8 @@
 type ProductVariant implements WithDimensions {
     id: IntID!
     stock: Int!
-    name: String!
-    description: String!
+    name: String
+    description: String
     rating: Rating! #TODO add logic
     images(primaryOnly: Boolean): [Media!]
     primaryImage: Media
@@ -14,23 +14,10 @@ type ProductVariant implements WithDimensions {
     length(to: Units = CENTIMETERS): Dimension
     height(to: Units = CENTIMETERS): Dimension
     weight(to: Units = KILOGRAM): Dimension
-    attributes(handles: [String!] filterable: Boolean): [ProductVariantAttribute!]!
+    attributes: ProductVariantAttributes @rename(attribute: "attribute_data")
 }
 
-type ProductVariantAttribute {
-    id: IntID!
-    attributeGroup: AttributeGroup!
-    name(langCode: String!): String!
-    configurable: JSON
-    type: String! #TODO add enum
-    handle: String!
-    position: Int!
-    filterable: Boolean!
-    searchable: Boolean!
-}
-
-type AttributeGroup {
-    id: IntID!
-    name(langCode: String!): String!
-    handle: String!
+type ProductVariantAttributes {
+    color: ColorFieldType
+    material: TranslatedTextAttribute
 }

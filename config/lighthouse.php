@@ -42,6 +42,7 @@ return [
         ],
         'types' => [
             'App\\GraphQL\\Types',
+            'App\\GraphQL\\Types\\FieldTypes',
         ],
         'interfaces' => 'App\\GraphQL\\Interfaces',
         'unions'     => 'App\\GraphQL\\Unions',

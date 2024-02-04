@@ -6,6 +6,7 @@
 #import mutations/*.graphql
 #import subscriptions/*.graphql
 
+#import domains/*.graphql
 #import domains/chat/*.graphql
 #import domains/product-variant/*.graphql
 #import domains/media/*.graphql

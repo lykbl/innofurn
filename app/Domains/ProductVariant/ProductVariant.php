@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\Domains\ProductVariant;
 
 use App\Models\Translatable;
+use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
 use Lunar\Models\ProductVariant as BaseProductVariant;
 
 class ProductVariant extends BaseProductVariant implements Translatable
 {
     use HasAttributes;
+
+    protected $casts = [
+        'attribute_data' => AsAttributeData::class,
+    ];
 
     // TODO Is this a bug?
     public function getAttributableClassnameAttribute()
@@ -21,21 +26,21 @@ class ProductVariant extends BaseProductVariant implements Translatable
     // TODO Add actual logic
     public function getIsFeaturedAttribute()
     {
-        return (bool) random_int(0, 1);
+        return $this->id <= 2;
     }
 
     // TODO Add actual logic
     public function getRatingAttribute()
     {
         return [
-            'average' => random_int(1, 5),
-            'count'   => random_int(1, 9999),
+            'average' => 3,
+            'count'   => 500,
         ];
     }
 
     // TODO Add actual logic
     public function getIsFavoriteAttribute()
     {
-        return (bool) random_int(0, 1);
+        return $this->id > 2;
     }
 }
