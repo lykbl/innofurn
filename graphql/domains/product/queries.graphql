@@ -1,6 +1,6 @@
 extend type Query {
     findProducts(
-        filter: ProductFilter!
+        filters: ProductFilter!
         orderBy: ProductOrderBy
     ): [Product!]! @paginate(builder: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 }
@@ -12,22 +12,28 @@ enum ProductOrderBy {
     PRICE_DESC
 }
 
-#input OptionFilterInput {
-#    optionTypeId: IntID!
-#    valueIds: [IntID!]!
-#}
-#
-#input PriceFilterInput {
-#    min: Int
-#    max: Int
-#    currency: IntID!
-#}
+input PriceFilterInput {
+    min: Int
+    max: Int
+}
+
+input AttributeFilterInput {
+    handle: String!
+    values: [IntID!]
+}
+
+input RatingFilterInput {
+    min: Int
+    max: Int
+}
 
 input ProductFilter {
-    optionsFilter: [OptionFilterInput!]
-    type: IntID
     name: String
-    collection: IntID
-    brand: IntID
-    priceFilter: PriceFilterInput
+    price: PriceFilterInput
+    attributes: [AttributeFilterInput!]
+    rating: RatingFilterInput
+#    optionsFilter: [OptionFilterInput!]
+#    type: IntID
+#    collection: IntID
+#    brand: IntID
 }
