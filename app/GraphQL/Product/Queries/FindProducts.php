@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Product\Queries;
 
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class FindProducts extends ProductQuery
 {
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): LengthAwarePaginator
     {
-        return $this->productVariantService->buildSearchQuery(
-            filters: $args['filters'],
-            orderBy: ProductOrderByEnum::from(Str::lower($args['orderBy'])),
+        $paginator = $this->productVariantService->findProducts(
+            perPage: $args['first'] ?? 20,
+            page: $args['page'] ?? 1,
+            filters: $args['filters'] ?? [],
+            orderBy: isset($args['orderBy']) ? ProductOrderByEnum::from($args['orderBy']) : ProductOrderByEnum::PRICE_DESC,
         );
+
+        return $paginator;
     }
 }

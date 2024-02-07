@@ -2,7 +2,8 @@ extend type Query {
     findProducts(
         filters: ProductFilter!
         orderBy: ProductOrderBy
-    ): [Product!]! @paginate(builder: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
+    ): [Product!]!
+    @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 }
 
 enum ProductOrderBy {

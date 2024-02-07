@@ -6,10 +6,10 @@ namespace App\GraphQL\Product\Queries;
 
 enum ProductOrderByEnum: string
 {
-    case NAME_ASC   = 'name_asc';
-    case NAME_DESC  = 'name_desc';
-    case PRICE_ASC  = 'price_asc';
-    case PRICE_DESC = 'price_desc';
+    case NAME_ASC   = 'NAME_ASC';
+    case NAME_DESC  = 'NAME_DESC';
+    case PRICE_ASC  = 'PRICE_ASC';
+    case PRICE_DESC = 'PRICE_DESC';
 
     public function column(): string
     {
