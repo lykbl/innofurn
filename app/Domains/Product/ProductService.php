@@ -22,12 +22,9 @@ class ProductService
      * @return Builder
      */
     public function buildSearchQuery(
-        Authenticatable $user,
         array $filters = [],
         ProductOrderByEnum $orderBy = ProductOrderByEnum::NAME_DESC,
     ) {
-        $userCurrencyId = $user->retailCustomer->currency_id ?? Currency::getDefault()->id; // TODO add settings to customers
-
         $nameFilter       = $filters['name'] ?? null;
         $priceFilter      = $filters['price'] ?? null;
         $attributeFilters = $filters['attributes'] ?? [];
@@ -35,19 +32,19 @@ class ProductService
 
         $query = Product::query()
             ->whereHas(
-                'variants', function (Builder $q) use ($priceFilter, $userCurrencyId): void {
+                'variants', function (Builder $q) use ($priceFilter): void {
                     if (!$priceFilter) {
                         return;
                     }
 
                     $min = $priceFilter['min'] ?? null;
                     $max = $priceFilter['max'] ?? null;
+                    $currencyId = $priceFilter['currencyId'] ?? Currency::getDefault()->id;
                     $q->whereHas('prices', fn (Builder $q) => $q
                         ->when($min, fn ($q) => $q->where('lunar_prices.price', '>=', $min))
                         ->when($max, fn ($q) => $q->where('lunar_prices.price', '<=', $max))
-                        ->where('lunar_prices.currency_id', $userCurrencyId)
-                    )
-                    ;
+                        ->where('lunar_prices.currency_id', $currencyId)
+                    );
                 },
             )->with([
                 'variants.images' => function ($query): void {

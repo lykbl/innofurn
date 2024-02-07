@@ -25,6 +25,7 @@ input AttributeFilterInput {
 input RatingFilterInput {
     min: Int
     max: Int
+    currencyId: IntID
 }
 
 input ProductFilter {

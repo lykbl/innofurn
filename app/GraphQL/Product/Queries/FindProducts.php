@@ -13,7 +13,6 @@ class FindProducts extends ProductQuery
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         return $this->productVariantService->buildSearchQuery(
-            user: $context->user(),
             filters: $args['filters'],
             orderBy: ProductOrderByEnum::from(Str::lower($args['orderBy'])),
         );
