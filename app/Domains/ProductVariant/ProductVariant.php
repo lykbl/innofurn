@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domains\ProductVariant;
 
+use App\Models\Review\Review;
 use App\Models\Translatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
 use Lunar\Models\ProductVariant as BaseProductVariant;
@@ -16,6 +18,16 @@ class ProductVariant extends BaseProductVariant implements Translatable
     protected $casts = [
         'attribute_data' => AsAttributeData::class,
     ];
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getAverageRatingAttribute(): ?float
+    {
+        return (float) ($this->reviews()->avg('rating') ?? 0);
+    }
 
     // TODO Is this a bug?
     public function getAttributableClassnameAttribute()

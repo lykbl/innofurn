@@ -24,9 +24,7 @@ input AttributeFilterInput {
 }
 
 input RatingFilterInput {
-    min: Int
-    max: Int
-    currencyId: IntID
+    avg: Int
 }
 
 input ProductFilter {

@@ -15,4 +15,5 @@ type ProductVariant implements WithDimensions {
     height(to: Units = CENTIMETERS): Dimension
     weight(to: Units = KILOGRAM): Dimension
     attributes: [AttributeData] @rename(attribute: "attribute_data")
+    averageRating: Float
 }

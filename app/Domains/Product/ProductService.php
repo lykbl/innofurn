@@ -29,38 +29,35 @@ class ProductService
 
         $query = Product::query()
             ->when($nameFilter, fn (Builder $q, string $name) => $q->where('lunar_products.attribute_data->name', 'like', "%$name%")) // TODO meilisearch
-            ->whereHas('variants', function (Builder $q) use ($attributeFilters, $priceFilter, $currencyId): void {
+            // TODO why the hell putting this after withWhereHas('variants') doubles agg queries?
+            ->with([
+                'variants.images' => fn (BelongsToMany $q) => $q->where('lunar_media_product_variant.primary', true),
+                'variants.prices.currency',
+                'variants.prices.priceable', // TODO optimize?
+            ])
+            ->withWhereHas('variants.prices', function (MorphMany|Builder $q) use ($priceFilter, $currencyId): void {
+                $min = $priceFilter['min'] ?? null;
+                $max = $priceFilter['max'] ?? null;
+                $q
+                    ->when($min, fn ($q) => $q->where('lunar_prices.price', '>=', $min))
+                    ->when($max, fn ($q) => $q->where('lunar_prices.price', '<=', $max))
+                    ->where('lunar_prices.currency_id', $currencyId)
+                ;
+            })
+            ->withWhereHas('variants', function ($q) use ($attributeFilters, $ratingFilter): void {
                 foreach ($attributeFilters as $attributeFilter) {
                     $this->attributeDataFilterInValueContext($q, $attributeFilter['handle'], $attributeFilter['values']);
                 }
 
-                $min = $priceFilter['min'] ?? null;
-                $max = $priceFilter['max'] ?? null;
-                $q->whereHas('prices', fn (Builder $q) => $q
-                    ->when($min, fn ($q) => $q->where('price', '>=', $min))
-                    ->when($max, fn ($q) => $q->where('price', '<=', $max))
-                    ->where('currency_id', $currencyId)
+                $avgRating = $ratingFilter['avg'] ?? null;
+                $q->when($avgRating, fn (Builder $q) => $q
+                    ->withAvg('reviews', 'rating')
+                    ->having('reviews_avg_rating', '>=', $avgRating)
                 );
             })
-            ->with([
-                'variants' => function ($q) use ($attributeFilters): void {
-                    foreach ($attributeFilters as $attributeFilter) {
-                        $this->attributeDataFilterInValueContext($q, $attributeFilter['handle'], $attributeFilter['values']); //TODO withWhereHas macro?
-                    }
-                },
-                'variants.prices' => function (MorphMany $query) use ($currencyId): void {
-                    $query->where('lunar_prices.currency_id', $currencyId);
-                },
-                'variants.images' => function (BelongsToMany $query): void {
-                    $query->where('lunar_media_product_variant.primary', true);
-                },
-                'variants.prices.currency',
-                'variants.prices.priceable', // TODO optimize?
-            ])
         ;
 
-        $paginator = $query->paginate($perPage, ['*'], 'page', $page);
-
+        $paginator        = $query->paginate($perPage, ['*'], 'page', $page);
         $results          = $paginator->getCollection();
         $reorderedResults = match ($orderBy) {
             ProductOrderByEnum::NAME_ASC   => $results->sortBy(fn (Product $product) => $product->translateAttribute('name')),
