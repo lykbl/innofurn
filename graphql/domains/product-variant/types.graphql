@@ -4,20 +4,15 @@ type ProductVariant implements WithDimensions {
     name: String
     description: String
     rating: Rating! #TODO add logic
-    images(primaryOnly: Boolean): [Media!] #@hasMany
+    images(primaryOnly: Boolean): [Media!]
     primaryImage: Media
     product: Product!
-    prices(currencyId: IntID): [Price!] #@hasMany #TODO add discount
+    prices(currencyId: IntID): [Price!] #TODO add discount
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic
     width(to: Units = CENTIMETERS): Dimension
     length(to: Units = CENTIMETERS): Dimension
     height(to: Units = CENTIMETERS): Dimension
     weight(to: Units = KILOGRAM): Dimension
-    attributes: ProductVariantAttributes @rename(attribute: "attribute_data")
-}
-
-type ProductVariantAttributes {
-    color: ColorFieldType
-    material: TranslatedTextAttribute
+    attributes: [AttributeData] @rename(attribute: "attribute_data")
 }

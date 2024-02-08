@@ -50,7 +50,7 @@ class ColorFieldType implements FieldType
 
     public function getSettingsView(): string
     {
-        return 'adminhub::livewire.field-types.color-picker.settings';
+        return 'adminhub::field-types.color-picker.settings';
     }
 
     public function getView(): string

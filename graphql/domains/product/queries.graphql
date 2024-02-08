@@ -20,7 +20,7 @@ input PriceFilterInput {
 
 input AttributeFilterInput {
     handle: String!
-    values: [IntID!]
+    values: [String!]
 }
 
 input RatingFilterInput {

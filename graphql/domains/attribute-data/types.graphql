@@ -1,0 +1,4 @@
+type AttributeData {
+    type: String
+    value: String
+}
