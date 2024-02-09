@@ -14,6 +14,7 @@ return new class() extends Migration {
     {
         Schema::create('indexed_product_attribute_values', function (Blueprint $table): void {
             $table->string('value');
+            $table->string('type');
             $table->foreignId('attributable_id')->constrained('lunar_attributables');
             $table->foreignId('product_type_id')->constrained('lunar_product_types');
             $table->string('language_code', 2)->default('');

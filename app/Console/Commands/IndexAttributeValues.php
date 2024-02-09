@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Domains\Attributes\IndexedAttributeValue;
 use App\Domains\ProductVariant\ProductVariant;
-use App\Models\Attributes\IndexedAttributeValue;
+use App\FieldTypes\ColorFieldType;
+use Exception;
 use Illuminate\Console\Command;
+
 use function in_array;
+
 use Lunar\FieldTypes\TranslatedText;
 
 class IndexAttributeValues extends Command
@@ -40,6 +44,7 @@ class IndexAttributeValues extends Command
         foreach ($attributeAggregates as $attributeAggregate) {
             $attribute = $attributeAggregate->attribute_data->get($attributeAggregate->handle);
             $langCode  = '';
+            $type      = $this->attributeTypeToString($attributeAggregate->type);
 
             if ($this->isTranslatableType($attributeAggregate->type)) {
                 foreach ($attribute->getValue() as $langCode => $translation) {
@@ -47,19 +52,20 @@ class IndexAttributeValues extends Command
                         continue;
                     }
 
-                    $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $langCode, $translation->getValue());
+                    $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $type, $langCode, $translation->getValue());
                 }
             } else {
-                $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $langCode, $attribute->getValue());
+                $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $type, $langCode, $attribute->getValue());
             }
         }
     }
 
-    private function createIndexedAttributeValue(int $attributableId, int $productTypeId, string $languageCode, string $value): void
+    private function createIndexedAttributeValue(int $attributableId, int $productTypeId, string $type, string $languageCode, string $value): void
     {
         IndexedAttributeValue::query()->updateOrCreate([
             'attributable_id' => $attributableId,
             'product_type_id' => $productTypeId,
+            'type'            => $type,
             'language_code'   => $languageCode,
             'value'           => $value,
         ]);
@@ -68,5 +74,14 @@ class IndexAttributeValues extends Command
     private function isTranslatableType(string $type): bool
     {
         return in_array($type, self::TRANSLATABLE_TYPES, true);
+    }
+
+    private function attributeTypeToString($type): string
+    {
+        return match ($type) {
+            TranslatedText::class => 'text',
+            ColorFieldType::class => 'color',
+            default               => throw new Exception('Unknown attribute type'),
+        };
     }
 }
