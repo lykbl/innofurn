@@ -78,4 +78,8 @@ class ProductService
             default => $q->whereIn('attribute_data->'.$handle.'->value->'.$lang, $values),
         };
     }
+
+    public function collectionFilters(string $collection): array
+    {
+    }
 }
