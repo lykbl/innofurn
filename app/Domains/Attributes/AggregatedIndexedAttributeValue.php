@@ -6,16 +6,18 @@ namespace App\Domains\Attributes;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IndexedAttributeValue extends Model
+class AggregatedIndexedAttributeValue extends Model
 {
     protected $table = 'indexed_product_attribute_values';
 
-    public $timestamps = false;
+    protected $casts = [
+        'values' => 'array',
+    ];
 
     protected $fillable = [
-        'value',
-        'attributable_id',
-        'product_type_id',
-        'language_code',
+        'values',
+        'type',
+        'handle',
+        'label',
     ];
 }

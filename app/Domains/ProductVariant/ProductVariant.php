@@ -24,6 +24,11 @@ class ProductVariant extends BaseProductVariant implements Translatable
         return $this->hasMany(Review::class);
     }
 
+    public function getReviewsCountAttribute(): int
+    {
+        return $this->reviews()->count();
+    }
+
     public function getAverageRatingAttribute(): ?float
     {
         return (float) ($this->reviews()->avg('rating') ?? 0);

@@ -14,3 +14,5 @@ scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 scalar Phone
 
 scalar PriceData
+
+scalar AttributeData

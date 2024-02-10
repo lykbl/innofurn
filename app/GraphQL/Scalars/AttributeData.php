@@ -10,23 +10,27 @@ use GraphQL\Type\Definition\ScalarType;
 
 class AttributeData extends ScalarType
 {
-    public function serialize(mixed $value)
+    public function serialize(mixed $value): array
     {
         if (!$value) {
-            // TODO throw error?
-            return null;
+            return [];
         }
 
-        return $value;
+        $serializedValue = [];
+        foreach ($value as $handle => $attributeValue) {
+            $serializedValue[$handle] = $attributeValue->getValue();
+        }
+
+        return $serializedValue;
     }
 
-    public function parseValue(mixed $value)
+    public function parseValue(mixed $value): void
     {
-        return $value ? $value->getValue() : null;
+        throw new Error('Attribute data scalar can not be used as an input');
     }
 
     public function parseLiteral(Node $valueNode, array $variables = null): void
     {
-        //        throw new Error('Dimension scalar can not be used as an argument');
+        throw new Error('Attribute data scalar can not be used as an input');
     }
 }

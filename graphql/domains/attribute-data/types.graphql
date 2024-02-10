@@ -1,11 +1,6 @@
-type AttributeData {
-    type: String
-    value: String
-}
-
-type IndexedAttributeValue {
-    productTypeId: IntID!
-    type: String! #enum
-    value: String!
-    languageCode: String! @rename(attribute: "language_code")
+type AggregatedIndexedAttributeValue {
+    values: [String]!
+    label: String!
+    type: String!
+    handle: String!
 }

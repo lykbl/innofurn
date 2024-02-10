@@ -6,8 +6,6 @@ namespace App\Console\Commands;
 
 use App\Domains\Attributes\IndexedAttributeValue;
 use App\Domains\ProductVariant\ProductVariant;
-use App\FieldTypes\ColorFieldType;
-use Exception;
 use Illuminate\Console\Command;
 
 use function in_array;
@@ -65,7 +63,6 @@ class IndexAttributeValues extends Command
         IndexedAttributeValue::query()->updateOrCreate([
             'attributable_id' => $attributableId,
             'product_type_id' => $productTypeId,
-            'type'            => $type,
             'language_code'   => $languageCode,
             'value'           => $value,
         ]);
@@ -74,14 +71,5 @@ class IndexAttributeValues extends Command
     private function isTranslatableType(string $type): bool
     {
         return in_array($type, self::TRANSLATABLE_TYPES, true);
-    }
-
-    private function attributeTypeToString($type): string
-    {
-        return match ($type) {
-            TranslatedText::class => 'text',
-            ColorFieldType::class => 'color',
-            default               => throw new Exception('Unknown attribute type'),
-        };
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Product;
 
+use App\Domains\Attributes\AggregatedIndexedAttributeValue;
 use App\GraphQL\Product\Queries\ProductOrderByEnum;
 use App\Models\Currency;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\DB;
 use Lunar\Models\Language;
 
 class ProductService
@@ -79,7 +81,23 @@ class ProductService
         };
     }
 
-    public function collectionFilters(string $collection): array
+    public function collectionFilters(int $collectionId, string $langCode = 'en')
     {
+        $query = AggregatedIndexedAttributeValue::query()
+            ->select([
+                DB::raw('JSON_ARRAYAGG(value) as "values"'),
+                DB::raw("JSON_UNQUOTE(JSON_EXTRACT(lunar_attributes.name, '$.$langCode')) as label"), // TODO add fallback label
+                'lunar_attributes.type as type',
+                'lunar_attributes.handle as handle',
+            ])
+            ->join('lunar_attributables', 'indexed_product_attribute_values.attributable_id', '=', 'lunar_attributables.id')
+            ->join('lunar_attributes', 'lunar_attributables.attribute_id', '=', 'lunar_attributes.id')
+            ->where('product_type_id', $collectionId)
+            ->groupBy('lunar_attributes.type', 'lunar_attributes.handle', 'label')
+        ;
+
+        $models = $query->get();
+
+        return $models;
     }
 }
