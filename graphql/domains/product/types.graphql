@@ -5,7 +5,6 @@ type Product implements WithUrls {
     variants: [ProductVariant!] #@belongsToMany
     brand: Brand!
     collections: [Collection]
-
     urls: [Url]
     defaultUrl: Url
 }

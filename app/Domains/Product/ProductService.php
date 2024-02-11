@@ -36,6 +36,8 @@ class ProductService
                 'variants.images' => fn (BelongsToMany $q) => $q->where('lunar_media_product_variant.primary', true),
                 'variants.prices.currency',
                 'variants.prices.priceable', // TODO optimize?
+//                'variants.activeDiscounts', //TODO use relationship?
+//                'activeDiscounts',
             ])
             ->withWhereHas('variants.prices', function (MorphMany|Builder $q) use ($priceFilter, $currencyId): void {
                 $min = $priceFilter['min'] ?? null;

@@ -20,6 +20,7 @@ return [
             'App\\Models\\Review\\',
             'App\\Domains\\Chat\\Models',
             'App\\Domains\\Attributes',
+            'App\\Domains\\Discounts',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
