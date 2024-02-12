@@ -1,7 +1,0 @@
-type ColorFieldType {
-    value: String
-}
-
-type TranslatedTextAttribute {
-    value: String
-}
