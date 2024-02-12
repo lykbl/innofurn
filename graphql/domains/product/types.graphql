@@ -7,4 +7,5 @@ type Product implements WithUrls {
     collections: [Collection]
     urls: [Url]
     defaultUrl: Url
+    discounts: [Discount!]!
 }

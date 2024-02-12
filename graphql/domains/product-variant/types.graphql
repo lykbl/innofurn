@@ -17,7 +17,7 @@ type ProductVariant implements WithDimensions {
     attributes: AttributeData! @rename(attribute: "attribute_data")
     averageRating: Float
     reviewsCount: Int
-    activeDiscounts: [Discount!]! #TODO add logic
+    discounts: [Discount!]!
 }
 
 type Discount {
