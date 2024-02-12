@@ -12,6 +12,7 @@ class AggregatedIndexedAttributeValue extends Model
 
     protected $casts = [
         'values' => 'array',
+        'type'   => IndexedAttributeCaster::class,
     ];
 
     protected $fillable = [

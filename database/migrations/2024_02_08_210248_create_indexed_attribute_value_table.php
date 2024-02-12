@@ -13,19 +13,12 @@ return new class() extends Migration {
     public function up(): void
     {
         Schema::create('indexed_product_attribute_values', function (Blueprint $table): void {
-            $table->string('value');
+            $table->string('id', 32)->primary();
+            $table->json('value');
             $table->foreignId('attributable_id')->constrained('lunar_attributables');
             $table->foreignId('product_type_id')->constrained('lunar_product_types');
-            $table->string('language_code', 2)->default('');
-        });
-
-        Schema::table('indexed_product_attribute_values', function (Blueprint $table): void {
-            $table->primary([
-                'value',
-                'attributable_id',
-                'product_type_id',
-                'language_code',
-            ]);
+            $table->string('language_code', 2)->default(null)->nullable();
+            $table->integer('reference_count');
         });
     }
 

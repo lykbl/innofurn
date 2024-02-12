@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Domains\Attributes\IndexedAttributeValue;
+use App\Domains\Attributes\IndexedAttribute;
 use App\Domains\ProductVariant\ProductVariant;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 use function in_array;
 
@@ -24,6 +25,8 @@ class IndexAttributeValues extends Command
 
     public function handle(): void
     {
+        IndexedAttribute::truncate();
+
         $attributeAggregates = ProductVariant::query()
             ->select([
                 'lunar_product_variants.attribute_data',
@@ -41,31 +44,38 @@ class IndexAttributeValues extends Command
 
         foreach ($attributeAggregates as $attributeAggregate) {
             $attribute = $attributeAggregate->attribute_data->get($attributeAggregate->handle);
-            $langCode  = '';
-            $type      = $this->attributeTypeToString($attributeAggregate->type);
-
+            $langCode  = null;
             if ($this->isTranslatableType($attributeAggregate->type)) {
                 foreach ($attribute->getValue() as $langCode => $translation) {
                     if (!$translation) {
                         continue;
                     }
 
-                    $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $type, $langCode, $translation->getValue());
+                    $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $langCode, $translation->getValue());
                 }
             } else {
-                $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $type, $langCode, $attribute->getValue());
+                $this->createIndexedAttributeValue($attributeAggregate->id, $attributeAggregate->product_type_id, $langCode, $attribute->getValue());
             }
         }
     }
 
-    private function createIndexedAttributeValue(int $attributableId, int $productTypeId, string $type, string $languageCode, string $value): void
+    private function createIndexedAttributeValue(int $attributableId, int $productTypeId, ?string $languageCode, mixed $value): void
     {
-        IndexedAttributeValue::query()->updateOrCreate([
-            'attributable_id' => $attributableId,
-            'product_type_id' => $productTypeId,
-            'language_code'   => $languageCode,
-            'value'           => $value,
-        ]);
+        $id = md5($attributableId.$productTypeId.$languageCode.json_encode($value, JSON_THROW_ON_ERROR));
+
+        IndexedAttribute::upsert([
+            [
+                'id'              => $id,
+                'attributable_id' => $attributableId,
+                'product_type_id' => $productTypeId,
+                'language_code'   => $languageCode,
+                'value'           => json_encode($value, JSON_THROW_ON_ERROR),
+                'reference_count' => 1,
+            ],
+        ],
+            ['id'],
+            ['reference_count' => DB::raw('reference_count + 1')]
+        );
     }
 
     private function isTranslatableType(string $type): bool
