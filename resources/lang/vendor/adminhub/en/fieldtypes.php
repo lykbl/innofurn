@@ -25,7 +25,7 @@ return [
     'richtext.config' => 'You can you enter any available configuration below supported by :url.',
     'color-picker' => [
         'type' => 'Color Picker',
-        'label' => ['label' => 'Color Name (e.g. Lime)'],
+        'label' => ['label' => 'Label (e.g. Lime)'],
         'radio-button' => ['label' => 'Radio Button Color'],
     ],
 ];

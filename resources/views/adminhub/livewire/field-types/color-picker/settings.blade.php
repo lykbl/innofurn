@@ -19,7 +19,7 @@
     <x-adminhub::inputs.color-picker
       id="fieldType"
       :disabled="!!$attribute->system"
-      wire:model="attribute.configuration.color"
+      wire:model="attribute.configuration.default_value"
     />
   </x-hub::input.group>
 </div>

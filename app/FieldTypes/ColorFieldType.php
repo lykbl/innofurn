@@ -9,25 +9,22 @@ use Lunar\Exceptions\FieldTypeException;
 
 class ColorFieldType implements FieldType
 {
-    protected ?string $value;
-
-    public function __construct($value = '')
+    public function __construct(protected array $value = [])
     {
-        $this->setValue($value);
     }
 
     /**
-     * @return string|null
+     * @return array
      */
-    public function getValue(): ?string
+    public function getValue()
     {
         return $this->value;
     }
 
     public function setValue($value): void
     {
-        if (!is_string($value)) {
-            throw new FieldTypeException(self::class.' value must be a string.');
+        if (!is_array($value)) {
+            throw new FieldTypeException(self::class.' value must be an array.');
         }
 
         $this->value = $value;

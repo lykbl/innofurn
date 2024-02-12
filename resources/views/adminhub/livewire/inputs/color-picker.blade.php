@@ -1,4 +1,5 @@
 <div
+	class="flex justify-center"
 	x-data="{ color: @entangle($attributes->wire('model')) }"
 	x-init="
       picker = new Picker($refs.button);
