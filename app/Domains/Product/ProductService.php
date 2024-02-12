@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domains\Product;
 
 use App\Domains\Attributes\AggregatedIndexedAttributeValue;
+use App\Domains\ProductVariant\ProductVariant;
 use App\GraphQL\Product\Queries\ProductOrderByEnum;
 use App\Models\Currency;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -28,6 +29,7 @@ class ProductService
         $priceFilter      = $filters['price'] ?? null;
         $currencyId       = $priceFilter['currencyId'] ?? Currency::getDefault()->id;
         $ratingFilter     = $filters['rating'] ?? null;
+        $onSaleOnly       = $filters['onSaleOnly'] ?? false;
 
         $query = Product::query()
             ->when($nameFilter, fn (Builder $q, string $name) => $q->where('lunar_products.attribute_data->name', 'like', "%$name%")) // TODO meilisearch
@@ -36,8 +38,8 @@ class ProductService
                 'variants.images' => fn (BelongsToMany $q) => $q->where('lunar_media_product_variant.primary', true),
                 'variants.prices.currency',
                 'variants.prices.priceable', // TODO optimize?
-//                'variants.activeDiscounts', //TODO use relationship?
-//                'activeDiscounts',
+                'variants.discounts',
+                'discounts',
             ])
             ->withWhereHas('variants.prices', function (MorphMany|Builder $q) use ($priceFilter, $currencyId): void {
                 $min = $priceFilter['min'] ?? null;
@@ -59,6 +61,10 @@ class ProductService
                     ->having('reviews_avg_rating', '>=', $avgRating)
                 );
             })
+            ->when($onSaleOnly, fn (Builder $q) => $q
+                ->whereHas('variants.discounts')
+                ->orWhereHas('discounts')
+            )
         ;
 
         $paginator        = $query->paginate($perPage, ['*'], 'page', $page);

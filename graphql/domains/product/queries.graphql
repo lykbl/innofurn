@@ -34,8 +34,5 @@ input ProductFilter {
     price: PriceFilterInput
     attributes: [AttributeFilterInput!]
     rating: RatingFilterInput
-#    optionsFilter: [OptionFilterInput!]
-#    type: IntID
-#    collection: IntID
-#    brand: IntID
+    onSale: Boolean
 }
