@@ -1,6 +1,6 @@
 extend type Query {
     findProducts(
-        filters: ProductFilter!
+        filters: ProductFilterInput!
         orderBy: ProductOrderBy
     ): [Product!]!
     @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
@@ -29,7 +29,7 @@ input RatingFilterInput {
     avg: Int
 }
 
-input ProductFilter {
+input ProductFilterInput {
     name: String
     price: PriceFilterInput
     attributes: [AttributeFilterInput!]
