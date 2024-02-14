@@ -9,10 +9,9 @@ extend type Query {
 }
 
 enum ProductOrderBy {
-    NAME_ASC
-    NAME_DESC
     PRICE_ASC
     PRICE_DESC
+    AVERAGE_RATING
 }
 
 input PriceFilterInput {

@@ -84,7 +84,7 @@ class ProductService
         $lang = $meta['lang'] ?? Language::getDefault()->code;
 
         match ($handle) {
-            'color' => $q->whereIn('attribute_data->'.$handle.'->value', $values),
+            'color' => $q->whereIn('attribute_data->'.$handle.'->value->label', $values),
             default => $q->whereIn('attribute_data->'.$handle.'->value->'.$lang, $values),
         };
     }
