@@ -82,6 +82,9 @@ class ProductService
     private function attributeDataFilterInValueContext(HasMany|Builder $q, string $handle, array $values, array $meta = []): void
     {
         $lang = $meta['lang'] ?? Language::getDefault()->code;
+        if (\count($values) === 0) {
+            return;
+        }
 
         match ($handle) {
             'color' => $q->whereIn('attribute_data->'.$handle.'->value->label', $values),

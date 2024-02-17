@@ -9,7 +9,7 @@ use Lunar\Exceptions\FieldTypeException;
 
 class ColorFieldType implements FieldType
 {
-    public function __construct(protected array $value = [])
+    public function __construct(protected ?array $value = null)
     {
     }
 
