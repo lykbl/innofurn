@@ -11,7 +11,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class CheckMe extends UserQuery
 {
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): User
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): ?User
     {
         return Auth::guard('web')->user();
     }

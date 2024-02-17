@@ -4,10 +4,10 @@ type ProductVariant implements WithDimensions {
     name: String
     description: String
     rating: Rating! #TODO add logic
-    images(primaryOnly: Boolean): [Media!]
+    images(primaryOnly: Boolean): [Media!]!
     primaryImage: Media
     product: Product!
-    prices(currencyId: IntID): [Price!] #TODO add discount
+    prices(currencyId: IntID): [Price!]! #TODO add discount
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic
     width(to: Units = CENTIMETERS): Dimension
