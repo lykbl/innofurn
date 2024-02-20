@@ -7,13 +7,13 @@ type ProductVariant implements WithDimensions {
     images(primaryOnly: Boolean): [Media!]!
     primaryImage: Media
     product: Product!
-    prices(currencyId: IntID): [Price!]! #TODO add discount
+    prices: [Price!]! #TODO add discount
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic
-    width(to: Units = CENTIMETERS): Dimension
-    length(to: Units = CENTIMETERS): Dimension
-    height(to: Units = CENTIMETERS): Dimension
-    weight(to: Units = KILOGRAM): Dimension
+    width: Dimension
+    length: Dimension
+    height: Dimension
+    weight: Dimension
     attributes: AttributeData! @rename(attribute: "attribute_data")
     averageRating: Float
     reviewsCount: Int
