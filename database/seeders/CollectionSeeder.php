@@ -18,28 +18,28 @@ class CollectionSeeder extends Seeder
             'Furniture' => [
                 'Chairs' => [
                     'Dining Chairs' => [],
-                    'Desk Chairs' => [],
-                    'Cafe Chairs' => [],
+                    'Desk Chairs'   => [],
+                    'Cafe Chairs'   => [],
                 ],
                 'Beds' => [
                     'Single Beds' => [],
                     'Double Beds' => [],
-                    'Sofa Beds' => [],
+                    'Sofa Beds'   => [],
                 ],
                 'Tables' => [
                     'Dining Tables' => [],
                     'Coffee Tables' => [],
-                    'Cafe Tables' => [],
+                    'Cafe Tables'   => [],
                 ],
                 'Wardrobes' => [
-                    'Corner Wardrobes' => [],
-                    'Sliding Wardrobes' => [],
+                    'Corner Wardrobes'    => [],
+                    'Sliding Wardrobes'   => [],
                     'Solitaire Wardrobes' => [],
                 ],
             ],
             'Pots & Plants' => [
-                'Flowers' => [],
-                'Flower Pots' => [],
+                'Flowers'       => [],
+                'Flower Pots'   => [],
                 'Watering Cans' => [],
             ],
         ];
@@ -47,16 +47,16 @@ class CollectionSeeder extends Seeder
         $this->createCollectionWithChildren($collections);
     }
 
-    private function createCollectionWithChildren(array $root, ?int $parentId = null)
+    private function createCollectionWithChildren(array $root, int $parentId = null): void
     {
         foreach ($root as $name => $children) {
             $id = DB::table('lunar_collections')->insertGetId([
-                'parent_id' => $parentId,
+                'parent_id'           => $parentId,
                 'collection_group_id' => self::MAIN_COLLECTION_GROUP_ID,
-                'type' => 'static',
-                'attribute_data' => json_encode([
+                'type'                => 'static',
+                'attribute_data'      => json_encode([
                     'name' => [
-                        'value' => ['en' => $name],
+                        'value'      => ['en' => $name],
                         'field_type' => TranslatedText::class,
                     ],
                 ]),
