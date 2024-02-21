@@ -1,7 +1,7 @@
 extend type Query {
     findProducts(
         filters: ProductFilterInput!
-        orderBy: ProductOrderBy
+        orderBy: ProductOrderBy!
     ): [Product!]!
     @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 
@@ -9,9 +9,11 @@ extend type Query {
 }
 
 enum ProductOrderBy {
+    NAME_DESC
+    NAME_ASC
     PRICE_ASC
     PRICE_DESC
-    AVERAGE_RATING
+    AVG_RATING
 }
 
 input PriceFilterInput {

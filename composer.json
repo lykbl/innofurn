@@ -23,7 +23,8 @@
         "lunarphp/stripe": "^0.7.0",
         "mll-lab/graphql-php-scalars": "^6.2",
         "nuwave/lighthouse": "^6.22",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "staudenmeir/laravel-cte": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

@@ -35,11 +35,11 @@ class ProductService
         $langCode         = Language::getDefault()->code;
         $orderByDirection = str_contains($orderBy->value, 'ASC') ? 'asc' : 'desc';
 
-        $idsQuery = DB::query()
+        $variantsQuery = DB::query()
             ->from('lunar_products')
             ->select([
                 'lunar_products.id as product_id',
-                DB::RAW('GROUP_CONCAT(lunar_product_variants.id) as product_variant_ids'),
+                'lunar_product_variants.id as product_variant_id',
             ])
             ->join('lunar_product_variants', 'lunar_products.id', '=', 'lunar_product_variants.product_id')
             ->when($nameFilter, fn (Builder $q, string $name) => $q->where('lunar_products.attribute_data->name', 'like', "%$name%")) // TODO meilisearch
@@ -54,45 +54,76 @@ class ProductService
                     ->where('lunar_prices.priceable_type', \Lunar\Models\ProductVariant::class)
                 ;
             })
-            ->when($ratingFilter, fn (Builder $q, array $ratingFilter) => $q
-                ->withAvg('reviews', 'rating')
-                ->having('reviews_avg_rating', '>=', $ratingFilter)
-            )
-            ->when($onSaleOnly, fn (Builder $q) => $q
-                ->whereHas('variants.discounts')
-                ->orWhereHas('discounts')
-            )
+            ->when($onSaleOnly, fn (Builder $q) => $q->whereHas('variants.discounts')->orWhereHas('discounts'))
             ->when($attributeFilters, function (Builder $q, array $attributeFilters) use ($langCode): void {
                 foreach ($attributeFilters as $attributeFilter) {
                     $this->attributeDataFilterInValueContext($q, $attributeFilter['handle'], $attributeFilter['values'], ['lang' => $langCode]);
                 }
             })
-            ->groupBy('lunar_products.id')
-            ->limit($perPage)
-            ->offset(($page - 1) * $perPage)
+            ->groupBy('product_id', 'product_variant_id')
         ;
 
         match ($orderBy) {
-            ProductOrderByEnum::NAME_ASC, ProductOrderByEnum::NAME_DESC => $idsQuery
+            ProductOrderByEnum::NAME_ASC, ProductOrderByEnum::NAME_DESC => $variantsQuery
                 ->addSelect(
                     DB::raw("
                         if (JSON_CONTAINS_PATH(lunar_product_variants.attribute_data, 'one', '$.name.value.en'),
                             lunar_product_variants.attribute_data->>'$.name.value.en',
                             lunar_products.attribute_data->>'$.name.value'
-                        ) as order_by
+                        ) as order_by_name
                     ")
                 )
+                ->orderBy('order_by_name', $orderByDirection)
             ,
-            ProductOrderByEnum::PRICE_ASC, ProductOrderByEnum::PRICE_DESC => $idsQuery
+            ProductOrderByEnum::PRICE_ASC, ProductOrderByEnum::PRICE_DESC => $variantsQuery
                 ->addSelect(
                     DB::raw('
-                        MAX(lunar_prices.price) as order_by
+                        MAX(lunar_prices.price) as order_by_price
                     ')
                 )
+                ->orderBy('order_by_price', $orderByDirection)
+            ,
+            default => null,
         };
-        $idsQuery->orderBy('order_by', $orderByDirection);
+
+        if ($ratingFilter || ProductOrderByEnum::AVG_RATING === $orderBy) {
+            $variantsQuery
+                ->leftJoin('reviews as variant_reviews', fn ($j) => $j
+                    ->on('lunar_product_variants.id', 'variant_reviews.reviewable_id')
+                    ->where('variant_reviews.reviewable_type', \Lunar\Models\ProductVariant::class)
+                )
+                ->leftJoin('reviews as product_reviews', fn ($j) => $j
+                    ->on('lunar_product_variants.id', 'variant_reviews.reviewable_id')
+                    ->where('variant_reviews.reviewable_type', \Lunar\Models\Product::class)
+                )
+                ->addSelect(
+                    DB::raw('
+                        CASE
+                            WHEN AVG(variant_reviews.rating) is null THEN AVG(product_reviews.rating)
+                            ELSE AVG(variant_reviews.rating)
+                        END as avg_rating
+                    ')
+                )
+                ->when(ProductOrderByEnum::AVG_RATING === $orderBy, fn ($q) => $q->orderBy('avg_rating', $orderByDirection))
+                ->when($ratingFilter, fn (Builder $q) => $q->having('avg_rating', '>=', $ratingFilter))
+            ;
+        }
+
+        $idsQuery = DB::query()
+            ->from('variants')
+            ->withExpression('variants', $variantsQuery)
+            ->select([
+                'product_id',
+                DB::raw('GROUP_CONCAT(product_variant_id) as product_variant_ids'),
+            ])
+            ->groupBy('product_id')
+            ->limit($perPage)
+            ->offset(($page - 1) * $perPage)
+        ;
+
         $ids = $idsQuery->get()->reduce(function ($carry, $item) {
             $carry['product_ids'][] = $item->product_id;
+
             array_push($carry['product_variant_ids'], ...explode(',', $item->product_variant_ids));
 
             return $carry;

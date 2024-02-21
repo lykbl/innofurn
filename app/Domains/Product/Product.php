@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domains\Product;
 
+use App\Models\Review\Review;
 use App\Models\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\JoinClause;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
@@ -36,5 +38,10 @@ class Product extends BaseProduct implements Translatable
                 'discount_id'
             )
             ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\Product::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class)->where('reviewable_type', self::class);
     }
 }

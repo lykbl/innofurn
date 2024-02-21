@@ -10,6 +10,7 @@ enum ProductOrderByEnum: string
     case NAME_DESC  = 'NAME_DESC';
     case PRICE_ASC  = 'PRICE_ASC';
     case PRICE_DESC = 'PRICE_DESC';
+    case AVG_RATING = 'AVG_RATING';
 
     public function column(): string
     {
