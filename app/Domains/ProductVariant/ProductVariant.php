@@ -22,7 +22,10 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class)->where('reviewable_type', self::class);
+        return $this
+            ->hasMany(Review::class, 'reviewable_id', 'id')
+            ->where('reviewable_type', \Lunar\Models\ProductVariant::class)
+        ;
     }
 
     public function getReviewsCountAttribute(): int
@@ -45,15 +48,6 @@ class ProductVariant extends BaseProductVariant implements Translatable
     public function getIsFeaturedAttribute()
     {
         return $this->id <= 2;
-    }
-
-    // TODO Add actual logic
-    public function getRatingAttribute()
-    {
-        return [
-            'average' => 3,
-            'count'   => 500,
-        ];
     }
 
     // TODO Add actual logic

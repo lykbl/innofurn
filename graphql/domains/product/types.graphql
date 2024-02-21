@@ -8,4 +8,6 @@ type Product implements WithUrls {
     urls: [Url]!
     defaultUrl: Url
     discounts: [Discount!]! @hasMany
+    reviewsCount: Int!
+    averageRating: Float!
 }

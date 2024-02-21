@@ -42,6 +42,19 @@ class Product extends BaseProduct implements Translatable
 
     public function reviews(): HasMany
     {
-        return $this->hasMany(Review::class)->where('reviewable_type', self::class);
+        return $this
+            ->hasMany(Review::class, 'reviewable_id')
+            ->where('reviewable_type', \Lunar\Models\Product::class)
+        ;
+    }
+
+    public function getReviewsCountAttribute(): int
+    {
+        return $this->reviews()->count();
+    }
+
+    public function getAverageRatingAttribute(): ?float
+    {
+        return (float) ($this->reviews()->avg('rating') ?? 0);
     }
 }
