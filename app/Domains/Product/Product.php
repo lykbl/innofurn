@@ -27,7 +27,6 @@ class Product extends BaseProduct implements Translatable
 
     public function discounts()
     {
-        // TODO add active scope
         return $this
             ->hasManyThrough(
                 Discount::class,
@@ -37,7 +36,9 @@ class Product extends BaseProduct implements Translatable
                 'id',
                 'discount_id'
             )
-            ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\Product::class);
+            ->scopes(['active'])
+            ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\Product::class)
+        ;
     }
 
     public function reviews(): HasMany

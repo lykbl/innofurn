@@ -54,7 +54,22 @@ class ProductService
                     ->where('lunar_prices.priceable_type', \Lunar\Models\ProductVariant::class)
                 ;
             })
-            ->when($onSaleOnly, fn (Builder $q) => $q->whereHas('variants.discounts')->orWhereHas('discounts'))
+            ->when($onSaleOnly, fn (Builder $q) => $q->where(fn ($q) => $q
+                ->whereExists(fn (Builder $q) => $q
+                    ->from('lunar_discount_purchasables as ldp_variants')
+                    ->join('lunar_discounts as variant_discounts', 'ldp_variants.discount_id', '=', 'variant_discounts.id')
+                    ->where('ldp_variants.purchasable_type', '=', \Lunar\Models\ProductVariant::class)
+                    ->whereRaw('ldp_variants.purchasable_id = lunar_product_variants.id')
+                    ->whereRaw('NOW() between variant_discounts.starts_at and variant_discounts.ends_at')
+                )
+                ->orWhereExists(fn ($q) => $q
+                    ->from('lunar_discount_purchasables as ldp_products')
+                    ->join('lunar_discounts as product_discounts', 'ldp_products.discount_id', '=', 'product_discounts.id')
+                    ->where('ldp_products.purchasable_type', '=', \Lunar\Models\Product::class)
+                    ->whereRaw('ldp_products.purchasable_id = lunar_product_variants.id')
+                    ->whereRaw('NOW() between product_discounts.starts_at and product_discounts.ends_at')
+                )
+            ))
             ->when($attributeFilters, function (Builder $q, array $attributeFilters) use ($langCode): void {
                 foreach ($attributeFilters as $attributeFilter) {
                     $this->attributeDataFilterInValueContext($q, $attributeFilter['handle'], $attributeFilter['values'], ['lang' => $langCode]);
