@@ -134,7 +134,8 @@ class ProductService
             ->groupBy('product_id')
         ;
 
-        $total = $idsQuery->count();
+        /** @var \Staudenmeir\LaravelCte\Query\Builder $idsQuery */
+        $total = $idsQuery->selectRaw('COUNT(product_id) OVER () AS count')->limit(1)->get()->first()->count;
         $productRows = $idsQuery->limit($perPage)->offset(($page - 1) * $perPage)->get();
 
         $ids = $productRows->reduce(function ($carry, $item) {
