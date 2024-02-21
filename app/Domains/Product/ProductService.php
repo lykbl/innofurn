@@ -10,7 +10,7 @@ use App\Models\Currency;
 
 use function count;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use \Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
@@ -132,11 +132,12 @@ class ProductService
                 DB::raw('GROUP_CONCAT(product_variant_id) as product_variant_ids'),
             ])
             ->groupBy('product_id')
-            ->limit($perPage)
-            ->offset(($page - 1) * $perPage)
         ;
 
-        $ids = $idsQuery->get()->reduce(function ($carry, $item) {
+        $total = $idsQuery->count();
+        $productRows = $idsQuery->limit($perPage)->offset(($page - 1) * $perPage)->get();
+
+        $ids = $productRows->reduce(function ($carry, $item) {
             $carry['product_ids'][] = $item->product_id;
 
             array_push($carry['product_variant_ids'], ...explode(',', $item->product_variant_ids));
@@ -144,9 +145,8 @@ class ProductService
             return $carry;
         }, ['product_ids' => [], 'product_variant_ids' => []]);
 
-        $query = Product::query()
+        $products = Product::query()
             ->when($nameFilter, fn (Builder $q, string $name) => $q->where('lunar_products.attribute_data->name', 'like', "%$name%")) // TODO meilisearch
-            // TODO why the hell putting this after withWhereHas('variants') doubles agg queries?
             ->with([
                 'variants.images' => fn (BelongsToMany $q) => $q->where('lunar_media_product_variant.primary', true),
                 'variants.prices.currency',
@@ -158,7 +158,12 @@ class ProductService
             ->whereIn('lunar_products.id', $ids['product_ids'])
         ;
 
-        return $query->paginate(30, ['*'], 'page', 1);
+        return new LengthAwarePaginator(
+            $products->get(),
+            $total,
+            $perPage,
+            $page,
+        );
     }
 
     private function attributeDataFilterInValueContext(HasMany|Builder $q, string $handle, array $values, array $meta = []): void
