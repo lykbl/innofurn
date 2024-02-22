@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-//    'cache' => false,
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths

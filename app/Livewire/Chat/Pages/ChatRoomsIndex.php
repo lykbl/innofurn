@@ -17,6 +17,5 @@ class ChatRoomsIndex extends Component
     public function render()
     {
         return view('adminhub.livewire.pages.chats.index');
-        //        return view('adminhub::pages.chats.index');
     }
 }

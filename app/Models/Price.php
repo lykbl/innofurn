@@ -8,8 +8,4 @@ use Lunar\Models\Price as BasePrice;
 
 class Price extends BasePrice
 {
-    //    protected $casts = [
-    //        'price' => CastsPrice::class, //TODO fix ineffectient currency queries
-    //        'compare_price' => CastsPrice::class,
-    //    ];
 }

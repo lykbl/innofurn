@@ -3,11 +3,11 @@ type ProductVariant implements WithDimensions {
     stock: Int!
     name: String
     description: String
-    rating: Rating! #TODO add logic
+    rating: Rating!
     images(primaryOnly: Boolean): [Media!]!
     primaryImage: Media
     product: Product!
-    prices: [Price!]! #TODO add discount
+    prices: [Price!]!
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic
     width: Dimension

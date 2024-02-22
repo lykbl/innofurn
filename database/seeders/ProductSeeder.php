@@ -16,7 +16,6 @@ class ProductSeeder extends Seeder
 {
     public function run(): void
     {
-        // collection
         Product::factory()
             ->count(30)
             ->has(
