@@ -10,10 +10,10 @@ use App\Models\Currency;
 
 use function count;
 
-use \Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Lunar\Models\Language;
 
@@ -135,7 +135,7 @@ class ProductService
         ;
 
         /** @var \Staudenmeir\LaravelCte\Query\Builder $idsQuery */
-        $total = $idsQuery->selectRaw('COUNT(product_id) OVER () AS count')->limit(1)->get()->first()->count;
+        $total       = $idsQuery->selectRaw('COUNT(product_id) OVER () AS count')->limit(1)->get()->first()->count;
         $productRows = $idsQuery->limit($perPage)->offset(($page - 1) * $perPage)->get();
 
         $ids = $productRows->reduce(function ($carry, $item) {
