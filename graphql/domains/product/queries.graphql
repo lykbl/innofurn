@@ -1,0 +1,39 @@
+extend type Query {
+    findProducts(
+        filters: ProductFilterInput!
+        orderBy: ProductOrderBy!
+    ): [Product!]!
+    @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
+
+    filterableAttributesForCollection(productTypeId: IntID!): [AggregatedIndexedAttributeValue!]!
+}
+
+enum ProductOrderBy {
+    NAME_DESC
+    NAME_ASC
+    PRICE_ASC
+    PRICE_DESC
+    AVG_RATING
+}
+
+input PriceFilterInput {
+    min: Int
+    max: Int
+}
+
+input AttributeFilterInput {
+    handle: String!
+    values: [String!]
+}
+
+input RatingFilterInput {
+    avg: Int
+}
+
+input ProductFilterInput {
+    name: String
+    price: PriceFilterInput
+    attributes: [AttributeFilterInput!]
+    rating: RatingFilterInput
+    onSaleOnly: Boolean
+}

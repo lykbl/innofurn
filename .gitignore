@@ -27,3 +27,4 @@ schema-directives.graphql
 _ide_helper.php
 .phpstorm.meta.php
 resources/js/app/gql/*
+sql/*

@@ -2,7 +2,7 @@ type Review {
     id: IntID!
     title: String!
     body: String! #TODO Replace with cool editor
-    rating: Rating!
+#    rating: Rating!
     productVariant: ProductVariant!
     user: User!
 }

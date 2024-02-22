@@ -50,7 +50,7 @@
 			</div>
 		</div>
 	</form>
-	@vite(['resources/js/apollo-client.js'])
+{{--	@vite(['resources/js/apollo-client.js'])--}}
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
       const chatRoomId = @js($chatRoom->id);

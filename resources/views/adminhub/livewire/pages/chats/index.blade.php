@@ -5,5 +5,5 @@
         </strong>
     </div>
 
-    @livewire('components.chat-room.chats-table')
+    <livewire:chat.components.chats-table />
 </div>
