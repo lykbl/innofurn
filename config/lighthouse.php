@@ -21,6 +21,8 @@ return [
             'App\\Domains\\Chat\\Models',
             'App\\Domains\\Attributes',
             'App\\Domains\\Discounts',
+            'App\\Domains\\ProductOption',
+            'App\\Domains\\ProductOptionValue',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',

@@ -9,7 +9,7 @@ use App\GraphQL\ResolverInterface;
 
 abstract class ProductQuery implements ResolverInterface
 {
-    public function __construct(protected ProductService $productVariantService)
+    public function __construct(protected ProductService $productService)
     {
     }
 }

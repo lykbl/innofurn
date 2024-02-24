@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Domains\Product;
 
 use App\Domains\Attributes\AggregatedIndexedAttributeValue;
+use App\GraphQL\Product\Exceptions\ProductNotFoundException;
 use App\GraphQL\Product\Queries\ProductOrderByEnum;
 use App\Models\Currency;
+use App\Models\Url;
 
 use function count;
 
@@ -198,5 +200,15 @@ class ProductService
         $models = $query->get();
 
         return $models;
+    }
+
+    public function findBySlug(string $slug): Product
+    {
+        $url = Url::firstWhere(['slug' => $slug, 'element_type' => \Lunar\Models\Product::class]);
+        if (!$url) {
+            throw new ProductNotFoundException();
+        }
+
+        return $url->element;
     }
 }

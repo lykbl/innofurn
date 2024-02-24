@@ -18,6 +18,21 @@ type ProductVariant implements WithDimensions {
     averageRating: Float
     reviewsCount: Int
     discounts: [Discount!]!
+    values: [ProductOptionValue!]! @belongsToMany
+}
+
+type ProductOptionValue {
+    id: IntID!
+    name: String!
+    option: ProductOption! @belongsTo
+    variants: [ProductVariant!]! @belongsToMany
+}
+
+type ProductOption {
+    id: IntID!
+    name: String!
+    label: String!
+    values: [ProductOptionValue!]! @hasMany
 }
 
 type Discount {

@@ -11,6 +11,6 @@ class FilterableAttributesForCollection extends ProductQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        return $this->productVariantService->collectionFilters($args['productTypeId']);
+        return $this->productService->collectionFilters($args['productTypeId']);
     }
 }

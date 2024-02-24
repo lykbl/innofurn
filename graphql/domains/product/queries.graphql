@@ -6,6 +6,8 @@ extend type Query {
     @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 
     filterableAttributesForCollection(productTypeId: IntID!): [AggregatedIndexedAttributeValue!]!
+
+    productDetails(slug: String!): Product!
 }
 
 enum ProductOrderBy {

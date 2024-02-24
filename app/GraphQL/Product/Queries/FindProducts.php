@@ -12,7 +12,7 @@ class FindProducts extends ProductQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): LengthAwarePaginator
     {
-        $paginator = $this->productVariantService->findProducts(
+        $paginator = $this->productService->findProducts(
             perPage: $args['first'] ?? 20,
             page: $args['page'] ?? 1,
             filters: $args['filters'] ?? [],

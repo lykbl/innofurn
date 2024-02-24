@@ -17,6 +17,8 @@ use Lunar\Models\CustomerGroup;
 use Lunar\Models\Order;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
+use Lunar\Models\ProductOption;
+use Lunar\Models\ProductOptionValue;
 use Lunar\Models\ProductVariant;
 use Lunar\Models\Transaction;
 use Lunar\Models\Url;
@@ -49,18 +51,20 @@ class AppServiceProvider extends ServiceProvider
     private function overrideModels(): void
     {
         $models = collect([
-            Product::class        => \App\Domains\Product\Product::class,
-            ProductVariant::class => \App\Domains\ProductVariant\ProductVariant::class,
-            Price::class          => \App\Models\Price::class,
-            Currency::class       => \App\Models\Currency::class,
-            Url::class            => \App\Models\Url::class,
-            Collection::class     => \App\Models\Collection::class,
-            Cart::class           => \App\Models\Cart::class,
-            Customer::class       => \App\Models\Customer::class,
-            CustomerGroup::class  => \App\Models\CustomerGroups\CustomerGroup::class,
-            Transaction::class    => \App\Models\Transaction::class,
-            Order::class          => \App\Models\Order::class,
-            Address::class        => \App\Models\Address::class,
+            Product::class            => \App\Domains\Product\Product::class,
+            ProductVariant::class     => \App\Domains\ProductVariant\ProductVariant::class,
+            Price::class              => \App\Models\Price::class,
+            Currency::class           => \App\Models\Currency::class,
+            Url::class                => \App\Models\Url::class,
+            Collection::class         => \App\Models\Collection::class,
+            Cart::class               => \App\Models\Cart::class,
+            Customer::class           => \App\Models\Customer::class,
+            CustomerGroup::class      => \App\Models\CustomerGroups\CustomerGroup::class,
+            Transaction::class        => \App\Models\Transaction::class,
+            Order::class              => \App\Models\Order::class,
+            Address::class            => \App\Models\Address::class,
+            ProductOption::class      => \App\Domains\ProductOption\ProductOption::class,
+            ProductOptionValue::class => \App\Domains\ProductOptionValue\ProductOptionValue::class,
         ]);
 
         ModelManifest::register($models);
