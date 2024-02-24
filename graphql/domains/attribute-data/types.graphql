@@ -1,8 +1,0 @@
-type AggregatedIndexedAttributeValue {
-    values: [AggregatedValues!]!
-    label: String!
-    type: String!
-    handle: String!
-}
-
-scalar AggregatedValues

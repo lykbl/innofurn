@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domains\Product;
 
-use App\Domains\Attributes\AggregatedIndexedAttributeValue;
+use App\Domains\ProductOption\ProductOption;
 use App\GraphQL\Product\Exceptions\ProductNotFoundException;
 use App\GraphQL\Product\Queries\ProductOrderByEnum;
 use App\Models\Currency;
@@ -12,6 +12,7 @@ use App\Models\Url;
 
 use function count;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
@@ -182,24 +183,25 @@ class ProductService
         };
     }
 
-    public function collectionFilters(int $collectionId, string $langCode = 'en')
+    /**
+     * @param int $collectionId
+     *
+     * @return Collection<ProductOption>
+     */
+    public function collectionFilters(int $collectionId): Collection
     {
-        $query = AggregatedIndexedAttributeValue::query()
-            ->select([
-                DB::raw('JSON_ARRAYAGG(value) as "values"'),
-                DB::raw("JSON_UNQUOTE(JSON_EXTRACT(lunar_attributes.name, '$.$langCode')) as label"), // TODO add fallback label
-                'lunar_attributes.type as type',
-                'lunar_attributes.handle as handle',
-            ])
-            ->join('lunar_attributables', 'indexed_product_attribute_values.attributable_id', '=', 'lunar_attributables.id')
-            ->join('lunar_attributes', 'lunar_attributables.attribute_id', '=', 'lunar_attributes.id')
-            ->where('product_type_id', $collectionId)
-            ->groupBy('lunar_attributes.type', 'lunar_attributes.handle', 'label')
+        $query = ProductOption::query()
+            ->select('lunar_product_options.*')
+            ->distinct()
+            ->join('lunar_product_option_values', 'lunar_product_option_values.product_option_id', '=', 'lunar_product_options.id')
+            ->join('lunar_product_option_value_product_variant', 'lunar_product_option_value_product_variant.value_id', '=', 'lunar_product_option_values.id')
+            ->join('lunar_product_variants', 'lunar_product_variants.id', '=', 'lunar_product_option_value_product_variant.variant_id')
+            ->join('lunar_products', 'lunar_products.id', '=', 'lunar_product_variants.product_id')
+            ->join('lunar_product_types', 'lunar_products.product_type_id', '=', 'lunar_product_types.id')
+            ->where('lunar_product_types.id', $collectionId)
         ;
 
-        $models = $query->get();
-
-        return $models;
+        return $query->get();
     }
 
     public function findBySlug(string $slug): Product

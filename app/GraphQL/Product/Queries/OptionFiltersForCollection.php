@@ -7,7 +7,7 @@ namespace App\GraphQL\Product\Queries;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class FilterableAttributesForCollection extends ProductQuery
+class OptionFiltersForCollection extends ProductQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {

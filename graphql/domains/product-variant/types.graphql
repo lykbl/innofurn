@@ -29,9 +29,9 @@ type ProductOptionValue {
 }
 
 type ProductOption {
-    id: IntID!
     name: String!
     label: String!
+    handle: String!
     values: [ProductOptionValue!]! @hasMany
 }
 

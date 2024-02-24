@@ -5,7 +5,7 @@ extend type Query {
     ): [Product!]!
     @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
 
-    filterableAttributesForCollection(productTypeId: IntID!): [AggregatedIndexedAttributeValue!]!
+    optionFiltersForCollection(productTypeId: IntID!): [ProductOption!]!
 
     productDetails(slug: String!): Product!
 }
