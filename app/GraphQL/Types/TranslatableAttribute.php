@@ -8,18 +8,18 @@ use App\Models\Translatable as TranslatableModel;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-abstract class Translatable
+abstract class TranslatableAttribute
 {
     /**
-     * @param TranslatableModel $product
+     * @param TranslatableModel $translatable
      * @param array             $args
      * @param GraphQLContext    $context
      * @param ResolveInfo       $resolveInfo
      *
      * @return string|null
      */
-    public function __invoke(TranslatableModel $product, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): ?string
+    public function __invoke(TranslatableModel $translatable, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): ?string
     {
-        return $product->translateAttribute($resolveInfo->fieldName, $args['lang'] ?? 'en');
+        return $translatable->translateAttribute($resolveInfo->fieldName, $args['lang'] ?? 'en'); // TODO read lang from user context
     }
 }
