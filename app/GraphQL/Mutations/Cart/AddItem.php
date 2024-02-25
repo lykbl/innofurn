@@ -20,6 +20,6 @@ final class AddItem extends CartMutation
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Cart
     {
-        return $this->cartService->addItem($args['productVariantId'], $args['quantity']);
+        return $this->cartService->addItem($args['sku'], $args['quantity']);
     }
 }

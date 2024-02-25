@@ -1,6 +1,6 @@
 extend type Mutation {
     "Create a new store user."
-    signUp(input: SignupInput! @spread): User!
+    signUp(input: SignUpInput! @spread): User!
 
     "Log in to a new session and get the user."
     login(input: LoginInput! @spread): User!
@@ -10,7 +10,7 @@ extend type Mutation {
 }
 
 # TODO Should this be here?
-input SignupInput {
+input SignUpInput {
     email: Email! @rules(apply: ["required", "unique:users,email"])
 }
 
