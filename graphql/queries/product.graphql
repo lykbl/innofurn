@@ -3,7 +3,7 @@ extend type Query {
         filters: ProductFilterInput!
         orderBy: ProductOrderBy!
     ): [Product!]!
-    @paginate(resolver: "App\\GraphQL\\Product\\Queries\\FindProducts", defaultCount: 20, maxCount: 50)
+    @paginate(resolver: "App\\GraphQL\\Queries\\Product\\FindProducts", defaultCount: 20, maxCount: 50)
 
     optionFiltersForCollection(productTypeId: IntID!): [ProductOption!]!
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Chat\Components;
 
-use App\Domains\Chat\Models\ChatRoom;
+use App\Models\Chat\ChatRoom;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Lunar\LivewireTables\Components\Actions\Action;

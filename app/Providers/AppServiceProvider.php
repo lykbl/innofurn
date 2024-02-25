@@ -51,8 +51,8 @@ class AppServiceProvider extends ServiceProvider
     private function overrideModels(): void
     {
         $models = collect([
-            Product::class            => \App\Domains\Product\Product::class,
-            ProductVariant::class     => \App\Domains\ProductVariant\ProductVariant::class,
+            Product::class            => \App\Models\Product::class,
+            ProductVariant::class     => \App\Models\ProductVariant::class,
             Price::class              => \App\Models\Price::class,
             Currency::class           => \App\Models\Currency::class,
             Url::class                => \App\Models\Url::class,
@@ -63,8 +63,8 @@ class AppServiceProvider extends ServiceProvider
             Transaction::class        => \App\Models\Transaction::class,
             Order::class              => \App\Models\Order::class,
             Address::class            => \App\Models\Address::class,
-            ProductOption::class      => \App\Domains\ProductOption\ProductOption::class,
-            ProductOptionValue::class => \App\Domains\ProductOptionValue\ProductOptionValue::class,
+            ProductOption::class      => \App\Models\ProductOption::class,
+            ProductOptionValue::class => \App\Models\ProductOptionValue::class,
         ]);
 
         ModelManifest::register($models);

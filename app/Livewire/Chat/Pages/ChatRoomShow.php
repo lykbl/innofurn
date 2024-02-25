@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Livewire\Chat\Pages;
 
-use App\Domains\Chat\Models\ChatRoom;
+use App\Models\Chat\ChatRoom;
 use Livewire\Component;
 
 class ChatRoomShow extends Component

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Cart;
 
-use App\Domains\ProductVariant\ProductVariant;
 use App\Models\Cart;
 use App\Models\Channel;
 use App\Models\Currency;
+use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Lunar\Actions\Carts\AddOrUpdatePurchasable;
