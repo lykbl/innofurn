@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Types;
 
-use App\Domains\ProductVariant\ProductVariant;
 use App\GraphQL\Exceptions\UnknownDimensionException;
+use App\Models\ProductVariant;
 use Cartalyst\Converter\Converter;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;

@@ -1,0 +1,48 @@
+type ProductVariant implements WithDimensions {
+    id: IntID!
+    stock: Int!
+    name: String
+    description: String
+    rating: Rating!
+    images(primaryOnly: Boolean): [Media!]! @hasMany(defaultCount: 4, type: PAGINATOR)
+    primaryImage: Media
+    product: Product!
+    prices: [Price!]!
+    isFeatured: Boolean! #TODO add logic
+    isFavorite: Boolean! #TODO add logic
+    width: Dimension
+    length: Dimension
+    height: Dimension
+    weight: Dimension
+    attributes: AttributeData! @rename(attribute: "attribute_data")
+    averageRating: Float!
+    reviewsCount: Int!
+    discounts: [Discount!]!
+    values: [ProductOptionValue!]! @belongsToMany
+}
+
+type ProductOptionValue {
+    id: IntID!
+    name: String!
+    option: ProductOption! @belongsTo
+    variants: [ProductVariant!]! @belongsToMany
+}
+
+type ProductOption {
+    name: String!
+    label: String!
+    handle: String!
+    values: [ProductOptionValue!]! @hasMany
+}
+
+type Discount {
+    id: IntID!
+    name: String!
+    handle: String!
+    type: String!
+    data: DiscountData!
+    startsAt: DateTime!
+    endsAt: DateTime!
+}
+
+scalar DiscountData

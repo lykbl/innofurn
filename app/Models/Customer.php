@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Domains\Chat\Models\ChatRoom;
+use App\Models\Chat\ChatRoom;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Lunar\Models\Customer as BaseCustomer;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Livewire\Chat\Components;
 
-use App\Domains\Chat\ChatService;
-use App\Domains\Chat\Models\ChatMessage;
-use App\Domains\Chat\Models\ChatRoom;
+use App\Models\Chat\ChatMessage;
+use App\Models\Chat\ChatRoom;
+use App\Services\ChatService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Domains\Product\Product;
-use App\Domains\ProductVariant\ProductVariant;
 use App\FieldTypes\ColorFieldType;
 use App\Models\Price;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Database\Seeder;
 use Lunar\FieldTypes\Text;
 use Lunar\FieldTypes\TranslatedText;

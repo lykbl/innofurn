@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
-use App\Domains\Chat\ChatPolicy;
-use App\Domains\Chat\Models\ChatMessage;
 use App\Models\Address;
+use App\Models\Chat\ChatMessage;
 use App\Models\PaymentIntent;
 use App\Models\Review\Review;
 use App\Policies\Address\AddressPolicy;
+use App\Policies\ChatPolicy;
 use App\Policies\Checkout\CheckoutPolicy;
 use App\Policies\Review\ReviewPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

@@ -1,0 +1,13 @@
+type Product implements WithUrls {
+    id: IntID!
+    name: String
+    description: String
+    variants: [ProductVariant!]!
+    brand: Brand!
+    collections: [Collection]!
+    urls: [Url!]!
+    defaultUrl: Url!
+    discounts: [Discount!]! @hasMany
+    reviewsCount: Int!
+    averageRating: Float!
+}

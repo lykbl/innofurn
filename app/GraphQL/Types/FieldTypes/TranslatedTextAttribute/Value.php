@@ -15,8 +15,8 @@ class Value
     {
         $translations = $translatedText->getValue();
 
-        $fallbackLang = Language::getDefault()->code;
-        $fallbackValue = null; //TODO add logic
+        $fallbackLang     = Language::getDefault()->code;
+        $fallbackValue    = null; // TODO add logic
         $settingsLangCode = 'en';
         foreach ($translations as $langCode => $translation) {
             if ($langCode === $settingsLangCode && $value = $translation?->getValue()) {
