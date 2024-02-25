@@ -6,15 +6,6 @@
 #import mutations/*.graphql
 #import subscriptions/*.graphql
 
-#import domains/*.graphql
-#import domains/chat/*.graphql
-#import domains/product-variant/*.graphql
-#import domains/media/*.graphql
-#import domains/rating/*.graphql
-#import domains/product/*.graphql
-#import domains/prices/*.graphql
-#import domains/attribute-data/*.graphql
-
 type Query
 
 type Subscription
