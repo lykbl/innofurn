@@ -5,8 +5,8 @@ type Product implements WithUrls {
     variants: [ProductVariant!]!
     brand: Brand!
     collections: [Collection]!
-    urls: [Url]!
-    defaultUrl: Url
+    urls: [Url!]!
+    defaultUrl: Url!
     discounts: [Discount!]! @hasMany
     reviewsCount: Int!
     averageRating: Float!

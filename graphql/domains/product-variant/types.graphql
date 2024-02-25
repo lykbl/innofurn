@@ -15,8 +15,8 @@ type ProductVariant implements WithDimensions {
     height: Dimension
     weight: Dimension
     attributes: AttributeData! @rename(attribute: "attribute_data")
-    averageRating: Float
-    reviewsCount: Int
+    averageRating: Float!
+    reviewsCount: Int!
     discounts: [Discount!]!
     values: [ProductOptionValue!]! @belongsToMany
 }

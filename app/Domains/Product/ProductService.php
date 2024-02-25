@@ -122,7 +122,7 @@ class ProductService
                         END as avg_rating
                     ')
                 )
-                ->when(ProductOrderByEnum::AVG_RATING === $orderBy, fn ($q) => $q->orderBy('avg_rating', $orderByDirection))
+                ->when(ProductOrderByEnum::AVG_RATING === $orderBy, fn ($q) => $q->orderBy('avg_rating', 'desc'))
                 ->when($ratingFilter, fn (Builder $q) => $q->having('avg_rating', '>=', $ratingFilter))
             ;
         }
