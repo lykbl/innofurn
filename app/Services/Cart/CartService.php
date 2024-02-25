@@ -20,21 +20,20 @@ use Lunar\Models\CartLine;
 
 class CartService
 {
-    public function addItem(int $productVariantId, int $quantity): Cart
+    public function addItem(string $sku, int $quantity): Cart
     {
         $cart = $this->getCart();
         /** @var CartSessionManager $cartManager */
-        // TODO add default tax zone migration
-        $purchasable = ProductVariant::find($productVariantId);
+        $purchasable = ProductVariant::where('sku', '=', $sku)->first();
         AddOrUpdatePurchasable::run($cart, $purchasable, $quantity);
 
         return $cart->refresh();
     }
 
-    public function removeItem(int $productVariantId, int $adjustment): Cart
+    public function removeItem(string $sku, int $adjustment): Cart
     {
         $cart = $this->getCart();
-        if (!$cartLine = $this->getCartLine($cart, $productVariantId)) {
+        if (!$cartLine = $this->getCartLine($cart, $sku)) {
             return $cart;
         }
 
@@ -45,10 +44,10 @@ class CartService
         return $cart->refresh();
     }
 
-    public function clearCartItem(int $productVariantId): Cart
+    public function clearCartItem(string $sku): Cart
     {
         $cart = $this->getCart();
-        if (!$cartLine = $this->getCartLine($cart, $productVariantId)) {
+        if (!$cartLine = $this->getCartLine($cart, $sku)) {
             return $cart;
         }
         RemovePurchasable::run($cart, $cartLine->id);
@@ -84,10 +83,10 @@ class CartService
         return $cart;
     }
 
-    private function getCartLine(Cart $cart, int $purchasableId): ?CartLine
+    private function getCartLine(Cart $cart, string $sku): ?CartLine
     {
-        $purchasableId = ProductVariant::find($purchasableId);
+        $purchasable = ProductVariant::where('sku', '=', $sku)->first();
 
-        return GetExistingCartLine::run($cart, $purchasableId);
+        return GetExistingCartLine::run($cart, $purchasable);
     }
 }

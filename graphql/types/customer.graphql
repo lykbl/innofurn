@@ -4,7 +4,7 @@ type Customer {
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
     name: String!
-#    role: String!
+    role: String!
 #    activeCart: Cart!
 #    activeChatRoom: ChatRoom!
 }
