@@ -27,7 +27,7 @@ class CartService
         $purchasable = ProductVariant::where('sku', '=', $sku)->first();
         AddOrUpdatePurchasable::run($cart, $purchasable, $quantity);
 
-        return $cart->refresh();
+        return $cart->calculate();
     }
 
     public function removeItem(string $sku, int $adjustment): Cart
@@ -41,7 +41,7 @@ class CartService
             UpdateCartLine::run($cartLine->id, $cartLine->quantity - $adjustment) :
             RemovePurchasable::run($cart, $cartLine->id);
 
-        return $cart->refresh();
+        return $cart->calculate();
     }
 
     public function clearCartItem(string $sku): Cart
@@ -52,7 +52,7 @@ class CartService
         }
         RemovePurchasable::run($cart, $cartLine->id);
 
-        return $cart->refresh();
+        return $cart->calculate();
     }
 
     public function clearCart(): Cart

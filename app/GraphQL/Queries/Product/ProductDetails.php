@@ -12,6 +12,7 @@ class ProductDetails extends ProductQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Product
     {
+        \Log::info('ProductDetails');
         return $this->productService->findBySlug($args['slug']);
     }
 }
