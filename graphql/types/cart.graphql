@@ -1,5 +1,11 @@
 type Cart {
-    id: IntID!,
-    user: User,
-    lines: [CartLine!]!,
+    id: IntID!
+    user: User!
+    lines: [CartLine!]!
+    subTotal: PriceData
+    shippingTotal: PriceData @rename(attribute: "shippingTotal")
+    taxTotal: PriceData @rename(attribute: "taxTotal")
+    total: PriceData @rename(attribute: "total")
+    discountTotal: PriceData @rename(attribute: "discountTotal")
+#    discounts: [Discount!]! @rename(attribute: "discounts")
 }
