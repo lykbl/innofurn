@@ -28,6 +28,7 @@ return [
             'App\\GraphQL\\Queries\\Chat',
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Product',
+            'App\\GraphQL\\Queries\\Cart',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\User',
@@ -116,8 +117,8 @@ return [
     |
     */
 
-//    'guards' => [],
-    'guards' => ['staff', 'sanctum'],
+    'guards' => ['web'],
+//    'guards' => ['sanctum', 'staff'],
 
     /*
     |--------------------------------------------------------------------------

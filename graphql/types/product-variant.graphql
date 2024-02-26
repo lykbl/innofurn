@@ -19,6 +19,7 @@ type ProductVariant implements WithDimensions {
     reviewsCount: Int!
     discounts: [Discount!]!
     values: [ProductOptionValue!]! @belongsToMany
+    sku: String!
 }
 
 type ProductOptionValue {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations\User;
 
+use App\GraphQL\Exceptions\User\AuthenticationException;
 use App\Models\User;
-use GraphQL\Error\Error;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -22,15 +22,15 @@ final class Login extends UserMutation
      *
      * @return Authenticatable
      *
-     * @throws Error
+     * @throws AuthenticationException
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Authenticatable
     {
-        $guard = Auth::guard(Arr::first(config('sanctum.guard', 'web')));
+        $guard = Auth::guard(Arr::first(config('sanctum.guard', 'sanctum')));
 
         $user = User::where('email', $args['email'])->first();
         if (!$user) {
-            throw new Error('Invalid credentials.');
+            throw new AuthenticationException();
         }
 
         return $guard->loginUsingId($user->id);

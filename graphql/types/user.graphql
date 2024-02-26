@@ -4,5 +4,6 @@ type User {
     name: String!
     email: String!
     emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
+    activeCart: Cart!
     customer: Customer! @rename(attribute: "retailCustomer")
 }

@@ -173,7 +173,7 @@ class ProductService
 
     private function attributeDataFilterInValueContext(HasMany|Builder $q, string $handle, array $values, array $meta = []): void
     {
-        $lang = $meta['lang'] ?? Language::getDefault()->code;
+        $lang = $meta['lang'] ?? Language::getDefault()->code; // TODO replace this with product options
         if (0 === count($values)) {
             return;
         }

@@ -5,6 +5,6 @@ type Customer {
     lastName: String! @rename(attribute: "last_name")
     name: String!
     role: String!
-    activeCart: Cart!
-    activeChatRoom: ChatRoom!
+#    activeCart: Cart!
+#    activeChatRoom: ChatRoom!
 }

@@ -20,6 +20,6 @@ final class ClearCartItem extends CartMutation
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Cart
     {
-        return $this->cartService->clearCartItem($args['productVariantId']);
+        return $this->cartService->clearCartItem($args['sku']);
     }
 }
