@@ -1,5 +1,9 @@
 type CartLine {
-    id: IntID!,
-    quantity: Int!,
-    purchasable: ProductVariant!,
+    id: IntID!
+    quantity: Int!
+    purchasable: ProductVariant!
+    total: PriceData @rename(attribute: "total")
+    subTotal: PriceData @rename(attribute: "subTotal")
+    discountTotal: PriceData @rename(attribute: "discountTotal")
+    subTotalDiscounted: PriceData @rename(attribute: "subTotalDiscounted")
 }
