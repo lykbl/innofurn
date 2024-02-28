@@ -13,8 +13,8 @@ class MyCart
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $user = Auth::guard(Arr::first(config('sanctum.guard', 'sanctum')))->user();
-        $activeCart = $user->activeCart;
+        $user         = Auth::guard(Arr::first(config('sanctum.guard', 'sanctum')))->user();
+        $activeCart   = $user->activeCart;
         $hydratedCart = $activeCart->calculate();
 
         return $hydratedCart;

@@ -8,10 +8,10 @@ use Lunar\Models\Cart;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-final class ClearCart extends CartMutation
+final class AddOrUpdatePurchasable extends CartMutation
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Cart
     {
-        return $this->cartService->clearCart();
+        return $this->cartService->addOrUpdatePurchasable($args['sku'], $args['quantity']);
     }
 }

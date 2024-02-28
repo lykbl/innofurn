@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations\Cart;
 
 use App\GraphQL\ResolverInterface;
-use App\Models\Cart;
 use App\Services\Cart\CartService;
+use Lunar\Models\Cart;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
