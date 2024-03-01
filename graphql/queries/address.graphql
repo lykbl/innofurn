@@ -1,0 +1,4 @@
+extend type Query @guard {
+    addresses: [Address!]! #TODO use directive?
+    address(id: IntID!): Address! @can(ability: "interact", find: "id") @find
+}

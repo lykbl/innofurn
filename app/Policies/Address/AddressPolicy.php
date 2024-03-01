@@ -10,14 +10,14 @@ use Illuminate\Auth\Access\Response;
 
 class AddressPolicy
 {
-    public function create(User $user): Response
+    public function add(User $user): Response
     {
         return $user->retailCustomer->addresses()->count() <= 6 ?
             Response::allow() :
             Response::deny('You can only have 6 addresses.');
     }
 
-    public function interact(User $user, Address $address): Response
+    public function edit(User $user, Address $address): Response
     {
         return $this->ownedByUser($user, $address)
             ? Response::allow()

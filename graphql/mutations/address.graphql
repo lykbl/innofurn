@@ -1,16 +1,16 @@
 extend type Mutation @guard {
-    createAddress(input: AddressInput!): Address! @can(ability: "create")
+    addAddress(input: AddressInput!): Address! @can(ability: "add")
 
-    updateAddress(input: AddressInput!): Address! @can(ability: "edition", find: "input.id")
+    editAddress(input: AddressInput!): Address! @can(ability: "edit", find: "input.id")
 
-    deleteAddress(id: IntID!): Boolean! @can(ability: "interact", find: "id")
+    removeAddress(id: IntID!): Boolean! @can(ability: "edit", find: "id", model: "Address")
 }
 
 input AddressInput {
     id: IntID
-    title: String
-    firstName: String!
-    lastName: String!
+    title: String!
+    firstName: String
+    lastName: String
     companyName: String
     lineOne: String!
     lineTwo: String

@@ -28,11 +28,9 @@ class AddressService
         $customer = auth()->user()->retailCustomer;
         $this->resetDefaults($customer->id, $addressInput['shippingDefault'], $addressInput['billingDefault']);
         $address = Address::find($addressInput['id']);
-        $address
-            ->update(
-                Arr::mapWithKeys($addressInput, fn ($value, $key) => [Str::snake($key) => $value])
-            )
-        ;
+        $address->update(
+            Arr::mapWithKeys($addressInput, fn ($value, $key) => [Str::snake($key) => $value])
+        );
 
         return $address->refresh();
     }
@@ -45,13 +43,11 @@ class AddressService
     private function resetDefaults(int $customerId, bool $shipping, bool $billing): void
     {
         if ($shipping) {
-            $column = 'shipping_default';
-            Address::where(['customer_id' => $customerId])->update([$column => false]);
+            Address::where(['customer_id' => $customerId])->update(['shipping_default' => false]);
         }
 
         if ($billing) {
-            $column = 'billing_default';
-            Address::where(['customer_id' => $customerId])->update([$column => false]);
+            Address::where(['customer_id' => $customerId])->update(['billing_default' => false]);
         }
     }
 }

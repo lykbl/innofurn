@@ -1,20 +1,20 @@
 type Address {
     id: IntID!
-    customerId: IntID!
-    title: String
-    firstName: String!
-    lastName: String!
-    companyName: String
-    lineOne: String!
-    lineTwo: String
-    lineThree: String
+    customer: Customer!
+    title: String!
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    companyName: String @rename(attribute: "company_name")
+    lineOne: String! @rename(attribute: "line_one")
+    lineTwo: String @rename(attribute: "line_two")
+    lineThree: String @rename(attribute: "line_three")
     city: String!
     state: String
     postcode: String!
-    countryId: IntID!
-    deliveryInstructions: String
-    contactEmail: String
-    contactPhone: String
-    shippingDefault: Boolean!
-    billingDefault: Boolean!
+    country: Country!
+    deliveryInstructions: String @rename(attribute: "delivery_instructions")
+    contactEmail: String @rename(attribute: "contact_email")
+    contactPhone: String @rename(attribute: "contact_phone")
+    shippingDefault: Boolean! @rename(attribute: "shipping_default")
+    billingDefault: Boolean! @rename(attribute: "billing_default")
 }
