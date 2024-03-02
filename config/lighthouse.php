@@ -29,6 +29,7 @@ return [
             'App\\GraphQL\\Queries\\ProductVariant',
             'App\\GraphQL\\Queries\\Product',
             'App\\GraphQL\\Queries\\Cart',
+            'App\\GraphQL\\Queries\\Address',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\User',

@@ -1,0 +1,3 @@
+extend type Query  {
+    countries: [Country!]! @all
+}

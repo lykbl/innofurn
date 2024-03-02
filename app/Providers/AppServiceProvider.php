@@ -11,6 +11,7 @@ use Lunar\Facades\ModelManifest;
 use Lunar\Models\Address;
 use Lunar\Models\Cart;
 use Lunar\Models\Collection;
+use Lunar\Models\Country;
 use Lunar\Models\Currency;
 use Lunar\Models\Customer;
 use Lunar\Models\CustomerGroup;
@@ -65,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
             Address::class            => \App\Models\Address::class,
             ProductOption::class      => \App\Models\ProductOption::class,
             ProductOptionValue::class => \App\Models\ProductOptionValue::class,
+            Country::class            => \App\Models\Country::class,
         ]);
 
         ModelManifest::register($models);
