@@ -37,7 +37,11 @@ class CheckoutService
     public function captureIntent(string $paymentIntentId): bool
     {
         /** @var Cart $cart */
-        $cart = auth()->user()->activeCart;
+        $cart = Cart::where('meta->payment_intent', $paymentIntentId)->first();
+        if ($cart->completed_at) {
+            return true;
+        }
+
         Payments::driver('stripe')
             ->cart($cart)
             ->withData(['payment_intent' => $paymentIntentId])

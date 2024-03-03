@@ -12,6 +12,6 @@ class CreatePaymentIntent extends CheckoutMutation
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): PaymentIntent
     {
-        return $this->checkoutService->createPaymentIntent(...$args['input']);
+        return $this->checkoutService->createPaymentIntent($args['billingAddressId'], $args['shippingAddressId'], $args['shippingMethodId']);
     }
 }

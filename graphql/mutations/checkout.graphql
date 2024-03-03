@@ -1,7 +1,7 @@
 extend type Mutation @guard {
-    createPaymentIntent(input: CreatePaymentIntentInput!): PaymentIntent! @can(ability: "createPaymentIntent", injectArgs: true) #TODO verify this when garphql is connected
+    createPaymentIntent(input: CreatePaymentIntentInput! @spread): PaymentIntent! @can(ability: "createPaymentIntent", injectArgs: true) #TODO verify this when garphql is connected
 
-    capturePaymentIntent(input : CapturePaymentIntentInput!): Boolean!
+    capturePaymentIntent(input : CapturePaymentIntentInput! @spread): Boolean! @can(ability: "capturePaymentIntent", injectArgs: true, model: "App\\Models\\PaymentIntent") #add validation
 }
 
 enum SHIPPING_METHODS {
@@ -11,8 +11,8 @@ enum SHIPPING_METHODS {
 }
 
 input CreatePaymentIntentInput {
-    billingAddressId: IntID
-    shippingAddressId: IntID
+    billingAddressId: IntID!
+    shippingAddressId: IntID!
     shippingMethodId: SHIPPING_METHODS!
 }
 
