@@ -4,28 +4,53 @@ declare(strict_types=1);
 
 namespace App\Services\Cart;
 
-use App\Actions\Cart\AddOrUpdatePurchasable;
 use App\Models\Channel;
 use App\Models\Currency;
 use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Lunar\Actions\Carts\AddOrUpdatePurchasable;
 use Lunar\Actions\Carts\GetExistingCartLine;
 use Lunar\Actions\Carts\RemovePurchasable;
+use Lunar\Actions\Carts\UpdateCartLine;
 use Lunar\Facades\CartSession;
+use Lunar\Managers\CartSessionManager;
 use Lunar\Models\Cart;
 
 class CartService
 {
     public function addOrUpdatePurchasable(string $sku, int $quantity): Cart
     {
-        $cart        = $this->getCart();
+        $cart = $this->getCart();
         $purchasable = ProductVariant::where('sku', '=', $sku)->first();
         app(config('lunar.cart.actions.add_to_cart', AddOrUpdatePurchasable::class))->execute(
             cart: $cart,
             purchasable: $purchasable,
             quantity: $quantity,
             meta: [],
+        );
+
+        return $cart->calculate();
+    }
+
+    public function updatePurchasable(string $sku, int $quantity): Cart
+    {
+        $cart = $this->getCart();
+        /** @var GetExistingCartLine $getLineAction */
+        $getLineAction = app(config('lunar.cart.actions.get_existing_cart_line', GetExistingCartLine::class));
+        $cartLine = $getLineAction->execute(
+            cart: $cart,
+            purchasable: ProductVariant::where('sku', '=', $sku)->first(),
+        );
+        if (!$cartLine) {
+            return $cart;
+        }
+
+        /** @var UpdateCartLine $updateAction */
+        $updateAction = app(config('lunar.cart.actions.update_cart_line', UpdateCartLine::class));
+        $updateAction->execute(
+            cartLineId: $cartLine->id,
+            quantity: $quantity,
         );
 
         return $cart->calculate();

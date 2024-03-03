@@ -1,6 +1,8 @@
 extend type Mutation {
     addOrUpdatePurchasable(sku: String! @rules(apply: ["exists:lunar_product_variants,sku"]), quantity: Int = 1 @rules(apply: ["min:1"])): Cart!
 
+    updatePurchasable(sku: String! @rules(apply: ["exists:lunar_product_variants,sku"]), quantity: Int = 1 @rules(apply: ["min:1"])): Cart!
+
     clearCartItem(sku: String! @rules(apply: ["exists:lunar_product_variants,sku"])): Cart!
 
     clearCart: Cart!
