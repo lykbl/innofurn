@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\FieldTypes\ColorFieldType;
+use App\Models\PromotionBanner\PromotionBanner;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Lunar\Facades\AttributeManifest;
 use Lunar\Facades\FieldTypeManifest;
+use Lunar\Hub\Auth\Manifest;
 use Lunar\Hub\Facades\Menu;
 use Lunar\Hub\LunarHub;
+use Lunar\Hub\Menu\MenuSlot;
 
 class HubServiceProvider extends ServiceProvider
 {
@@ -26,6 +30,8 @@ class HubServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(app_path().'/../routes/adminhub/index.php');
         $this->loadViewsFrom(app_path().'/../resources/views/adminhub/livewire', 'adminhub');
         $this->extendMenuBuilder();
+        $this->extendPermissions();
+        $this->extendAttributes();
 
         FieldTypeManifest::add(
             ColorFieldType::class
@@ -43,27 +49,85 @@ class HubServiceProvider extends ServiceProvider
 
     private function extendSidebarMenu(): void
     {
+        /** @var MenuSlot $slot */
         $slot = Menu::slot('sidebar');
 
         $supportGroup = $slot
             ->group('hub.support')
-            ->name(__('adminhub::menu.sidebar.support'));
+            ->name(__('adminhub::menu.sidebar.support'))
+        ;
         $supportGroup
             ->addItem(function ($item): void {
                 $item
                     ->name(__('adminhub::menu.sidebar.chats'))
                     ->handle('hub.chats')
+                    ->gate('support:manage-chats')
                     ->route('adminhub.chats.index')
                     ->icon('chat');
-            });
-        $supportGroup
+            })
             ->addItem(function ($item): void {
                 $item
                     ->name(__('adminhub::menu.sidebar.issue-tickets'))
                     ->handle('hub.tickets')
+                    ->gate('support:manage-tickets')
                     ->route('adminhub.tickets.index')
-                    ->icon('question-mark-circle');
-            });
+                    ->icon('question-mark-circle')
+                ;
+            })
+        ;
+
+        $catalogueGroup = $slot->group('hub.catalogue');
+        $bannerGroup    = $catalogueGroup
+            ->section('hub.banners')
+            ->name(__('adminhub::menu.sidebar.banners'))
+            ->handle('hub.banners')
+            ->gate('catalogue:manage-banners')
+            ->route('hub.promotion-banners.index')
+            ->icon('banner')
+        ;
+
+        $bannerGroup->addItem(function ($menuItem): void {
+            $menuItem
+                ->name(__('adminhub::menu.sidebar.promotion-banner-types'))
+                ->handle('hub.promotion-banner-types')
+                ->gate('catalogue:manage-banners')
+                ->route('hub.promotion-banner-types.index');
+        })
+        ;
+    }
+
+    private function extendPermissions(): void
+    {
+        $manifest = app(Manifest::class);
+
+        $manifest->addPermission(function ($permission): void {
+            $permission
+                ->name(__('adminhub::auth.permissions.catalogue.banners.name'))
+                ->handle('catalogue:manage-banners')
+                ->description(__('adminhub::auth.permissions.catalogue.banners.description'))
+            ;
+        });
+
+        $manifest->addPermission(function ($permission): void {
+            $permission
+                ->name(__('adminhub::auth.permissions.support.chats.name'))
+                ->handle('support:manage-chats')
+                ->description(__('adminhub::auth.permissions.support.chats.description'))
+            ;
+        });
+
+        $manifest->addPermission(function ($permission): void {
+            $permission
+                ->name(__('adminhub::auth.permissions.support.tickets.name'))
+                ->handle('support:manage-tickets')
+                ->description(__('adminhub::auth.permissions.support.tickets.description'))
+            ;
+        });
+    }
+
+    private function extendAttributes(): void
+    {
+        AttributeManifest::addType(PromotionBanner::class);
     }
 
     private function registerViewComponents(): void

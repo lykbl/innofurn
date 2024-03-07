@@ -19,5 +19,8 @@ Route::group([
         Route::group([
             'prefix' => 'tickets',
         ], __DIR__.'/includes/tickets.php');
+        Route::group([
+            'prefix' => 'promotion-banners',
+        ], __DIR__.'/includes/promotion-banners.php');
     });
 });
