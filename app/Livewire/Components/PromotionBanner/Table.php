@@ -49,7 +49,7 @@ class Table extends BaseTable
         return __('adminhub::tables.search_placeholders.promotion-banner');
     }
 
-    public function deleteSavedSearch($id)
+    public function deleteSavedSearch($id): void
     {
         SavedSearch::destroy($id);
 
@@ -60,17 +60,17 @@ class Table extends BaseTable
         );
     }
 
-    public function saveSearch()
+    public function saveSearch(): void
     {
         $this->validateOnly('savedSearchName', [
             'savedSearchName' => 'required',
         ]);
 
         auth()->getUser()->savedSearches()->create([
-            'name' => $this->savedSearchName,
-            'term' => $this->query,
+            'name'      => $this->savedSearchName,
+            'term'      => $this->query,
             'component' => $this->getName(),
-            'filters' => $this->filters,
+            'filters'   => $this->filters,
         ]);
 
         $this->notify('Search saved');
@@ -86,13 +86,14 @@ class Table extends BaseTable
             $this->getName()
         )->get()->map(function ($savedSearch) {
             return [
-                'key' => $savedSearch->id,
-                'label' => $savedSearch->name,
+                'key'     => $savedSearch->id,
+                'label'   => $savedSearch->name,
                 'filters' => $savedSearch->filters,
-                'query' => $savedSearch->term,
+                'query'   => $savedSearch->term,
             ];
         });
     }
+
     public function getData()
     {
         $filters = $this->filters;

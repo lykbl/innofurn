@@ -22,7 +22,7 @@ class Show extends AbstractPromotionBanner
         return view('adminhub.livewire.components.promotion-banner.show');
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->promotionBanner->delete();
         $this->notify(
@@ -31,7 +31,7 @@ class Show extends AbstractPromotionBanner
         );
     }
 
-    public function restore()
+    public function restore(): void
     {
         $this->promotionBanner->restore();
         $this->showRestoreConfirm = false;
