@@ -31,7 +31,7 @@
                 @include('adminhub::partials.attributes')
             </div>
             <div id="discount">
-              @include('adminhub.partials.promotion-banners.editing.discount')
+                @include('adminhub.partials.promotion-banners.editing.discount')
             </div>
             <div id="images">
                 @include('adminhub.partials.image-manager', [
@@ -43,7 +43,7 @@
             <div id="urls">
                 @include('adminhub::partials.urls')
             </div>
-            @if (false && $promotionBanner->id)
+            @if ($promotionBanner->id)
                 <div
                     @class([
                         'bg-white border rounded shadow',
@@ -71,19 +71,18 @@
                             <div class="col-span-12 lg:col-span-8">
                                 <strong>
                                     @if($promotionBanner->deleted_at)
-                                        {{ __('adminhub::inputs.restore_zone.label', ['model' => 'product']) }}
+                                        {{ __('adminhub::inputs.restore_zone.label', ['model' => 'promotionBanner']) }}
                                     @else
-                                        {{ __('adminhub::inputs.danger_zone.label', ['model' => 'product']) }}
+                                        {{ __('adminhub::inputs.danger_zone.label', ['model' => 'promotionBanner']) }}
                                     @endif
                                 </strong>
 
                                 <p class="text-xs text-gray-600">
                                     @if($promotionBanner->deleted_at)
-                                        {{ __('adminhub::catalogue.products.show.restore_strapline') }}
+                                        {{ __('adminhub::catalogue.promotion-banners.show.restore_strapline') }}
                                     @else
-                                        {{ __('adminhub::catalogue.products.show.delete_strapline') }}
+                                        {{ __('adminhub::catalogue.promotion-banners.show.delete_strapline') }}
                                     @endif
-
                                 </p>
                             </div>
 
@@ -159,11 +158,12 @@
                 </x-hub::modal.dialog>
             @endif
 
-            <div class="pt-12 mt-12 border-t">
-                @livewire('hub.components.activity-log-feed', [
-                    'subject' => $promotionBanner,
-                ])
-            </div>
+{{--            TODO fix this--}}
+{{--            <div class="pt-12 mt-12 border-t">--}}
+{{--                @livewire('hub.components.activity-log-feed', [--}}
+{{--                    'subject' => $promotionBanner,--}}
+{{--                ])--}}
+{{--            </div>--}}
         </div>
     </div>
 

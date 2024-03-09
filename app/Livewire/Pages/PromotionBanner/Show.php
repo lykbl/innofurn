@@ -11,9 +11,9 @@ class Show extends Component
 {
     public PromotionBanner $promotionBanner;
 
-    public function mount(PromotionBanner $promotionBanner): void
+    public function mount(int $id): void
     {
-        $this->promotionBanner = $promotionBanner;
+        $this->promotionBanner = PromotionBanner::withTrashed()->find($id);
     }
 
     public function render()

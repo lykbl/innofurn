@@ -10,11 +10,6 @@ use Illuminate\View\View;
 
 class Create extends AbstractPromotionBanner
 {
-    /**
-     * Called when the component is mounted.
-     *
-     * @return void
-     */
     public function mount(): void
     {
         $this->promotionBanner = new PromotionBanner([
@@ -25,7 +20,7 @@ class Create extends AbstractPromotionBanner
 
     public function render(): View
     {
-        return view('adminhub.livewire.components.promotion-banner.create');
+        return view('adminhub.livewire.components.promotion-banner.show');
     }
 
     protected function getSlotContexts(): array

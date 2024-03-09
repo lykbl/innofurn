@@ -9,7 +9,6 @@ use Lunar\Hub\Tables\TableBuilder as BaseTableBuilder;
 
 class TableBuilder extends BaseTableBuilder
 {
-    // TODO move logic to main table class?
     public function getData(): iterable
     {
         $query = PromotionBannerType::query()
@@ -20,7 +19,7 @@ class TableBuilder extends BaseTableBuilder
             // TODO fix search
             $query->whereIn('id', PromotionBannerType::search($this->searchTerm)
                 ->query(fn ($query) => $query->select('id'))
-                ->take(500) // TODO magic?
+                ->take(500)
                 ->keys());
         }
 

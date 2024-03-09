@@ -14,8 +14,9 @@
 		</div>
 	</div>
 
-	<div>
-		@livewire('components.promotion-banner.types.table')
-	</div>
+	<livewire:components.promotion-banner.types.table />
+{{--	<div>--}}
+{{--		@livewire('components.promotion-banner.types.table')--}}
+{{--	</div>--}}
 
 </div>

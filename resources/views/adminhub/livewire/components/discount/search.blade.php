@@ -46,7 +46,6 @@
 									<div class="truncate">
 										{{ $discount->name }}{{ $discount->deleted_at }}
 									</div>
-									{{ var_dump($selectedDiscountId) }}
 									@if ($selectedDiscountId == $discount->id)
 										<button
 											class="px-2 py-1 text-xs text-red-700 border border-red-200 rounded shadow-sm hover:bg-red-50"

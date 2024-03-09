@@ -21,7 +21,8 @@ class TableBuilder extends BaseTableBuilder
             $query->whereIn('id', PromotionBanner::search($this->searchTerm)
                 ->query(fn ($query) => $query->select('id'))
                 ->take(500) // TODO magic?
-                ->keys());
+                ->keys()
+            );
         }
 
         $filters = collect($this->queryStringFilters)->filter(function ($value) {
@@ -32,7 +33,6 @@ class TableBuilder extends BaseTableBuilder
             call_user_func($qe, $query, $this->searchTerm, $filters);
         }
 
-        // Get the table filters we want to apply.
         $tableFilters = $this->getFilters()->filter(function ($filter) use ($filters) {
             return $filters->has($filter->field);
         });

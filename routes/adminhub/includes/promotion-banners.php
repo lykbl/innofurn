@@ -28,7 +28,7 @@ Route::group([
     });
 
     Route::group([
-        'prefix' => '{promotionBanner}',
+        'prefix' => '{id}',
     ], function (): void {
         Route::get('/', Show::class)->name('hub.promotion-banners.show');
     });

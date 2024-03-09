@@ -27,14 +27,8 @@ abstract class AbstractType extends Component
      */
     public $view = 'promotion-banners';
 
-    /**
-     * Instance of the parent product.
-     */
     public PromotionBannerType $promotionBannerType;
 
-    /**
-     * Attributes which are ready to be synced.
-     */
     public Collection $selectedAttributes;
 
     public $attributeSearch = '';
@@ -79,7 +73,7 @@ abstract class AbstractType extends Component
 
     public function selectAll($groupId): void
     {
-        $attributes = $this->getAvailableAttributes(PromotionBanner::class)
+        $attributes = $this->getAvailableAttributes()
             ->filter(fn ($att) => $att->attribute_group_id == $groupId);
 
         foreach ($attributes as $attribute) {
