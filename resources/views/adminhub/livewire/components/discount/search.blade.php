@@ -76,7 +76,7 @@
 
 		<x-slot name="footer">
 			<x-hub::button wire:click.prevent="triggerSelect">
-				{{ __('adminhub::components.discount-search.commit_btn') }}
+				{{ __('adminhub::components.discount-search.commit-btn') }}
 			</x-hub::button>
 		</x-slot>
 	</x-hub::slideover>

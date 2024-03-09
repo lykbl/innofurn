@@ -70,7 +70,7 @@
                                 </x-hub::button>
                             @else
                                 <span class="text-xs text-gray-500">
-                                    {{ __('adminhub::partials.promotion-banner.attribute_system_required') }}
+                                    {{ __('adminhub::partials.promotion-banners.attribute_system_required') }}
                                 </span>
                             @endif
                         </div>

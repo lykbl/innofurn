@@ -37,6 +37,13 @@ return [
     'product.collections' => 'Collections',
     'product.select-product-image' => 'Select an existing product image',
     'product.choose-image' => 'Choose Image',
+    'sidebar.promotion-banners' => 'Promotion Banners',
+    'sidebar.promotion-banner-types' => 'Promotion Banner Types',
+    'promotion-banners.basic-information' => 'Basic Information',
+    'promotion-banners.attributes' => 'Attributes',
+    'promotion-banners.images' => 'Images',
+    'promotion-banners.discount' => 'Discount',
+    'promotion-banners.urls' => 'URLs',
     /**
      * Generic menu items.
      */

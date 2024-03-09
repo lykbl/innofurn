@@ -39,7 +39,7 @@ class Show extends AbstractType
         $this->promotionBannerType->mappedAttributes()->sync($this->selectedAttributes->pluck('id')->toArray());
 
         $this->notify(
-            __('adminhub::catalogue.promotion-banner-types.show.updated_message'),
+            __('adminhub::catalogue.promotion-banner-types.show.updated-message'),
             'hub.promotion-banner-types.index'
         );
     }

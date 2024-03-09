@@ -300,4 +300,16 @@ return [
      */
     'model-url.preview' => 'Preview',
     'model-url.view' => 'View',
+    /** Promotion Banners */
+    'promotion-banners.show.title' => 'Promotion Banners',
+    'promotion-banners.create.title' => 'Create Promotion Banner',
+    'promotion-banners.index.title' => 'Promotion Banners',
+    'promotion-banners.index.create_promotion_banner' => 'Create Promotion Banner',
+    'promotion-banners.index.select_all_btn' => 'Select all',
+    'promotion-banners.index.deselect_all_btn' => 'Deselect all',
+    'discount-search.title' => 'Search for discounts',
+    'discount-search.btn' => 'Add Discounts',
+    'discount-search.first_tab' => 'Search discounts',
+    'discount-search.pre_search_message' => 'Search for discounts by name.',
+    'discount-search.commit-btn' => 'Select Discounts',
 ];

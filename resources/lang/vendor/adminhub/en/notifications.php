@@ -65,4 +65,6 @@ return [
     'default_url_protected' => 'Unable to delete the default URL',
     'product_option_value.deleted' => 'Product Option Value deleted',
     'product_option_value.updated' => 'Product OptionValue updated',
+    'promotion-banners.restored' => 'Promotion Banner restored',
+    'promotion-banners.deleted' => 'Promotion Banner deleted',
 ];

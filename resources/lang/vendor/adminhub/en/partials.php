@@ -217,4 +217,11 @@ return [
     'orders.transactions.capture' => 'Captured',
     'orders.transactions.intent' => 'Intent',
     'orders.transactions.refund' => 'Refunded',
+    /** Promotion Banners */
+    'promotion-banners.basic-information.heading' => 'Basic Information',
+    /** Promotion Banner Types */
+    'promotion-banner.types.create.btn_text' => 'Create Promotion Banner Type',
+    'promotion-banners.discount.heading' => 'Discount',
+    'promotion-banners.discount.search' => 'Search for a discount by name',
+    'promotion-banners.discount.search.view_discount' => 'View Discount',
 ];

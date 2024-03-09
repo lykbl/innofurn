@@ -8,7 +8,7 @@
 		<div class="space-y-4">
 			<header class="flex items-center justify-between border-t pt-4">
 				<h4 class="text-md font-medium text-gray-700">
-					{{ __('adminhub::partials.promotion-banner.discounts.discount-search') }}
+					{{ __('adminhub::partials.promotion-banners.discount.search') }}
 				</h4>
 
 				@livewire('components.discount-search', [
@@ -37,7 +37,7 @@
 												:href="route('hub.discounts.show', $promotionBanner->discount->id )"
 												target="_blank"
 											>
-												{{ __('adminhub::partials.promotion-banners.discount-search.view_discount') }}
+												{{ __('adminhub::partials.promotion-banners.discount.search.view_discount') }}
 											</x-hub::dropdown.link>
 
 											<x-hub::dropdown.button

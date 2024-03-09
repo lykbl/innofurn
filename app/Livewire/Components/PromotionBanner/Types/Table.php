@@ -23,14 +23,14 @@ class Table extends BaseTable
 
         $this->tableBuilder->addAction(
             Action::make('view')
-                ->label(__('adminhub::tables.actions.promotion-banners.show'))
+                ->label(__('adminhub::tables.actions.promotion-banner-types.show'))
                 ->url(fn ($record) => route('hub.promotion-banner-types.show', $record->id))
         );
     }
 
     public function getSearchPlaceholderProperty(): string
     {
-        return __('adminhub::tables.search_placeholders.promotion-banner');
+        return __('adminhub::tables.search_placeholders.promotion-banner-types');
     }
 
     public function getData()

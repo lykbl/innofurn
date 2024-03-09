@@ -29,10 +29,10 @@ class ChatsTable extends Table
      */
     public function build(): void
     {
-        $filterKey = 'active_only';
+        $filterKey = 'active-only';
         $this->tableBuilder->addFilter(
             CheckboxFilter::make($filterKey)
-                ->heading(__("adminhub::tables.filters.chat_room.$filterKey"))
+                ->heading(__("adminhub::tables.filters.chat-room.$filterKey"))
                 ->query(function ($filters, $query) use ($filterKey): void {
                     $value = $filters->get($filterKey);
 
@@ -42,10 +42,10 @@ class ChatsTable extends Table
                 })
         );
 
-        $filterKey = 'awaiting_reply_only';
+        $filterKey = 'awaiting-reply-only';
         $this->tableBuilder->addFilter(
             CheckboxFilter::make($filterKey)
-                ->heading(__("adminhub::tables.filters.chat_room.$filterKey"))
+                ->heading(__("adminhub::tables.filters.chat-room.$filterKey"))
                 ->query(function (Collection $filters, Builder $query) use ($filterKey): void {
                     $value = $filters->get($filterKey);
 
@@ -73,7 +73,7 @@ class ChatsTable extends Table
             }),
         ]);
 
-        $this->tableBuilder->addAction(Action::make('view')->label(__('adminhub::tables.actions.chat_room.show'))->url(function ($record) {
+        $this->tableBuilder->addAction(Action::make('view')->label(__('adminhub::tables.actions.chat-room.show'))->url(function ($record) {
             return route('adminhub.chats.show', $record->id);
         }));
     }
@@ -85,7 +85,7 @@ class ChatsTable extends Table
      */
     public function getSearchPlaceholderProperty(): string
     {
-        return __('adminhub::tables.search_placeholders.chat_room');
+        return __('adminhub::tables.search_placeholders.chat-room');
     }
 
     /**

@@ -79,11 +79,11 @@ class HubServiceProvider extends ServiceProvider
         $catalogueGroup = $slot->group('hub.catalogue');
         $bannerGroup    = $catalogueGroup
             ->section('hub.banners')
-            ->name(__('adminhub::menu.sidebar.banners'))
+            ->name(__('adminhub::menu.sidebar.promotion-banners'))
             ->handle('hub.banners')
             ->gate('catalogue:manage-banners')
             ->route('hub.promotion-banners.index')
-            ->icon('banner')
+            ->icon('photograph')
         ;
 
         $bannerGroup->addItem(function ($menuItem): void {

@@ -35,7 +35,7 @@ class Show extends AbstractPromotionBanner
     {
         $this->promotionBanner->restore();
         $this->showRestoreConfirm = false;
-        $this->notify(__('adminhub::notifications.promotion-banners.product_restored'));
+        $this->notify(__('adminhub::notifications.promotion-banners.restored'));
     }
 
     protected function getSlotContexts(): array

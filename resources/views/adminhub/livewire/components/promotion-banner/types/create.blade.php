@@ -8,7 +8,7 @@
                   method="POST"
                   wire:submit.prevent="create">
                 <x-hub::button type="submit">
-                    {{ __('adminhub::catalogue.promotion-banner.types.create.btn_text') }}
+                    {{ __('adminhub::catalogue.promotion-banner-types.create.btn_text') }}
                 </x-hub::button>
             </form>
         </div>

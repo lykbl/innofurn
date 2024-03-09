@@ -56,19 +56,29 @@ return [
         'tags' => 'Tags',
         'new_customer' => 'New Customer',
         'new_returning' => 'New/Returning Customers',
+        'description' => 'Description',
+        'discount' => 'Discount',
     ],
     'search_placeholders' => [
-        'chat_room' => 'Search by customer or notes...',
+        'chat-room' => 'Search by customer or notes...',
+        'promotion-banners' => 'Search by title or description...',
+        'promotion-banner-types' => 'Search by name...',
     ],
     'filters' => [
-        'chat_room' => [
-            'active_only' => 'Active Only',
-            'awaiting_reply_only' => 'Awaiting Reply Only',
+        'chat-room' => [
+            'active-only' => 'Active Only',
+            'awaiting-reply-only' => 'Awaiting Reply Only',
         ],
     ],
     'actions' => [
-        'chat_room' => [
+        'chat-room' => [
             'show' => 'Open Chat',
-        ]
+        ],
+        'promotion-banners' => [
+            'show' => 'Edit Banner',
+        ],
+        'promotion-banner-types' => [
+            'show' => 'Edit Banner Type',
+        ],
     ],
 ];

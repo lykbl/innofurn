@@ -46,7 +46,7 @@ class Table extends BaseTable
 
     public function getSearchPlaceholderProperty(): string
     {
-        return __('adminhub::tables.search_placeholders.promotion-banner');
+        return __('adminhub::tables.search_placeholders.promotion-banners');
     }
 
     public function deleteSavedSearch($id): void

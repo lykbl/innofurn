@@ -144,35 +144,35 @@ abstract class AbstractPromotionBanner extends Component
     {
         return collect([
             [
-                'title'      => __('adminhub::menu.promotion-banner.basic-information'),
+                'title'      => __('adminhub::menu.promotion-banners.basic-information'),
                 'id'         => 'basic-information',
                 'has_errors' => $this->errorBag->hasAny([
                     'promotionBanner.promotion_banner_type_id',
                 ]),
             ],
             [
-                'title'      => __('adminhub::menu.promotion_banner.attributes'),
+                'title'      => __('adminhub::menu.promotion-banners.attributes'),
                 'id'         => 'attributes',
                 'has_errors' => $this->errorBag->hasAny([
                     'attributeMapping.*',
                 ]),
             ],
             [
-                'title'      => __('adminhub::menu.promotion_banner.discount'),
+                'title'      => __('adminhub::menu.promotion-banners.discount'),
                 'id'         => 'discount',
                 'has_errors' => $this->errorBag->hasAny([
                     'promotionBanner.discount_id',
                 ]),
             ],
             [
-                'title'      => __('adminhub::menu.promotion_banner.images'),
+                'title'      => __('adminhub::menu.promotion-banners.images'),
                 'id'         => 'images',
                 'has_errors' => $this->errorBag->hasAny([
                     'images',
                 ]),
             ],
             [
-                'title'      => __('adminhub::menu.promotion_banner.urls'),
+                'title'      => __('adminhub::menu.promotion-banners.urls'),
                 'id'         => 'urls',
                 'has_errors' => $this->errorBag->hasAny([
                     'urls',

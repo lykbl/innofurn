@@ -112,4 +112,5 @@ return [
     'max_uses.label' => 'Max uses',
     'max_uses_per_user.label' => 'Max uses per user',
     'size.placeholder' => 'Size',
+    'promotion-banner-type.label' => 'Promotion Banner Type',
 ];

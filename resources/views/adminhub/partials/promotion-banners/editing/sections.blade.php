@@ -79,9 +79,9 @@
 
                                 <p class="text-xs text-gray-600">
                                     @if($promotionBanner->deleted_at)
-                                        {{ __('adminhub::catalogue.promotion-banners.show.restore_strapline') }}
+                                        {{ __('adminhub::catalogue.promotion-banners.show.restore-strapline') }}
                                     @else
-                                        {{ __('adminhub::catalogue.promotion-banners.show.delete_strapline') }}
+                                        {{ __('adminhub::catalogue.promotion-banners.show.delete-strapline') }}
                                     @endif
                                 </p>
                             </div>
@@ -109,11 +109,11 @@
 
                 <x-hub::modal.dialog wire:model="showRestoreConfirm">
                     <x-slot name="title">
-                        {{ __('adminhub::catalogue.promotion-banners.show.restore_title') }}
+                        {{ __('adminhub::catalogue.promotion-banners.show.restore-title') }}
                     </x-slot>
 
                     <x-slot name="content">
-                        {{ __('adminhub::catalogue.promotion-banners.show.restore_strapline') }}
+                        {{ __('adminhub::catalogue.promotion-banners.show.restore-strapline') }}
                     </x-slot>
 
                     <x-slot name="footer">
@@ -126,7 +126,7 @@
 
                             <x-hub::button wire:click="restore"
                                            theme="green">
-                                {{ __('adminhub::catalogue.promotion-banners.show.restore_btn') }}
+                                {{ __('adminhub::catalogue.promotion-banners.show.restore-btn') }}
                             </x-hub::button>
                         </div>
                     </x-slot>
@@ -134,11 +134,11 @@
 
                 <x-hub::modal.dialog wire:model="showDeleteConfirm">
                     <x-slot name="title">
-                        {{ __('adminhub::catalogue.promotion-banners.show.delete_title') }}
+                        {{ __('adminhub::catalogue.promotion-banners.show.delete-title') }}
                     </x-slot>
 
                     <x-slot name="content">
-                        {{ __('adminhub::catalogue.promotion-banners.show.delete_strapline') }}
+                        {{ __('adminhub::catalogue.promotion-banners.show.delete-strapline') }}
                     </x-slot>
 
                     <x-slot name="footer">
@@ -151,7 +151,7 @@
 
                             <x-hub::button wire:click="delete"
                                            theme="danger">
-                                {{ __('adminhub::catalogue.promotion-banners.show.delete_btn') }}
+                                {{ __('adminhub::catalogue.promotion-banners.show.delete-btn') }}
                             </x-hub::button>
                         </div>
                     </x-slot>

@@ -17,13 +17,16 @@ Route::group([
     Route::group([
         'prefix' => 'types',
     ], function (): void {
-        Route::get('/', \App\Livewire\Pages\PromotionBanner\Types\Index::class)->name('hub.promotion-banner-types.index');
-        Route::get('/create', \App\Livewire\Pages\PromotionBanner\Types\Create::class)->name('hub.promotion-banner-types.create');
+        Route::get('/', \App\Livewire\Pages\PromotionBanner\Types\Index::class)
+            ->name('hub.promotion-banner-types.index');
+        Route::get('/create', \App\Livewire\Pages\PromotionBanner\Types\Create::class)
+            ->name('hub.promotion-banner-types.create');
 
         Route::group([
             'prefix' => '{promotionBannerType}',
         ], function (): void {
-            Route::get('/', \App\Livewire\Pages\PromotionBanner\Types\Show::class)->name('hub.promotion-banner-types.show');
+            Route::get('/', \App\Livewire\Pages\PromotionBanner\Types\Show::class)
+                ->name('hub.promotion-banner-types.show');
         });
     });
 
