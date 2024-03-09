@@ -22,7 +22,7 @@ class CheckoutPolicy
 
     public function capturePaymentIntent(User $user, mixed $args): Response
     {
-        //TODO fix
+        // TODO fix
         return Response::allow();
     }
 

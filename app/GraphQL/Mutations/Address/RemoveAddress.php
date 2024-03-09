@@ -11,7 +11,7 @@ class RemoveAddress extends AddressMutation
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): bool
     {
-        //TODO forbid to delete the last address
+        // TODO forbid to delete the last address
         return $this->addressService->delete($args['id']);
     }
 }

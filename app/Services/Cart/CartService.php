@@ -14,14 +14,13 @@ use Lunar\Actions\Carts\GetExistingCartLine;
 use Lunar\Actions\Carts\RemovePurchasable;
 use Lunar\Actions\Carts\UpdateCartLine;
 use Lunar\Facades\CartSession;
-use Lunar\Managers\CartSessionManager;
 use Lunar\Models\Cart;
 
 class CartService
 {
     public function addOrUpdatePurchasable(string $sku, int $quantity): Cart
     {
-        $cart = $this->getCart();
+        $cart        = $this->getCart();
         $purchasable = ProductVariant::where('sku', '=', $sku)->first();
         app(config('lunar.cart.actions.add_to_cart', AddOrUpdatePurchasable::class))->execute(
             cart: $cart,
@@ -38,7 +37,7 @@ class CartService
         $cart = $this->getCart();
         /** @var GetExistingCartLine $getLineAction */
         $getLineAction = app(config('lunar.cart.actions.get_existing_cart_line', GetExistingCartLine::class));
-        $cartLine = $getLineAction->execute(
+        $cartLine      = $getLineAction->execute(
             cart: $cart,
             purchasable: ProductVariant::where('sku', '=', $sku)->first(),
         );

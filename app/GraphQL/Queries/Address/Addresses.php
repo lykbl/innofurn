@@ -13,15 +13,15 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 class Addresses extends Query
 {
     /**
-     * @param mixed $root
-     * @param array $args
+     * @param mixed          $root
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
      *
      * @return Collection<Address>
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection
     {
-        return $context->user()->retailCustomer->addresses; //TODO do this on schema level?
+        return $context->user()->retailCustomer->addresses; // TODO do this on schema level?
     }
 }
