@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace App\Livewire\Components\PromotionBanner\Types;
 
 use App\Models\PromotionBanner\PromotionBanner;
-use App\Models\PromotionBanner\PromotionBannerType;
-use Lunar\Facades\DB;
 use Lunar\Models\Attribute;
 
 class Show extends AbstractType
 {
-    public bool $deleteDialogVisible = false;
-
     public function mount(): void
     {
-        $systemAttributes         = Attribute::system(PromotionBanner::class)->get();
-        $this->selectedAttributes = $this->promotionBannerType->mappedAttributes
-            ->filter(fn ($att) => PromotionBannerType::class == $att->attribute_type)
-            ->merge($systemAttributes)
+        $systemAttributes = Attribute::system(PromotionBanner::class)->get();
+        $mappedAttributes = $this->promotionBannerType
+            ->mappedAttributes
+            ->filter(fn ($att) => PromotionBanner::class === $att->attribute_type)
         ;
+        $this->selectedAttributes = $systemAttributes->merge($mappedAttributes);
     }
 
     protected function rules()
@@ -43,30 +40,6 @@ class Show extends AbstractType
 
         $this->notify(
             __('adminhub::catalogue.promotion-banner-types.show.updated_message'),
-            'hub.promotion-banner-types.index'
-        );
-    }
-
-    public function getCanDeleteProperty()
-    {
-        return !$this->promotionBannerType->promotionBanners?->count();
-    }
-
-    public function delete(): void
-    {
-        if (!$this->canDelete) {
-            $this->notify(
-                __('adminhub::catalogue.promotion-banner-types.show.delete.disabled_message')
-            );
-            $this->deleteDialogVisible = false;
-
-            return;
-        }
-
-        DB::transaction(fn () => $this->promotionBannerType->delete());
-
-        $this->notify(
-            __('adminhub::catalogue.promotion-banner-types.show.delete.delete_notification'),
             'hub.promotion-banner-types.index'
         );
     }

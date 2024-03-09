@@ -27,6 +27,7 @@ class Table extends BaseTable
     {
         $this->tableBuilder->baseColumns([
             TextColumn::make('id'),
+            TextColumn::make('name'),
         ]);
 
         $this->tableBuilder->addAction(

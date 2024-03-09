@@ -1,5 +1,7 @@
 <div class="space-y-6">
+
     @include('adminhub.partials.forms.promotion-banner-type')
+
     <x-hub::layout.bottom-panel>
         <div class="flex justify-end">
             <form action="#"
