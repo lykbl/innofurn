@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries\Address;
 
-use App\GraphQL\Queries\Query;
+use App\GraphQL\ResolverInterface;
 use App\Models\Address;
 use Illuminate\Database\Eloquent\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class Addresses extends Query
+class Addresses implements ResolverInterface
 {
     /**
      * @param mixed          $root

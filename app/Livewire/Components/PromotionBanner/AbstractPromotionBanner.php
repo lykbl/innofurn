@@ -11,6 +11,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 use Illuminate\View\View;
+
+use function in_array;
+
 use Livewire\Component;
 use Livewire\FileUploadConfiguration;
 use Livewire\TemporaryUploadedFile;
@@ -130,7 +133,7 @@ abstract class AbstractPromotionBanner extends Component
 
         if ($isNew) {
             return redirect()->route('hub.promotion-banners.show', [
-                'promotionBanner' => $this->promotionBanner->id,
+                'id' => $this->promotionBanner->id,
             ]);
         }
     }
@@ -188,7 +191,7 @@ abstract class AbstractPromotionBanner extends Component
         ])->reject(fn ($item) => ($item['hidden'] ?? false));
     }
 
-    public function getAttributeDataProperty(): Collection
+    public function getAttributeDataProperty(): ?Collection
     {
         return $this->promotionBanner->attribute_data;
     }
@@ -247,7 +250,7 @@ abstract class AbstractPromotionBanner extends Component
             $owner->refresh()->getMedia('images')->reject(function ($media) {
                 $imageIds = collect($this->images)->pluck('id')->toArray();
 
-                return \in_array($media->id, $imageIds, true);
+                return in_array($media->id, $imageIds, true);
             })->each(function ($media): void {
                 $media->forceDelete();
             });

@@ -17,7 +17,6 @@ use Lunar\Base\Traits\HasTranslations;
 use Lunar\Base\Traits\HasUrls;
 use Lunar\Base\Traits\LogsActivity;
 use Lunar\Base\Traits\Searchable;
-use PromotionBannerMedia;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 
 final class PromotionBanner extends BaseModel implements SpatieHasMedia
@@ -70,7 +69,7 @@ final class PromotionBanner extends BaseModel implements SpatieHasMedia
             'id',
             'id',
             'media_id'
-        )->where('lunar_promotion_banner_media.primary', '=', true);
+        )->where('lunar_media_promotion_banner.primary', '=', true);
     }
 
     public function bannerImage(): HasOneThrough
@@ -82,6 +81,6 @@ final class PromotionBanner extends BaseModel implements SpatieHasMedia
             'id',
             'id',
             'media_id'
-        )->where('lunar_promotion_banner_media.banner', '=', true);
+        )->where('lunar_media_promotion_banner.banner', '=', true);
     }
 }

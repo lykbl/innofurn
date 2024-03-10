@@ -1,0 +1,3 @@
+extend type Query {
+    promotionBannerType(handle: PromotionBannerStyles! @eq, first: Int!, page: Int!): PromotionBannerType! @find(model: "App\\Models\\PromotionBanner\\PromotionBannerType")
+}

@@ -19,6 +19,7 @@ return [
             'App\\Models',
             'App\\Models\\Review\\',
             'App\\Models\\Chat\\',
+            'App\\Models\\PromotionBanner\\',
         ],
         'queries' => [
             'App\\GraphQL\\Queries',
@@ -30,6 +31,7 @@ return [
             'App\\GraphQL\\Queries\\Product',
             'App\\GraphQL\\Queries\\Cart',
             'App\\GraphQL\\Queries\\Address',
+            'App\\GraphQL\\Queries\\PromotionBanner',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\User',

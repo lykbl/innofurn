@@ -1,0 +1,23 @@
+type PromotionBanner {
+    id: IntID!
+    name: String!
+    description: String!
+    discount: Discount! @hasOne
+    images: [Media!]! @hasMany
+    promotionBannerType: PromotionBannerType! @belongsTo
+    bannerImage: Media
+    primaryImage: Media
+}
+
+type PromotionBannerType {
+    id: IntID!
+    name: String!
+    handle: PromotionBannerStyles!
+    promotionBanners: [PromotionBanner!]! @hasMany(type: PAGINATOR)
+}
+
+enum PromotionBannerStyles {
+    card
+    panel
+    carousel_item
+}

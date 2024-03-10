@@ -32,6 +32,7 @@ class Table extends BaseTable
             TextColumn::make('id'),
             TextColumn::make('name')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->translateAttribute('name')),
             TextColumn::make('description')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->translateAttribute('description')),
+            TextColumn::make('type')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->promotionBannerType->name),
             TextColumn::make('discount')->value(fn (PromotionBanner $promotionBanner) => "{$promotionBanner->discount->name} ({$promotionBanner->discount->id})"),
             TextColumn::make('starts_at')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->discount->starts_at->format('Y-m-d H:i')),
             TextColumn::make('ends_at')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->discount->ends_at->format('Y-m-d H:i')),
