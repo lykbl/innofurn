@@ -289,7 +289,7 @@ abstract class AbstractPromotionBanner extends Component
                     } else {
                         $media = $owner->addMedia($file->getRealPath())
                             ->usingFileName((string) $filename)
-                            ->toMediaCollection('images');
+                            ->toMediaCollection('promotion-banners');
                     }
 
                     activity()

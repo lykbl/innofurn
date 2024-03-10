@@ -3,4 +3,7 @@ enum ConversionTypes {
     LARGE @enum(value: "large")
     MEDIUM @enum(value: "medium")
     SMALL @enum(value: "small")
+    PROMOTION_BANNER_PANEL @enum(value: "promotion_banner_panel")
+    PROMOTION_BANNER_CARD @enum(value: "promotion_banner_card")
+    PROMOTION_BANNER_CAROUSEL_ITEM @enum(value: "promotion_banner_carousel_item")
 }

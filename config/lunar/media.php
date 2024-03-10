@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Media\PromotionBannerConversions;
 use App\Media\StorefrontConversions;
 use Lunar\Base\StandardMediaConversions;
 
@@ -9,6 +10,7 @@ return [
     'conversions' => [
         StandardMediaConversions::class,
         StorefrontConversions::class,
+        PromotionBannerConversions::class,
     ],
 
     'fallback' => [
