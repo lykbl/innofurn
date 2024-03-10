@@ -3,6 +3,8 @@ type Collection implements WithUrls {
     name(lang: Locales = ENGLISH): String
     breadcrumb(lang: Locales = ENGLISH): String
 
-    urls: [Url]
-    defaultUrl: Url
+    images: [Media!]
+    thumbnail: Media! #TODO use this everywhere
+    urls: [Url!]!
+    defaultUrl: Url!
 }
