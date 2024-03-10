@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Models\PromotionBanner;
 
 use App\Models\Discount;
+use App\Models\Media;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Lunar\Base\BaseModel;
 use Lunar\Base\Casts\AsAttributeData;
@@ -15,6 +17,7 @@ use Lunar\Base\Traits\HasTranslations;
 use Lunar\Base\Traits\HasUrls;
 use Lunar\Base\Traits\LogsActivity;
 use Lunar\Base\Traits\Searchable;
+use PromotionBannerMedia;
 use Spatie\MediaLibrary\HasMedia as SpatieHasMedia;
 
 final class PromotionBanner extends BaseModel implements SpatieHasMedia
@@ -45,5 +48,40 @@ final class PromotionBanner extends BaseModel implements SpatieHasMedia
     public function discount(): BelongsTo
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public function images()
+    {
+        $prefix = config('lunar.database.table_prefix');
+
+        return $this->belongsToMany(\Spatie\MediaLibrary\MediaCollections\Models\Media::class, "{$prefix}media_promotion_banner")
+            ->withPivot(['primary', 'preview'])
+            ->orderBy('primary')
+            ->withTimestamps()
+        ;
+    }
+
+    public function primaryImage(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Media::class,
+            PromotionBannerMedia::class,
+            'promotion_banner_id',
+            'id',
+            'id',
+            'media_id'
+        )->where('lunar_promotion_banner_media.primary', '=', true);
+    }
+
+    public function bannerImage(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Media::class,
+            PromotionBannerMedia::class,
+            'promotion_banner_id',
+            'id',
+            'id',
+            'media_id'
+        )->where('lunar_promotion_banner_media.banner', '=', true);
     }
 }

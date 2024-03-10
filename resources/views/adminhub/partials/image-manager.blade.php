@@ -77,13 +77,13 @@
 			@endif
 		</header>
 
-			<div>
-				<x-hub::input.fileupload
-					wire:model="{{ $wireModel }}"
-					:filetypes="$filetypes"
-					multiple
-				/>
-			</div>
+		<div>
+			<x-hub::input.fileupload
+				wire:model="{{ $wireModel }}"
+				:filetypes="$filetypes"
+				multiple
+			/>
+		</div>
 
 		@if ($errors->has($wireModel . '*'))
 			<x-hub::alert level="danger">
@@ -209,6 +209,13 @@
 									<x-hub::input.toggle
 										:disabled="$image['primary']"
 										wire:model="images.{{ $key }}.primary"
+									/>
+								</x-hub::tooltip>
+
+								<x-hub::tooltip text="Use as Banner image">
+									<x-hub::input.toggle
+										:disabled="$image['banner']"
+										wire:model="images.{{ $key }}.banner"
 									/>
 								</x-hub::tooltip>
 
