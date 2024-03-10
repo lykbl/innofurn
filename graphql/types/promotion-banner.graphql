@@ -5,8 +5,9 @@ type PromotionBanner {
     discount: Discount! @hasOne
     images: [Media!]! @hasMany
     promotionBannerType: PromotionBannerType! @belongsTo
-    bannerImage: Media
-    primaryImage: Media
+    bannerImage: Media!
+    primaryImage: Media!
+    defaultUrl: Url!
 }
 
 type PromotionBannerType {

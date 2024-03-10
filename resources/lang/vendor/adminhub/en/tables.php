@@ -69,6 +69,7 @@ return [
             'active-only' => 'Active Only',
             'awaiting-reply-only' => 'Awaiting Reply Only',
         ],
+        'all' => 'All',
     ],
     'actions' => [
         'chat-room' => [

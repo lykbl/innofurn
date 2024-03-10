@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Livewire\Components\PromotionBanner;
 
 use App\Models\PromotionBanner\PromotionBanner;
+use App\Models\PromotionBanner\PromotionBannerType;
 use Illuminate\Support\Collection;
 use Lunar\Hub\Http\Livewire\Traits\Notifies;
 use Lunar\Hub\Models\SavedSearch;
 use Lunar\LivewireTables\Components\Actions\Action;
 use Lunar\LivewireTables\Components\Columns\TextColumn;
+use Lunar\LivewireTables\Components\Filters\SelectFilter;
 use Lunar\LivewireTables\Components\Table as BaseTable;
 
 class Table extends BaseTable
@@ -30,13 +32,32 @@ class Table extends BaseTable
     {
         $this->tableBuilder->baseColumns([
             TextColumn::make('id'),
-            TextColumn::make('name')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->translateAttribute('name')),
+            TextColumn::make('name')
+                ->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->translateAttribute('name'))
+                ->url(fn (PromotionBanner $promotionBanner) => route('hub.promotion-banners.show', $promotionBanner->id)),
             TextColumn::make('description')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->translateAttribute('description')),
-            TextColumn::make('type')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->promotionBannerType->name),
-            TextColumn::make('discount')->value(fn (PromotionBanner $promotionBanner) => "{$promotionBanner->discount->name} ({$promotionBanner->discount->id})"),
+            TextColumn::make('type')
+                ->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->promotionBannerType->name)
+                ->url(fn (PromotionBanner $promotionBanner) => route('hub.promotion-banner-types.show', $promotionBanner->promotionBannerType->id)),
+            TextColumn::make('discount')
+                ->value(fn (PromotionBanner $promotionBanner) => "{$promotionBanner->discount->name} ({$promotionBanner->discount->id})")
+                ->url(fn (PromotionBanner $promotionBanner) => route('hub.discounts.show', $promotionBanner->discount->id)),
             TextColumn::make('starts_at')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->discount->starts_at->format('Y-m-d H:i')),
             TextColumn::make('ends_at')->value(fn (PromotionBanner $promotionBanner) => $promotionBanner->discount->ends_at->format('Y-m-d H:i')),
         ]);
+
+        $this->tableBuilder->addFilter(
+            SelectFilter::make('type')->options(function () {
+                $types = PromotionBannerType::all()->mapWithKeys(function ($type) {
+                    return [$type->id => $type->name];
+                });
+
+                return collect([__('adminhub::tables.filters.all')])->merge($types);
+            })->query(fn ($filters, $query) => $query->when($filters->get('type'), fn ($q) => $q
+                ->where(['promotion_banner_type_id' => $filters->get('type')])
+            )
+            )
+        );
 
         $this->tableBuilder->addAction(
             Action::make('view')

@@ -31,8 +31,12 @@ final class PromotionBanner extends BaseModel implements SpatieHasMedia
 
     protected $table = 'promotion_banners';
 
-    // TODO verfiy
-    protected $guarded = [];
+    protected $fillable = [
+        'attribute_data',
+        'status',
+        'promotion_banner_type_id',
+        'discount_id',
+    ];
 
     protected $casts = [
         'style'          => PromotionBannerStyle::class,

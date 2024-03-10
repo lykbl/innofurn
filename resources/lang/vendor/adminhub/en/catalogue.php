@@ -152,4 +152,5 @@ return [
     'promotion-banners.show.delete_title' => 'Delete promotion banner',
     'promotion-banners.show.delete_btn' => 'Confirm delete',
     'promotion-banner-types.show.updated-message' => 'Promotion Banner Type updated',
+    'promotion-banners.show.delete-strapline' => 'This will send the promotion banner into the recycle bin, you will be able to restore it later',
 ];

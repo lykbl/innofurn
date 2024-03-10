@@ -312,4 +312,5 @@ return [
     'discount-search.first_tab' => 'Search discounts',
     'discount-search.pre_search_message' => 'Search for discounts by name.',
     'discount-search.commit-btn' => 'Select Discounts',
+    'discount-search.no_results' => 'No results found.',
 ];
