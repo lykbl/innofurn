@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Models\Review\Review;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Laravel\Scout\Searchable;
 use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
 use Lunar\Models\Discount;
@@ -15,6 +16,7 @@ use Lunar\Models\ProductVariant as BaseProductVariant;
 class ProductVariant extends BaseProductVariant implements Translatable
 {
     use HasAttributes;
+    use Searchable;
 
     protected $casts = [
         'attribute_data' => AsAttributeData::class,
@@ -82,5 +84,18 @@ class ProductVariant extends BaseProductVariant implements Translatable
             'id',
             'media_id',
         )->where('lunar_media_product_variant.primary', true);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'product_variants_index';
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->translateAttribute('name'),
+            'sku'  => $this->sku,
+        ];
     }
 }
