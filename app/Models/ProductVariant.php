@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Scout\Searchable;
 use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
+use Lunar\FieldTypes\Text;
 use Lunar\Models\Discount;
 use Lunar\Models\ProductVariant as BaseProductVariant;
 
@@ -93,9 +94,53 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
     public function toSearchableArray()
     {
+        $this->load([
+            'prices.currency',
+            'values',
+            'values.option',
+        ]);
+
+        $names  = $this->attribute_data->get('name')?->getValue()->mapWithKeys(fn ($name, $locale) => [$locale => $name])->toArray();
+        $prices = $this->prices->mapWithKeys(fn ($price) => [$price->currency->code => $price->getRawOriginal('price')])->toArray();
+        // TODO harden types?
+
+        $structuredHierarchy = [];
+        /** @var \Illuminate\Support\Collection<Collection> $collectionHierarchy */
+        $collectionHierarchy = $this->product->collectionHierarchy();
+        foreach ($collectionHierarchy as $level => $collection) {
+            foreach ($collection->attribute_data->get('name')?->getValue() as $locale => $name) {
+                /* @var Text|null $name */
+                $structuredHierarchy[$locale]["lvl_$level"] = $name?->getValue();
+            }
+        }
+
+        /** @var Media $primaryMedia */
+        $primaryMedia = $this->primaryImage;
+        $conversions  = collect(['small', 'medium'])->mapWithKeys(
+            fn (string $conversion) => [$conversion => $primaryMedia?->getAvailableUrl([$conversion])]
+        );
+
+        $optionFacets = [];
+        /** @var ProductOptionValue $value */
+        foreach ($this->values as $value) {
+            /** @var ProductOption $option */
+            $option = $value->option;
+            foreach ($value->name as $locale => $name) {
+                $optionFacets[$option->handle][$locale] = $name;
+            }
+        }
+
         return [
-            'name' => $this->translateAttribute('name'),
-            'sku'  => $this->sku,
+            'name'                 => $names,
+            'sku'                  => $this->sku,
+            'prices'               => $prices,
+            'rating'               => $this->getAverageRatingAttribute(),
+            'options'              => $optionFacets,
+            'conversions'          => $conversions,
+            'product_id'           => $this->product->id,
+            'collection_hierarchy' => $structuredHierarchy,
+            'collection_slug'      => $this->product->collections->first()->defaultUrl->slug,
+            'brand'                => $this->product->brand->name,
         ];
     }
 }

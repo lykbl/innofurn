@@ -142,8 +142,12 @@ return [
         'key'            => env('MEILISEARCH_KEY'),
         'index-settings' => [
              ProductVariant::class => [
-                 'filterableAttributes' => ['name', 'sku'],
-                 'sortableAttributes'   => ['created_at'],
+                 'distinctAttribute'    => 'product_id',
+                 'displayedAttributes'  => ['*'],
+                 'searchableAttributes' => ['name', 'brand', 'collection_hierarchy'],
+                 'sortableAttributes'   => ['name', 'prices', 'rating'],
+                 'filterableAttributes' => ['brand', 'collection_slug', 'prices', 'rating', 'options', 'brand'],
+//                 'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
              ],
         ],
     ],

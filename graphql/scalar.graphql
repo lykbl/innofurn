@@ -16,3 +16,5 @@ scalar Phone
 scalar PriceData
 
 scalar AttributeData
+
+scalar DiscountData

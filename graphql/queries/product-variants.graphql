@@ -1,0 +1,35 @@
+extend type Query {
+    findProductVariants(
+        filters: ProductFilterInput!
+        orderBy: ProductVariantOrderBy!
+    ): [ProductVariant!]!
+    @paginate(resolver: "App\\GraphQL\\Queries\\Product\\FindProducts", defaultCount: 20, maxCount: 50)
+}
+
+enum ProductVariantOrderBy {
+    NAME_DESC
+    NAME_ASC
+    PRICE_ASC
+    PRICE_DESC
+    RATING_DESC
+    RATING_ASC
+}
+
+input PriceFilterInput {
+    min: Int
+    max: Int
+}
+
+input OptionFilterInput {
+    handle: String!
+    values: [String!]
+}
+
+input ProductFilterInput {
+    search: String!
+    collection: String!
+    price: PriceFilterInput
+    options: [OptionFilterInput!]
+    rating: Int
+    onSaleOnly: Boolean
+}

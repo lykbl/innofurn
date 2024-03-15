@@ -1,0 +1,9 @@
+type Discount {
+    id: IntID!
+    name: String!
+    handle: String!
+    type: String!
+    data: DiscountData!
+    startsAt: DateTime!
+    endsAt: DateTime!
+}

@@ -1,0 +1,13 @@
+type ProductOptionValue {
+    id: IntID!
+    name: String!
+    option: ProductOption! @belongsTo
+    variants: [ProductVariant!]! @belongsToMany
+}
+
+type ProductOption {
+    name: String!
+    label: String!
+    handle: String!
+    values: [ProductOptionValue!]! @hasMany
+}

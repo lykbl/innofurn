@@ -10,15 +10,20 @@ enum ProductOrderByEnum: string
     case NAME_DESC  = 'NAME_DESC';
     case PRICE_ASC  = 'PRICE_ASC';
     case PRICE_DESC = 'PRICE_DESC';
-    case AVG_RATING = 'AVG_RATING';
+    case AVG_RATING_ASC = 'AVG_RATING_ASC';
+    case AVG_RATING_DESC = 'AVG_RATING_DESC';
 
-    public function column(): string
+    public function key(?string $currencyCode = null): string
     {
-        return explode('_', $this->value)[0];
+        return match ($this) {
+            self::NAME_ASC, self::NAME_DESC => 'name',
+            self::PRICE_ASC, self::PRICE_DESC => "prices.$currencyCode",
+            self::AVG_RATING_ASC, self::AVG_RATING_DESC => 'rating',
+        };
     }
 
     public function direction(): string
     {
-        return explode('_', $this->value)[1];
+        return str_contains($this->value, 'ASC') ? 'asc' : 'desc';
     }
 }

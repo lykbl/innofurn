@@ -8,6 +8,7 @@ use App\Models\Review\Review;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
 
@@ -56,5 +57,26 @@ class Product extends BaseProduct implements Translatable
     public function getAverageRatingAttribute(): ?float
     {
         return (float) ($this->reviews()->avg('rating') ?? 0);
+    }
+
+    public function collectionHierarchy(): \Illuminate\Support\Collection
+    {
+        $recursiveChildrenQuery = DB::table('lunar_collections', 'root')
+            ->select(['root.*', DB::raw('1 as depth')])
+            ->join('lunar_collection_product', 'root.id', '=', 'lunar_collection_product.collection_id')
+            ->where('lunar_collection_product.product_id', '=', $this->id)
+            ->unionAll(
+                DB::table('lunar_collections', 'child')
+                    ->select(['child.*', DB::raw('prev_level.depth + 1')])
+                    ->join('recursive_hierarchy as prev_level', 'prev_level.parent_id', '=', 'child.id')
+            )
+        ;
+        $hierarchyQuery = Collection::from('recursive_hierarchy')
+            ->select('*')
+            ->withRecursiveExpression('recursive_hierarchy', $recursiveChildrenQuery)
+            ->orderBy('depth', 'desc')
+        ;
+
+        return $hierarchyQuery->get();
     }
 }
