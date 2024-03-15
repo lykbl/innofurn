@@ -25,8 +25,7 @@ class RunSeeders extends Command
         );
         $selectedClasses = multisearch(
             label: 'Seeder to run?',
-            options: fn (string $seederClassName) => Arr::where($seeders, static fn (string $seeder) => str_contains($seeder, $seederClassName)
-            ),
+            options: fn (string $seederClassName) => Arr::where($seeders, static fn (string $seeder) => str_contains($seeder, $seederClassName)),
             placeholder: 'E.g. ProductVariantSeeder',
         );
         foreach ($selectedClasses as $selectedClass) {
