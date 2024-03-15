@@ -12,6 +12,6 @@ class CreateReview extends ReviewMutation
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Review
     {
-        return $this->reviewService->create(...$args);
+        return $this->reviewService->create(...array_merge(['userId' => $context->user()->id], $args));
     }
 }

@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace App\Services\Review;
 
 use App\Models\Review\Review;
+use Lunar\Models\ProductVariant;
 
 class ReviewService
 {
-    public function create(int $productVariantId, string $title, string $body, int $rating): Review
+    public function create(int $userId, int $reviewableId, string $title, string $body, int $rating): Review
     {
         $review = Review::create([
-            'title'              => $title,
-            'body'               => $body,
-            'rating'             => $rating,
-            'product_variant_id' => $productVariantId,
-            'user_id'            => auth()->user()->id,
+            'title'           => $title,
+            'body'            => $body,
+            'rating'          => $rating,
+            'reviewable_id'   => $reviewableId,
+            'reviewable_type' => ProductVariant::class,
+            'user_id'         => $userId,
         ]);
         $review->save();
 

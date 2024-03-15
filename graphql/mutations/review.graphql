@@ -6,8 +6,8 @@ extend type Mutation @guard {
 input CreateReviewInput {
     title: String!
     body: String!
-#    rating: Rating!
-    productVariantId: IntID! @rules(apply: ["exists:lunar_product_variants,id"])
+    rating: Int!
+    reviewableId: IntID! @rules(apply: ["exists:lunar_product_variants,id"])
 }
 
 # TODO add admin guard
