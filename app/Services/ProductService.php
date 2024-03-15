@@ -55,7 +55,7 @@ class ProductService
         }
 
         $meiliSearchOrderBy = ["{$orderBy->key($currencyCode)}:{$orderBy->direction()}"];
-        $results = ProductVariant::search($search, function (Indexes $meiliSearch, string $search, array $baseOptions) use ($page, $perPage, $meiliSearchFilters, $meiliSearchOrderBy) {
+        $results            = ProductVariant::search($search, function (Indexes $meiliSearch, string $search, array $baseOptions) use ($page, $perPage, $meiliSearchFilters, $meiliSearchOrderBy) {
             $searchQuery = new SearchQuery();
             $searchQuery->setQuery($search);
             $searchQuery->setFilter($meiliSearchFilters);
@@ -74,7 +74,7 @@ class ProductService
      *
      * @return Collection<ProductOption>
      */
-    public function collectionFilters(int $collectionId): Collection
+    public function collectionFilters(string $collectionSlug): Collection
     {
         $query = ProductOption::query()
             ->select('lunar_product_options.*')
@@ -83,8 +83,16 @@ class ProductService
             ->join('lunar_product_option_value_product_variant', 'lunar_product_option_value_product_variant.value_id', '=', 'lunar_product_option_values.id')
             ->join('lunar_product_variants', 'lunar_product_variants.id', '=', 'lunar_product_option_value_product_variant.variant_id')
             ->join('lunar_products', 'lunar_products.id', '=', 'lunar_product_variants.product_id')
-            ->join('lunar_product_types', 'lunar_products.product_type_id', '=', 'lunar_product_types.id')
-            ->where('lunar_product_types.id', $collectionId)
+            ->join('lunar_collection_product', 'lunar_collection_product.product_id', '=', 'lunar_products.id')
+            // TODO is this really needed lol?
+            ->withRecursiveExpression('recursive_hierarchy', \App\Models\Collection::recursiveChildrenQuery()
+                ->join('lunar_urls', 'lunar_urls.element_id', '=', 'root.id')
+                ->where('lunar_urls.element_type', '=', \Lunar\Models\Collection::class)
+                ->where('lunar_urls.slug', '=', $collectionSlug)
+            )
+            ->whereIn('lunar_collection_product.collection_id', function ($query): void {
+                $query->select('id')->from('recursive_hierarchy');
+            })
         ;
 
         return $query->get();

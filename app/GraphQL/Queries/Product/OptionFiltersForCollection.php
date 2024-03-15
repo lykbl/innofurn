@@ -11,6 +11,6 @@ class OptionFiltersForCollection extends ProductQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        return $this->productService->collectionFilters($args['productTypeId']);
+        return $this->productService->collectionFilters($args['slug']);
     }
 }

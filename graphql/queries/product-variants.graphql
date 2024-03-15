@@ -4,6 +4,8 @@ extend type Query {
         orderBy: ProductVariantOrderBy!
     ): [ProductVariant!]!
     @paginate(resolver: "App\\GraphQL\\Queries\\Product\\FindProducts", defaultCount: 20, maxCount: 50)
+
+    optionFiltersForCollection(slug: String!): [ProductOption!]!
 }
 
 enum ProductVariantOrderBy {
