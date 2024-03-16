@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\DebugLogger;
+use App\DebugLoggerService;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Base\ShippingModifiers;
@@ -35,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(GraphiQLServiceProvider::class);
-            $this->app->bind('debugLog', \App\DebugLogger::class);
+            $this->app->singleton(DebugLogger::class, fn () => new DebugLoggerService());
         }
     }
 
