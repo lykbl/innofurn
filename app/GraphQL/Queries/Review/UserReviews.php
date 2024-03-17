@@ -13,6 +13,7 @@ class UserReviews extends ReviewQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        return [];
         $query   = Review::where('user_id', Auth::user()->id);
         $reviews = $query->get();
 

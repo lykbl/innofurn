@@ -11,10 +11,13 @@ use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /** @method Builder withSlug */
 class Product extends BaseProduct implements Translatable
 {
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+
     protected function scopeWithSlug(Builder $query): Builder
     {
         return $query
@@ -37,7 +40,7 @@ class Product extends BaseProduct implements Translatable
                 'discount_id'
             )
             ->scopes(['active'])
-            ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\Product::class)
+            ->where('lunar_discount_purchasables.purchasable_type', BaseProduct::class)
         ;
     }
 
@@ -45,7 +48,7 @@ class Product extends BaseProduct implements Translatable
     {
         return $this
             ->hasMany(Review::class, 'reviewable_id')
-            ->where('reviewable_type', \Lunar\Models\Product::class)
+            ->where('reviewable_type', BaseProduct::class)
         ;
     }
 
@@ -78,5 +81,21 @@ class Product extends BaseProduct implements Translatable
         ;
 
         return $hierarchyQuery->get();
+    }
+
+    // TODO move to variant to avoid product query?
+    public function colorOptions(): HasManyDeep
+    {
+        $colors = $this->hasManyDeep(
+            ProductOptionValue::class,
+            [ProductVariant::class, ProductOptionValueProductVariant::class],
+            ['product_id', 'variant_id', 'id'],
+            ['id', 'id', 'value_id'],
+        )->whereHas('option', fn ($query) => $query->where('handle', 'color'))
+            ->select('lunar_product_option_values.*')
+            ->distinct()
+        ;
+
+        return $colors;
     }
 }

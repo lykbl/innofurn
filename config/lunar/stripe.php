@@ -39,13 +39,13 @@ return [
     | Reference: https://stripe.com/docs/api/charges/object
     */
     'status_mapping' => [
-        \Stripe\PaymentIntent::STATUS_REQUIRES_CAPTURE        => 'requires-capture',
-        \Stripe\PaymentIntent::STATUS_CANCELED                => 'cancelled',
-        \Stripe\PaymentIntent::STATUS_PROCESSING              => 'processing',
-        \Stripe\PaymentIntent::STATUS_REQUIRES_ACTION         => 'awaiting-payment',
-        \Stripe\PaymentIntent::STATUS_REQUIRES_CONFIRMATION   => 'auth-pending',
-        \Stripe\PaymentIntent::STATUS_REQUIRES_PAYMENT_METHOD => 'failed',
-        \Stripe\PaymentIntent::STATUS_SUCCEEDED               => 'payment-received',
+        Stripe\PaymentIntent::STATUS_REQUIRES_CAPTURE        => 'requires-capture',
+        Stripe\PaymentIntent::STATUS_CANCELED                => 'cancelled',
+        Stripe\PaymentIntent::STATUS_PROCESSING              => 'processing',
+        Stripe\PaymentIntent::STATUS_REQUIRES_ACTION         => 'awaiting-payment',
+        Stripe\PaymentIntent::STATUS_REQUIRES_CONFIRMATION   => 'auth-pending',
+        Stripe\PaymentIntent::STATUS_REQUIRES_PAYMENT_METHOD => 'failed',
+        Stripe\PaymentIntent::STATUS_SUCCEEDED               => 'payment-received',
     ],
 
     'actions' => [
@@ -60,7 +60,7 @@ return [
         |
         | Reference: https://stripe.com/docs/api/charges/object
         */
-        'store_charges' => \Lunar\Stripe\Actions\StoreCharges::class,
+        'store_charges' => Lunar\Stripe\Actions\StoreCharges::class,
     ],
 
     'types' => [

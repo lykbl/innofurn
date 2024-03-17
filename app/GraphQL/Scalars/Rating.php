@@ -45,7 +45,7 @@ class Rating extends ScalarType
     /**
      * @throws Error
      */
-    public function parseLiteral(Node $valueNode, array $variables = null): string
+    public function parseLiteral(Node $valueNode, ?array $variables = null): string
     {
         if ($valueNode instanceof IntValueNode && $valueNode->value >= 1 && $valueNode->value <= 5) {
             return $valueNode->value;

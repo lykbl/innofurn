@@ -6,7 +6,7 @@ type ProductVariant implements WithDimensions {
     rating: Rating!
     images: [Media!]! @hasMany(defaultCount: 4, type: PAGINATOR)
     primaryImage: Media
-    product: Product!
+    product: Product! @belongsTo
     prices: [Price!]!
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic

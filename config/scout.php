@@ -146,7 +146,7 @@ return [
                  'displayedAttributes'  => ['*'],
                  'searchableAttributes' => ['name', 'brand', 'collection_hierarchy'],
                  'sortableAttributes'   => ['name', 'prices', 'rating'],
-                 'filterableAttributes' => ['brand', 'collection_slug', 'prices', 'rating', 'options', 'brand'],
+                 'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand'],
 //                 'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
              ],
         ],

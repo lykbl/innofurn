@@ -39,7 +39,7 @@ class Phone extends ScalarType
         throw new Error("$this->name can only represent a phone: $notPhone");
     }
 
-    public function parseLiteral(Node $valueNode, array $variables = null): string
+    public function parseLiteral(Node $valueNode, ?array $variables = null): string
     {
         if ($valueNode instanceof StringValueNode && $this->isValid($valueNode->value)) {
             return $valueNode->value;

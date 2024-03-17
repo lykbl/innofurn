@@ -13,7 +13,7 @@ enum ProductOrderByEnum: string
     case AVG_RATING_ASC  = 'AVG_RATING_ASC';
     case AVG_RATING_DESC = 'AVG_RATING_DESC';
 
-    public function key(string $currencyCode = null): string
+    public function key(?string $currencyCode = null): string
     {
         return match ($this) {
             self::NAME_ASC, self::NAME_DESC => 'name',

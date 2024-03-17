@@ -16,7 +16,7 @@
         "laravel/framework": "^10.10",
         "laravel/prompts": "^0.1.14",
         "laravel/sanctum": "^3.3",
-        "laravel/scout": "^10.8",
+        "laravel/scout": "^10.8.3",
         "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
@@ -27,6 +27,7 @@
         "mll-lab/graphql-php-scalars": "^6.2",
         "nuwave/lighthouse": "^6.22",
         "pusher/pusher-php-server": "^7.2",
+        "staudenmeir/eloquent-has-many-deep": "^1.7",
         "staudenmeir/laravel-cte": "^1.0"
     },
     "require-dev": {
@@ -77,9 +78,6 @@
         "patches": {
             "intervention/image": [
                 "patches/intervention-image-src-intervention-image-gd-decoder-php.patch"
-            ],
-            "lunarphp/lunar": [
-                "patches/lunarphp-lunar-packages-core-database-state-converttaxbreakdown-php.patch"
             ]
         },
         "laravel": {
@@ -97,9 +95,15 @@
         },
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
     "prefer-stable": true,
     "post-install-cmd": [
         "make post-deploy"
-    ]
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:lykbl/scout.git"
+        }
+    ],
+    "minimum-stability": "dev"
 }

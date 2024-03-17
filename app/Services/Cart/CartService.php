@@ -80,7 +80,7 @@ class CartService
         return $this->getCart()->clear()->refresh();
     }
 
-    public function getCart(Authenticatable $user = null): Cart
+    public function getCart(?Authenticatable $user = null): Cart
     {
         if (!$user) {
             return CartSession::current();

@@ -47,7 +47,7 @@ class CollectionSeeder extends Seeder
         $this->createCollectionWithChildren($collections);
     }
 
-    private function createCollectionWithChildren(array $root, int $parentId = null): void
+    private function createCollectionWithChildren(array $root, ?int $parentId = null): void
     {
         foreach ($root as $name => $children) {
             $id = DB::table('lunar_collections')->insertGetId([

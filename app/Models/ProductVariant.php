@@ -10,14 +10,16 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Scout\Searchable;
 use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
-use Lunar\FieldTypes\Text;
 use Lunar\Models\Discount;
 use Lunar\Models\ProductVariant as BaseProductVariant;
+use Str;
 
 class ProductVariant extends BaseProductVariant implements Translatable
 {
     use HasAttributes;
     use Searchable;
+
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     protected $casts = [
         'attribute_data' => AsAttributeData::class,
@@ -27,7 +29,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
     {
         return $this
             ->hasMany(Review::class, 'reviewable_id', 'id')
-            ->where('reviewable_type', \Lunar\Models\ProductVariant::class)
+            ->where('reviewable_type', BaseProductVariant::class)
         ;
     }
 
@@ -44,7 +46,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
     // TODO Is this a bug?
     public function getAttributableClassnameAttribute()
     {
-        return \Lunar\Models\ProductVariant::class;
+        return BaseProductVariant::class;
     }
 
     // TODO Add actual logic
@@ -71,7 +73,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
                 'discount_id'
             )
             ->scopes(['active'])
-            ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\ProductVariant::class)
+            ->where('lunar_discount_purchasables.purchasable_type', BaseProductVariant::class)
         ;
     }
 
@@ -87,20 +89,21 @@ class ProductVariant extends BaseProductVariant implements Translatable
         )->where('lunar_media_product_variant.primary', true);
     }
 
-    public function searchableAs(): string
+    public function searchableAs()
     {
-        return 'product_variants_index';
+        return ['product_variants_index_en', 'product_variants_index_es'];
     }
 
-    public function toSearchableArray()
+    public function toSearchableArray(?string $indexName = null)
     {
         $this->load([
             'prices.currency',
             'values',
             'values.option',
         ]);
+        $locale = Str::after($indexName, 'product_variants_index_');
 
-        $names  = $this->attribute_data->get('name')?->getValue()->mapWithKeys(fn ($name, $locale) => [$locale => $name])->toArray();
+        $name   = $this->translateAttribute('name', $locale);
         $prices = $this->prices->mapWithKeys(fn ($price) => [$price->currency->code => $price->getRawOriginal('price')])->toArray();
         // TODO harden types?
 
@@ -108,10 +111,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
         /** @var \Illuminate\Support\Collection<Collection> $collectionHierarchy */
         $collectionHierarchy = $this->product->collectionHierarchy();
         foreach ($collectionHierarchy as $level => $collection) {
-            foreach ($collection->attribute_data->get('name')?->getValue() as $locale => $name) {
-                /* @var Text|null $name */
-                $structuredHierarchy[$locale]["lvl_$level"] = $name?->getValue();
-            }
+            $structuredHierarchy["lvl_$level"] = $collection->translateAttribute('name', $locale);
         }
 
         /** @var Media $primaryMedia */
@@ -124,14 +124,12 @@ class ProductVariant extends BaseProductVariant implements Translatable
         /** @var ProductOptionValue $value */
         foreach ($this->values as $value) {
             /** @var ProductOption $option */
-            $option = $value->option;
-            foreach ($value->name as $locale => $name) {
-                $optionFacets[$option->handle][$locale] = $name;
-            }
+            $option                        = $value->option;
+            $optionFacets[$option->handle] = $value->translate('name', $locale);
         }
 
         return [
-            'name'                 => $names,
+            'name'                 => $name,
             'sku'                  => $this->sku,
             'prices'               => $prices,
             'rating'               => $this->getAverageRatingAttribute(),
@@ -139,7 +137,6 @@ class ProductVariant extends BaseProductVariant implements Translatable
             'conversions'          => $conversions,
             'product_id'           => $this->product->id,
             'collection_hierarchy' => $structuredHierarchy,
-            'collection_slug'      => $this->product->collections->first()->defaultUrl->slug,
             'brand'                => $this->product->brand->name,
         ];
     }

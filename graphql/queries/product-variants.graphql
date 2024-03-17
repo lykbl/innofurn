@@ -6,6 +6,8 @@ extend type Query {
     @paginate(resolver: "App\\GraphQL\\Queries\\Product\\FindProducts", defaultCount: 20, maxCount: 50)
 
     optionFiltersForCollection(slug: String!): [ProductOption!]!
+
+    allVariants: [ProductVariant!]! @all
 }
 
 enum ProductVariantOrderBy {
@@ -27,8 +29,8 @@ input OptionFilterInput {
     values: [String!]
 }
 
-input ProductFilterInput {
-    search: String!
+input ProductFilterInput @validator {
+    search: String
     collection: String!
     price: PriceFilterInput
     options: [OptionFilterInput!]

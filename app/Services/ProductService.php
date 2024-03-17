@@ -28,29 +28,33 @@ class ProductService
         $currencyCode = $priceFilter['currencyId'] ?? Currency::getDefault()->code;
         $langCode     = Language::getDefault()->code;
 
-        $collectionSlug = $filters['collection'] ?? null;
-        $search         = $filters['search'];
-        $optionFilters  = $filters['options'] ?? [];
-        $priceFilter    = $filters['price'] ?? null;
-        $ratingFilter   = $filters['rating'] ?? null;
-        $onSaleOnly     = $filters['onSaleOnly'] ?? false;
+        $search          = $filters['search'] ?? '';
+        $collectionSlug  = $filters['collection'] ?? '';
+        $collection      = \App\Models\Collection::whereHas('urls', fn ($query) => $query->where('slug', $collectionSlug))->with(['descendants'])->firstOrFail();
+        $collectionName  = $collection->translateAttribute('name', $langCode);
+        $collectionLevel = $collection->ancestors->count();
 
         $meiliSearchFilters = [
-            "collection_slug = $collectionSlug",
+            "collection_hierarchy.lvl_$collectionLevel = '$collectionName'",
         ];
-        if ($min = $priceFilter['min'] ?? null) {
+        if ($min = $filters['price']['min'] ?? null) {
             $meiliSearchFilters[] = "prices.$currencyCode >= $min";
         }
-        if ($max = $priceFilter['max'] ?? null) {
+        if ($max = $filters['price']['max'] ?? null) {
             $meiliSearchFilters[] = "prices.$currencyCode <= $max";
         }
-        if ($ratingFilter) {
+        if ($ratingFilter = $filters['rating'] ?? null) {
             $meiliSearchFilters[] = "rating >= $ratingFilter";
         }
-        foreach ($optionFilters as $handle => $value) {
-            $meiliSearchFilters[] = "options.$handle.$langCode = $value";
+        foreach ($filters['options'] ?? [] as $optionFilter) {
+            $values = collect($optionFilter['values'] ?? []);
+            if ($values->isEmpty()) {
+                continue;
+            }
+
+            $meiliSearchFilters[] = "options.{$optionFilter['handle']} IN ['{$values->join(',')}']";
         }
-        if ($onSaleOnly) {
+        if ($filters['onSaleOnly'] ?? false) {
             $meiliSearchFilters[] = 'onSale = true';
         }
 
@@ -64,36 +68,28 @@ class ProductService
             $searchQuery->setSort($meiliSearchOrderBy);
 
             return $meiliSearch->search($search, searchParams: $searchQuery->toArray());
-        })->paginate($perPage, 'page', $page);
+        })->within("product_variants_index_$langCode")->paginate($perPage, 'page', $page);
 
         return $results;
     }
 
     /**
-     * @param int $collectionId
+     * @param string $collectionSlug
      *
      * @return Collection<ProductOption>
      */
     public function collectionFilters(string $collectionSlug): Collection
     {
-        $query = ProductOption::query()
-            ->select('lunar_product_options.*')
-            ->distinct()
-            ->join('lunar_product_option_values', 'lunar_product_option_values.product_option_id', '=', 'lunar_product_options.id')
-            ->join('lunar_product_option_value_product_variant', 'lunar_product_option_value_product_variant.value_id', '=', 'lunar_product_option_values.id')
-            ->join('lunar_product_variants', 'lunar_product_variants.id', '=', 'lunar_product_option_value_product_variant.variant_id')
-            ->join('lunar_products', 'lunar_products.id', '=', 'lunar_product_variants.product_id')
-            ->join('lunar_collection_product', 'lunar_collection_product.product_id', '=', 'lunar_products.id')
-            // TODO is this really needed lol?
-            ->withRecursiveExpression('recursive_hierarchy', \App\Models\Collection::recursiveChildrenQuery()
-                ->join('lunar_urls', 'lunar_urls.element_id', '=', 'root.id')
-                ->where('lunar_urls.element_type', '=', \Lunar\Models\Collection::class)
-                ->where('lunar_urls.slug', '=', $collectionSlug)
-            )
-            ->whereIn('lunar_collection_product.collection_id', function ($query): void {
-                $query->select('id')->from('recursive_hierarchy');
-            })
-        ;
+        $rootCollection = \App\Models\Collection::whereHas(
+            'urls',
+            fn ($query) => $query->where('slug', $collectionSlug)
+        )->with(['descendants'])->firstOrFail();
+
+        $collectionIds = [$rootCollection->id, ...$rootCollection->descendants->pluck('id')];
+        $query         = ProductOption::whereHas(
+            'values.variants.product.collections',
+            fn ($query) => $query->whereIn('lunar_collections.id', $collectionIds)
+        );
 
         return $query->get();
     }
