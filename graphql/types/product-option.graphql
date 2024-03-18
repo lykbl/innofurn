@@ -2,7 +2,7 @@ type ProductOptionValue {
     id: IntID!
     name: String!
     option: ProductOption! @belongsTo
-    variants: [ProductVariant!]! @belongsToMany
+    variants: [ProductVariant!]! @belongsToMany(defaultCount: 10, type: PAGINATOR)
 }
 
 type ProductOption {

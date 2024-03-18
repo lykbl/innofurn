@@ -10,5 +10,5 @@ type Product implements WithUrls {
     discounts: [Discount!]! @hasMany
     reviewsCount: Int!
     averageRating: Float!
-    colorOptions: [ProductOptionValue!]! @hasManyDeep
+    colorOptions: [ProductOptionValue!] @hasManyDeep
 }

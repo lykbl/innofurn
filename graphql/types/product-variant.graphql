@@ -5,9 +5,9 @@ type ProductVariant implements WithDimensions {
     description: String
     rating: Rating!
     images: [Media!]! @hasMany(defaultCount: 4, type: PAGINATOR)
-    primaryImage: Media
+    primaryImage: Media @hasOneThrough
     product: Product! @belongsTo
-    prices: [Price!]!
+    prices: [Price!]! @hasMany
     isFeatured: Boolean! #TODO add logic
     isFavorite: Boolean! #TODO add logic
     width: Dimension
@@ -15,8 +15,9 @@ type ProductVariant implements WithDimensions {
     height: Dimension
     weight: Dimension
     attributes: AttributeData! @rename(attribute: "attribute_data")
-    averageRating: Float!
+    averageRating: Float! #Eager load?
     reviewsCount: Int!
+    reviews: [Review!]! @hasMany
     discounts: [Discount!]!
     values: [ProductOptionValue!]! @belongsToMany
     sku: String!

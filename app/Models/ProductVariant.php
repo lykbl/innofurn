@@ -12,14 +12,14 @@ use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
 use Lunar\Models\Discount;
 use Lunar\Models\ProductVariant as BaseProductVariant;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Str;
 
 class ProductVariant extends BaseProductVariant implements Translatable
 {
     use HasAttributes;
     use Searchable;
-
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasRelationships;
 
     protected $casts = [
         'attribute_data' => AsAttributeData::class,

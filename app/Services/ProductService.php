@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\GraphQL\Exceptions\Product\ProductNotFoundException;
 use App\GraphQL\Queries\Product\ProductOrderByEnum;
+use App\Models\Collection as LunarCollection;
 use App\Models\Currency;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -28,9 +29,12 @@ class ProductService
         $currencyCode = $priceFilter['currencyId'] ?? Currency::getDefault()->code;
         $langCode     = Language::getDefault()->code;
 
-        $search          = $filters['search'] ?? '';
-        $collectionSlug  = $filters['collection'] ?? '';
-        $collection      = \App\Models\Collection::whereHas('urls', fn ($query) => $query->where('slug', $collectionSlug))->with(['descendants'])->firstOrFail();
+        $search         = $filters['search'] ?? '';
+        $collectionSlug = $filters['collection'] ?? '';
+        $collection     = LunarCollection::whereHas(
+            'urls',
+            fn ($query) => $query->where('slug', $collectionSlug)
+        )->with(['descendants'])->firstOrFail();
         $collectionName  = $collection->translateAttribute('name', $langCode);
         $collectionLevel = $collection->ancestors->count();
 
@@ -80,7 +84,7 @@ class ProductService
      */
     public function collectionFilters(string $collectionSlug): Collection
     {
-        $rootCollection = \App\Models\Collection::whereHas(
+        $rootCollection = LunarCollection::whereHas(
             'urls',
             fn ($query) => $query->where('slug', $collectionSlug)
         )->with(['descendants'])->firstOrFail();
