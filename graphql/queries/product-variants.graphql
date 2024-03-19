@@ -1,15 +1,14 @@
 extend type Query {
-#    findProductVariantForCollection(
-#        filters: ProductVariantsForCollectionFilterInput!
-#        orderBy: ProductVariantOrderBy!
-#    ): [ProductVariant!]!
-#    @paginate(resolver: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariantsForCollection", defaultCount: 20, maxCount: 50)
+    findProductVariantForCollection(
+        filters: ProductVariantsForCollectionFilterInput!
+        orderBy: ProductVariantOrderBy!
+    ): [ProductVariant!]!
+    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariantsForCollection", defaultCount: 20, maxCount: 50)
 
     findProductVariants(
         search: String!
     ): [ProductVariant!]!
     @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
-#    @paginate(resolver: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
 
     optionFiltersForCollection(slug: String!): [ProductOption!]!
 

@@ -117,11 +117,8 @@ final class PaginationManipulator extends BasePaginationManipulator
         return Parser::objectTypeDefinition(/* @lang GraphQL */ <<<GRAPHQL
             "Information about how items distribute between facets."
             type FacetDistributionInfo {
-              "Facet level"
-              level: String!
-              
-              "Facet name"
-              name: String!
+              "Faceted collection"
+              collection: Collection! @hasOne
               
               "Number of items of each facet"
               count: Int!

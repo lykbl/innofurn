@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Directives\Pagination;
 
+use App\Models\FacetDistribution;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class ScoutPaginatorField
 {
@@ -48,20 +50,30 @@ class ScoutPaginatorField
         return $paginator->items();
     }
 
-    private function prepareFacetDistribution(array $facetDistribution): array
+    /**
+     * @param array<string, array<string, int>> $facetDistribution
+     *
+     * @return Collection<FacetDistribution>
+     */
+    private function prepareFacetDistribution(array $facetDistribution): Collection
     {
-        $formatted = [];
+        $facetDistributionCollection = collect();
 
-        foreach ($facetDistribution as $level => $facet) {
-            foreach ($facet as $value => $count) {
-                $formatted[] = [
-                    'level' => $level,
-                    'name'  => $value,
-                    'count' => $count,
-                ];
+        foreach ($facetDistribution as $key => $facet) {
+            // TODO fix this
+            if (!str_contains($key, '.')) {
+                continue;
+            }
+            [$path, $collectionId] = explode('.', $key);
+
+            foreach ($facet as $count) {
+                $facetDistributionCollection->add(new FacetDistribution([
+                    'count'         => $count,
+                    'collection_id' => $collectionId,
+                ]));
             }
         }
 
-        return $formatted;
+        return $facetDistributionCollection;
     }
 }
