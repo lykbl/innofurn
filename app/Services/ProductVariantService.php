@@ -31,10 +31,9 @@ class ProductVariantService
             $collection = LunarCollection::whereHas(
                 'urls',
                 fn ($query) => $query->where('slug', $collectionSlug)
-            )->with(['descendants'])->firstOrFail();
+            )->firstOrFail();
             $collectionName       = $collection->translateAttribute('name', $langCode);
-            $collectionLevel      = $collection->ancestors->count();
-            $meiliSearchFilters[] = "collection_hierarchy.lvl_$collectionLevel = '$collectionName'";
+            $meiliSearchFilters[] = "collection_hierarchy.$collection->id = '$collectionName'";
         }
 
         if ($min = $filters['price']['min'] ?? null) {
@@ -52,7 +51,8 @@ class ProductVariantService
                 continue;
             }
 
-            $meiliSearchFilters[] = "options.{$optionFilter['handle']} IN ['{$values->join(',')}']";
+            $formattedOptionValues = $values->map(fn ($value) => "'$value'")->join(',');
+            $meiliSearchFilters[]  = "options.{$optionFilter['handle']} IN [$formattedOptionValues]";
         }
         if ($filters['onSaleOnly'] ?? false) {
             $meiliSearchFilters[] = 'onSale = true';
