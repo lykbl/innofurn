@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries\Product;
+namespace App\GraphQL\Queries\ProductVariant;
 
-enum ProductOrderByEnum: string
+enum ProductVariantOrderByEnum: string
 {
     case NAME_ASC        = 'NAME_ASC';
     case NAME_DESC       = 'NAME_DESC';
@@ -15,6 +15,7 @@ enum ProductOrderByEnum: string
 
     public function key(?string $currencyCode = null): string
     {
+        // TDODO price desc fix
         return match ($this) {
             self::NAME_ASC, self::NAME_DESC => 'name',
             self::PRICE_ASC, self::PRICE_DESC => "prices.$currencyCode",

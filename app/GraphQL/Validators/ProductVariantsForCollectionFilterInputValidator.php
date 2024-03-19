@@ -7,7 +7,7 @@ namespace App\GraphQL\Validators;
 use App\Models\Collection;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class ProductFilterInputValidator extends Validator
+final class ProductVariantsForCollectionFilterInputValidator extends Validator
 {
     public function rules(): array
     {

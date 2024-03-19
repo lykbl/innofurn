@@ -1,13 +1,19 @@
 extend type Query {
+#    findProductVariantForCollection(
+#        filters: ProductVariantsForCollectionFilterInput!
+#        orderBy: ProductVariantOrderBy!
+#    ): [ProductVariant!]!
+#    @paginate(resolver: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariantsForCollection", defaultCount: 20, maxCount: 50)
+
     findProductVariants(
-        filters: ProductFilterInput!
-        orderBy: ProductVariantOrderBy!
+        search: String!
     ): [ProductVariant!]!
-    @paginate(resolver: "App\\GraphQL\\Queries\\Product\\FindProducts", defaultCount: 20, maxCount: 50)
+    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
+#    @paginate(resolver: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
 
     optionFiltersForCollection(slug: String!): [ProductOption!]!
 
-    allVariants: [ProductVariant!]! @all
+#    allVariants: [ProductVariant!]! @all #TODO test only remove
 }
 
 enum ProductVariantOrderBy {
@@ -29,9 +35,13 @@ input OptionFilterInput {
     values: [String!]
 }
 
-input ProductFilterInput @validator {
-    search: String
-    collection: String!
+input ProductVariantsFilterInput {
+    search: String!
+}
+
+input ProductVariantsForCollectionFilterInput @validator {
+    search: String!
+    collection: String
     price: PriceFilterInput
     options: [OptionFilterInput!]
     rating: Int
