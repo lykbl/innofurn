@@ -111,7 +111,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
         /** @var \Illuminate\Support\Collection<Collection> $collectionHierarchy */
         $collectionHierarchy = $this->product->collectionHierarchy();
         foreach ($collectionHierarchy as $level => $collection) {
-            // TODO smart enough?
+            //             TODO smart enough?
             $structuredHierarchy["$collection->id"] = $collection->translateAttribute('name', $locale);
         }
 

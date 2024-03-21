@@ -75,16 +75,14 @@ class ProductVariantService
     }
 
     public function findProductVariants(
+        string $search,
         int $perPage,
         int $page,
-        array $filters,
-        ProductVariantOrderByEnum $orderBy,
     ): ScoutBuilder {
-        $currencyCode = $priceFilter['currencyId'] ?? Currency::getDefault()->code;
-        $langCode     = Language::getDefault()->code;
+        //        $currencyCode = $priceFilter['currencyId'] ?? Currency::getDefault()->code;
+        $langCode = Language::getDefault()->code;
 
-        $meiliSearchOrderBy = ["{$orderBy->key($currencyCode)}:{$orderBy->direction()}"];
-        $search             = $filters['search'] ?? '';
+        $meiliSearchOrderBy = ['name:desc'];
         $results            = ProductVariant::search($search, function (Indexes $meiliSearch, string $search, array $baseOptions) use ($page, $perPage, $meiliSearchOrderBy) {
             $searchQuery = new SearchQuery();
             $searchQuery->setQuery($search)

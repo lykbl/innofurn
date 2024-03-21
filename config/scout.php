@@ -144,7 +144,7 @@ return [
              ProductVariant::class => [
                  'distinctAttribute'    => 'product_id',
                  'displayedAttributes'  => ['id'],
-                 'searchableAttributes' => ['name', 'brand', 'collection_hierarchy'],
+                 'searchableAttributes' => ['name', 'brand'],
                  'sortableAttributes'   => ['name', 'prices', 'rating'],
                  'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand'],
 //                 'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]

@@ -13,10 +13,9 @@ class FindProductVariants extends ProductVariantQuery
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Builder
     {
         return $this->productVariantService->findProductVariants(
+            search: $args['search'] ?? '',
             perPage: $args['first'] ?? 20,
             page: $args['page'] ?? 1,
-            filters: $args['filters'] ?? [],
-            orderBy: isset($args['orderBy']) ? ProductVariantOrderByEnum::from($args['orderBy']) : ProductVariantOrderByEnum::PRICE_DESC,
         );
     }
 }

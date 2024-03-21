@@ -39,7 +39,7 @@ input ProductVariantsFilterInput {
 }
 
 input ProductVariantsForCollectionFilterInput @validator {
-    search: String!
+    search: String
     collection: String
     price: PriceFilterInput
     options: [OptionFilterInput!]
