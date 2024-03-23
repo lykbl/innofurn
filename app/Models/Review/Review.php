@@ -9,7 +9,6 @@ use App\Models\Customer;
 use App\Models\CustomerUserPivot;
 use App\Models\NeedsApproval;
 use App\Models\ProductVariant;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
