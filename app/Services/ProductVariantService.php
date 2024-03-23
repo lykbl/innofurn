@@ -55,7 +55,7 @@ class ProductVariantService
             $meiliSearchFilters[]  = "options.{$optionFilter['handle']} IN [$formattedOptionValues]";
         }
         if ($filters['onSaleOnly'] ?? false) {
-            $meiliSearchFilters[] = 'onSale = true';
+            $meiliSearchFilters[] = 'on_sale = true';
         }
 
         $meiliSearchOrderBy = ["{$orderBy->key($currencyCode)}:{$orderBy->direction()}"];
@@ -79,12 +79,12 @@ class ProductVariantService
         int $perPage,
         int $page,
     ): ScoutBuilder {
-        //        $currencyCode = $priceFilter['currencyId'] ?? Currency::getDefault()->code;
+        // TODO fix add lang support
         $langCode = Language::getDefault()->code;
 
-        $meiliSearchOrderBy = ['name:desc'];
-        $results            = ProductVariant::search($search, function (Indexes $meiliSearch, string $search, array $baseOptions) use ($page, $perPage, $meiliSearchOrderBy) {
-            $searchQuery = new SearchQuery();
+        $results = ProductVariant::search($search, function (Indexes $meiliSearch, string $search, array $baseOptions) use ($page, $perPage) {
+            $meiliSearchOrderBy = ['name:desc'];
+            $searchQuery        = new SearchQuery();
             $searchQuery->setQuery($search)
                 ->setFacets(['collection_hierarchy'])
                 ->setPage($page ?? $baseOptions['page'] ?? 1)

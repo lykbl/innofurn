@@ -15,7 +15,6 @@ enum ProductVariantOrderByEnum: string
 
     public function key(?string $currencyCode = null): string
     {
-        // TDODO price desc fix
         return match ($this) {
             self::NAME_ASC, self::NAME_DESC => 'name',
             self::PRICE_ASC, self::PRICE_DESC => "prices.$currencyCode",

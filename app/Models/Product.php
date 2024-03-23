@@ -65,7 +65,7 @@ class Product extends BaseProduct implements Translatable
 
     public function getVariantsCountAttribute(): int
     {
-       return $this->variants()->count();
+        return $this->variants()->count();
     }
 
     public function collectionHierarchy(): \Illuminate\Support\Collection

@@ -17,6 +17,7 @@ use Lunar\Models\Country;
 use Lunar\Models\Currency;
 use Lunar\Models\Customer;
 use Lunar\Models\CustomerGroup;
+use Lunar\Models\Discount;
 use Lunar\Models\Order;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
             $this->app->register(GraphiQLServiceProvider::class);
+            // TODO debug remove
             $this->app->singleton(DebugLogger::class, fn () => new DebugLoggerService());
         }
     }
@@ -70,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
             ProductOption::class      => \App\Models\ProductOption::class,
             ProductOptionValue::class => \App\Models\ProductOptionValue::class,
             Country::class            => \App\Models\Country::class,
+            Discount::class           => \App\Models\Discount::class,
         ]);
 
         ModelManifest::register($models);

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Discount;
 use App\Models\ProductVariant;
 
 return [
@@ -143,12 +144,13 @@ return [
         'index-settings' => [
              ProductVariant::class => [
                  'distinctAttribute'    => 'product_id',
-                 'displayedAttributes'  => ['id'],
+                 'displayedAttributes'  => ['id', 'name', 'on_sale'],
                  'searchableAttributes' => ['name', 'brand'],
                  'sortableAttributes'   => ['name', 'prices', 'rating'],
-                 'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand'],
+                 'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand', 'on_sale'],
 //                 'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
              ],
+            Discount::class => [],
         ],
     ],
 

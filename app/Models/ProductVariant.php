@@ -91,6 +91,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
     public function searchableAs()
     {
+        // TODO query lang codes from db?
         return ['product_variants_index_en', 'product_variants_index_es'];
     }
 
@@ -105,21 +106,14 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
         $name   = $this->translateAttribute('name', $locale);
         $prices = $this->prices->mapWithKeys(fn ($price) => [$price->currency->code => $price->getRawOriginal('price')])->toArray();
-        // TODO harden types?
 
+        // TODO harden types?
         $structuredHierarchy = [];
         /** @var \Illuminate\Support\Collection<Collection> $collectionHierarchy */
         $collectionHierarchy = $this->product->collectionHierarchy();
-        foreach ($collectionHierarchy as $level => $collection) {
-            //             TODO smart enough?
-            $structuredHierarchy["$collection->id"] = $collection->translateAttribute('name', $locale);
+        foreach ($collectionHierarchy as $collection) {
+            $structuredHierarchy[$collection->id] = $collection->translateAttribute('name', $locale);
         }
-
-        /** @var Media $primaryMedia */
-        $primaryMedia = $this->primaryImage;
-        $conversions  = collect(['small', 'medium'])->mapWithKeys(
-            fn (string $conversion) => [$conversion => $primaryMedia?->getAvailableUrl([$conversion])]
-        );
 
         $optionFacets = [];
         /** @var ProductOptionValue $value */
@@ -131,14 +125,13 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
         return [
             'name'                 => $name,
-            'sku'                  => $this->sku,
             'prices'               => $prices,
             'rating'               => $this->getAverageRatingAttribute(),
             'options'              => $optionFacets,
-            'conversions'          => $conversions,
             'product_id'           => $this->product->id,
             'collection_hierarchy' => $structuredHierarchy,
             'brand'                => $this->product->brand->name,
+            'on_sale'              => $this->discounts()->exists(),
         ];
     }
 }
