@@ -37,7 +37,7 @@ class PriceData extends ScalarType
         return $value->getValue();
     }
 
-    public function parseLiteral(Node $valueNode, array $variables = null): void
+    public function parseLiteral(Node $valueNode, ?array $variables = null): void
     {
         throw new Error('Price scalar can not be used as an argument');
     }

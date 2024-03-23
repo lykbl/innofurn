@@ -19,7 +19,8 @@ class Review extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'product_variant_id',
+        'reviewable_id',
+        'reviewable_type',
         'user_id',
         'title',
         'body',

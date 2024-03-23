@@ -3,6 +3,7 @@ type Product implements WithUrls {
     name: String
     description: String
     variants: [ProductVariant!]!
+    variantsCount: Int! @rename(attribute: "variants_count")
     brand: Brand!
     collections: [Collection]!
     urls: [Url!]!
@@ -10,4 +11,5 @@ type Product implements WithUrls {
     discounts: [Discount!]! @hasMany
     reviewsCount: Int!
     averageRating: Float!
+    colorOptions: [ProductOptionValue!] @hasManyDeep
 }

@@ -47,7 +47,7 @@ class IntID extends ScalarType
         throw new Error("ID can only represent a positive integer: $notID");
     }
 
-    public function parseLiteral(Node $valueNode, array $variables = null): string
+    public function parseLiteral(Node $valueNode, ?array $variables = null): string
     {
         if ($valueNode instanceof IntValueNode) {
             return $valueNode->value;

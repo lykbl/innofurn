@@ -7,14 +7,19 @@ namespace App\Models;
 use App\Models\Review\Review;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Laravel\Scout\Searchable;
 use Lunar\Base\Casts\AsAttributeData;
 use Lunar\Base\Traits\HasAttributes;
 use Lunar\Models\Discount;
 use Lunar\Models\ProductVariant as BaseProductVariant;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Str;
 
 class ProductVariant extends BaseProductVariant implements Translatable
 {
     use HasAttributes;
+    use Searchable;
+    use HasRelationships;
 
     protected $casts = [
         'attribute_data' => AsAttributeData::class,
@@ -24,7 +29,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
     {
         return $this
             ->hasMany(Review::class, 'reviewable_id', 'id')
-            ->where('reviewable_type', \Lunar\Models\ProductVariant::class)
+            ->where('reviewable_type', BaseProductVariant::class)
         ;
     }
 
@@ -41,7 +46,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
     // TODO Is this a bug?
     public function getAttributableClassnameAttribute()
     {
-        return \Lunar\Models\ProductVariant::class;
+        return BaseProductVariant::class;
     }
 
     // TODO Add actual logic
@@ -68,7 +73,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
                 'discount_id'
             )
             ->scopes(['active'])
-            ->where('lunar_discount_purchasables.purchasable_type', \Lunar\Models\ProductVariant::class)
+            ->where('lunar_discount_purchasables.purchasable_type', BaseProductVariant::class)
         ;
     }
 
@@ -82,5 +87,51 @@ class ProductVariant extends BaseProductVariant implements Translatable
             'id',
             'media_id',
         )->where('lunar_media_product_variant.primary', true);
+    }
+
+    public function searchableAs()
+    {
+        // TODO query lang codes from db?
+        return ['product_variants_index_en', 'product_variants_index_es'];
+    }
+
+    public function toSearchableArray(?string $indexName = null)
+    {
+        $this->load([
+            'prices.currency',
+            'values',
+            'values.option',
+        ]);
+        $locale = Str::after($indexName, 'product_variants_index_');
+
+        $name   = $this->translateAttribute('name', $locale);
+        $prices = $this->prices->mapWithKeys(fn ($price) => [$price->currency->code => $price->getRawOriginal('price')])->toArray();
+
+        // TODO harden types?
+        $structuredHierarchy = [];
+        /** @var \Illuminate\Support\Collection<Collection> $collectionHierarchy */
+        $collectionHierarchy = $this->product->collectionHierarchy();
+        foreach ($collectionHierarchy as $collection) {
+            $structuredHierarchy[$collection->id] = $collection->translateAttribute('name', $locale);
+        }
+
+        $optionFacets = [];
+        /** @var ProductOptionValue $value */
+        foreach ($this->values as $value) {
+            /** @var ProductOption $option */
+            $option                        = $value->option;
+            $optionFacets[$option->handle] = $value->translate('name', $locale);
+        }
+
+        return [
+            'name'                 => $name,
+            'prices'               => $prices,
+            'rating'               => $this->getAverageRatingAttribute(),
+            'options'              => $optionFacets,
+            'product_id'           => $this->product->id,
+            'collection_hierarchy' => $structuredHierarchy,
+            'brand'                => $this->product->brand->name,
+            'on_sale'              => $this->discounts()->exists(),
+        ];
     }
 }

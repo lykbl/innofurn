@@ -41,7 +41,7 @@ class ChatService
         return $activeChatRoom;
     }
 
-    public function sendMessageToChatRoom(string $body, int $chatRoomId, int $customerId = null, int $staffId = null): ChatMessage
+    public function sendMessageToChatRoom(string $body, int $chatRoomId, ?int $customerId = null, ?int $staffId = null): ChatMessage
     {
         return ChatMessage::create([
             'body'         => $body,

@@ -19,7 +19,7 @@ use Lunar\Models\Customer;
 
 class UserService
 {
-    public function signUp(string $email, string $firstName = null, string $lastName = null): User
+    public function signUp(string $email, ?string $firstName = null, ?string $lastName = null): User
     {
         $faker     = Factory::create();
         $firstName = $firstName ?? $faker->firstName;
@@ -61,7 +61,7 @@ class UserService
         $user = User::where('email', $socialiteUser->getEmail())->first();
 
         if ($user && $user->oauthUser->type !== $type) {
-            throw new OauthExistsException();
+            throw new OAuthExistsException();
         }
 
         if (!$user) {

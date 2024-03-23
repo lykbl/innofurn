@@ -35,13 +35,15 @@ class ProductSeeder extends Seeder
                         ];
                     }),
                     'prices',
-                )->afterCreating(function (ProductVariant $productVariant): void {
-                    $productVariant->addMedia(fake()->imageUrl)->toMediaCollection('images');
-                }),
+                ),
                 'variants'
-            )
+            )->afterCreating(function ($product): void {
+                $product->addMediaFromUrl(fake()->imageUrl)->toMediaCollection('images');
+            })
             ->create([
                 'product_type_id' => 6,
+                'status'          => 'published',
+                'brand_id'        => 2,
                 'attribute_data'  => [
                     'name'        => new Text('Chair '.fake()->word),
                     'description' => new Text('Chair '.fake()->sentence),

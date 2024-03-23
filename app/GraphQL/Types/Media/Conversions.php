@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Types\Media;
 
-use App\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 final class Conversions
 {
@@ -12,7 +12,7 @@ final class Conversions
     public function __invoke(Media $media, array $args): array
     {
         $urls = [];
-        foreach ($args['types'] ?? ['medium'] as $type) {
+        foreach ($args['types'] ?? [] as $type) {
             $urls[] = $media->getUrl($type);
         }
 

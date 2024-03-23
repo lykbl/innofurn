@@ -10,7 +10,7 @@ use Throwable;
 
 class OAuthExistsException extends Exception
 {
-    public function __construct(string $message = '', int $code = Response::HTTP_BAD_REQUEST, Throwable $previous = null)
+    public function __construct(string $message = '', int $code = Response::HTTP_BAD_REQUEST, ?Throwable $previous = null)
     {
         $message = $message ?: 'User was created with a different method';
         parent::__construct($message, $code, $previous);

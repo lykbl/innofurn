@@ -4,7 +4,7 @@ type Collection implements WithUrls {
     breadcrumb(lang: Locales = ENGLISH): String
 
     images: [Media!]
-    thumbnail: Media! #TODO use this everywhere
+    thumbnail: Media #TODO use this everywhere
     urls: [Url!]!
     defaultUrl: Url!
 }

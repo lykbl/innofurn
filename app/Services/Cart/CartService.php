@@ -8,7 +8,7 @@ use App\Models\Channel;
 use App\Models\Currency;
 use App\Models\ProductVariant;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Lunar\Actions\Carts\AddOrUpdatePurchasable;
 use Lunar\Actions\Carts\GetExistingCartLine;
 use Lunar\Actions\Carts\RemovePurchasable;
@@ -29,7 +29,7 @@ class CartService
             meta: [],
         );
 
-        return $cart->calculate();
+        return $cart->refresh()->calculate();
     }
 
     public function updatePurchasable(string $sku, int $quantity): Cart
@@ -52,7 +52,7 @@ class CartService
             quantity: $quantity,
         );
 
-        return $cart->calculate();
+        return $cart->refresh()->calculate();
     }
 
     public function clearCartItem(string $sku): Cart
@@ -63,12 +63,16 @@ class CartService
             purchasable: ProductVariant::where('sku', '=', $sku)->first(),
             meta: []
         );
+        if (!$cartLine) {
+            return $cart;
+        }
+
         app(config('lunar.cart.actions.remove_from_cart', RemovePurchasable::class))->execute(
             $cart,
             $cartLine->id,
         );
 
-        return $cart->calculate();
+        return $cart->refresh()->calculate();
     }
 
     public function clearCart(): Cart
@@ -76,14 +80,16 @@ class CartService
         return $this->getCart()->clear()->refresh();
     }
 
-    private function getCart(): Cart
+    public function getCart(?Authenticatable $user = null): Cart
     {
-        $user = Auth::user();
         if (!$user) {
             return CartSession::current();
         }
 
-        return $user->activeCart ?? $this->createCartForUser($user);
+        /** @var User $user */
+        $cart = $user->activeCart ?? $this->createCartForUser($user);
+
+        return $cart->calculate();
     }
 
     private function createCartForUser(User $user): Cart

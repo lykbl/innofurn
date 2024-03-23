@@ -29,7 +29,7 @@ class AttributeData extends ScalarType
         throw new Error('Attribute data scalar can not be used as an input');
     }
 
-    public function parseLiteral(Node $valueNode, array $variables = null): void
+    public function parseLiteral(Node $valueNode, ?array $variables = null): void
     {
         throw new Error('Attribute data scalar can not be used as an input');
     }

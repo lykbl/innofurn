@@ -1,0 +1,48 @@
+extend type Query {
+    findProductVariantsForCollection(
+        filters: ProductVariantsForCollectionFilterInput!
+        orderBy: ProductVariantOrderBy!
+    ): [ProductVariant!]!
+    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariantsForCollection", defaultCount: 20, maxCount: 50)
+
+    findProductVariants(
+        search: String!
+    ): [ProductVariant!]!
+    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
+
+    optionFiltersForCollection(slug: String!): [ProductOption!]!
+
+#    allVariants: [ProductVariant!]! @all #TODO test only remove
+}
+
+enum ProductVariantOrderBy {
+    NAME_DESC
+    NAME_ASC
+    PRICE_ASC
+    PRICE_DESC
+    RATING_DESC
+    RATING_ASC
+}
+
+input PriceFilterInput {
+    min: Int
+    max: Int
+}
+
+input OptionFilterInput {
+    handle: String!
+    values: [String!]
+}
+
+input ProductVariantsFilterInput {
+    search: String!
+}
+
+input ProductVariantsForCollectionFilterInput @validator {
+    search: String
+    collection: String
+    price: PriceFilterInput
+    options: [OptionFilterInput!]
+    rating: Int
+    onSaleOnly: Boolean
+}
