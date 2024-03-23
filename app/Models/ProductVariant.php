@@ -27,10 +27,7 @@ class ProductVariant extends BaseProductVariant implements Translatable
 
     public function reviews(): HasMany
     {
-        return $this
-            ->hasMany(Review::class, 'reviewable_id', 'id')
-            ->where('reviewable_type', BaseProductVariant::class)
-        ;
+        return $this->hasMany(Review::class, 'product_variant_id', 'id');
     }
 
     public function getReviewsCountAttribute(): int

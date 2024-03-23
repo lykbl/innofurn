@@ -18,3 +18,5 @@ scalar PriceData
 scalar AttributeData
 
 scalar DiscountData
+
+scalar ReviewsBreakdown
