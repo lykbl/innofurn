@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /** @method Builder withSlug */
 class Product extends BaseProduct implements Translatable
 {
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use HasRelationships;
 
     protected function scopeWithSlug(Builder $query): Builder
     {
@@ -60,6 +61,11 @@ class Product extends BaseProduct implements Translatable
     public function getAverageRatingAttribute(): ?float
     {
         return (float) ($this->reviews()->avg('rating') ?? 0);
+    }
+
+    public function getVariantsCountAttribute(): int
+    {
+       return $this->variants()->count();
     }
 
     public function collectionHierarchy(): \Illuminate\Support\Collection
