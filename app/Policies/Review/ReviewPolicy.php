@@ -13,7 +13,7 @@ class ReviewPolicy
     public function create(User $user, mixed $args): Response
     {
         return
-            Review::withUnapproved()->where([['user_id', '=', $user->id], ['reviewable_id', '=', $args['reviewableId']]])->doesntExist()
+            Review::withUnapproved()->where([['user_id', '=', $user->id], ['product_variant_id', '=', $args['product_variant_id']]])->doesntExist()
                 ? Response::allow()
                 : Response::deny('Only one review per product.');
     }

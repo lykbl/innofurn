@@ -9,14 +9,13 @@ use Lunar\Models\ProductVariant;
 
 class ReviewService
 {
-    public function create(int $userId, int $reviewableId, string $title, string $body, int $rating): Review
+    public function create(int $userId, int $productVariantId, string $title, string $body, int $rating): Review
     {
         $review = Review::create([
             'title'           => $title,
             'body'            => $body,
             'rating'          => $rating,
-            'reviewable_id'   => $reviewableId,
-            'reviewable_type' => ProductVariant::class,
+            'product_variant_id'   => $productVariantId,
             'user_id'         => $userId,
         ]);
         $review->save();
