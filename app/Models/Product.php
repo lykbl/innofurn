@@ -6,7 +6,7 @@ namespace App\Models;
 
 use App\Models\Review\Review;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
@@ -45,11 +45,41 @@ class Product extends BaseProduct implements Translatable
         ;
     }
 
-    public function reviews(): HasMany
+    public function reviews(): HasManyThrough
     {
-        return $this
-            ->hasMany(Review::class, 'reviewable_id')
-            ->where('reviewable_type', BaseProduct::class)
+        $reviews = $this
+            ->hasManyThrough(
+                Review::class,
+                ProductVariant::class,
+                'product_id',
+                'product_variant_id',
+                'id',
+                'id'
+            )
+        ;
+
+        return $reviews;
+    }
+
+    // TODO replace with ORM?
+    // TODO add eager loading?
+    public function getReviewsBreakdownAttribute(): array
+    {
+        return DB::query()
+            ->from('reviews')
+            ->select([
+                'reviews.rating',
+                DB::raw('count(*) as count'),
+            ])
+            ->join('lunar_product_variants', 'reviews.product_variant_id', '=', 'lunar_product_variants.id')
+            ->join('lunar_products', 'lunar_product_variants.product_id', '=', 'lunar_products.id')
+            ->whereNull('lunar_products.deleted_at')
+            ->whereNotNull('reviews.approved_at')
+            ->where('lunar_products.id', $this->id)
+            ->groupBy('reviews.rating')
+            ->orderBy('reviews.rating', 'desc')
+            ->get()
+            ->toArray()
         ;
     }
 

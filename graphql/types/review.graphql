@@ -2,7 +2,17 @@ type Review {
     id: IntID!
     title: String!
     body: String! #TODO Replace with cool editor
-#    rating: Rating!
-    productVariant: ProductVariant!
-    user: User!
+    rating: Int!
+    variant: ProductVariant! @hasOne
+    customer: Customer! @hasOne
+    createdAt: DateTime! @rename(attribute: "created_at")
 }
+
+# TODO allow image uploads
+
+#type Reviewable {
+#    id: IntID!
+#    name: String!
+#    reviews: [Review!]! @hasMany
+#    images: [Media!]! @hasMany
+#}
