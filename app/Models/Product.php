@@ -62,19 +62,22 @@ class Product extends BaseProduct implements Translatable
     }
 
     // TODO replace with ORM?
+    // TODO add eager loading?
     public function getReviewsBreakdownAttribute(): array
     {
-        return DB::query()->from('reviews')->select([
-            'reviews.rating',
-           DB::raw('count(*) as count'),
-        ])
+        return DB::query()
+            ->from('reviews')
+            ->select([
+                'reviews.rating',
+                DB::raw('count(*) as count'),
+            ])
             ->join('lunar_product_variants', 'reviews.product_variant_id', '=', 'lunar_product_variants.id')
             ->join('lunar_products', 'lunar_product_variants.product_id', '=', 'lunar_products.id')
             ->whereNull('lunar_products.deleted_at')
             ->whereNotNull('reviews.approved_at')
             ->where('lunar_products.id', $this->id)
             ->groupBy('reviews.rating')
-            ->orderBy('reviews.rating')
+            ->orderBy('reviews.rating', 'desc')
             ->get()
             ->toArray()
         ;
