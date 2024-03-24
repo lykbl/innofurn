@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Review;
 
 use App\GraphQL\Queries\Review\ReviewOrderByEnum;
+use App\Models\Product;
 use App\Models\Review\Review;
 use App\Models\User;
 use Laravel\Scout\Builder;
@@ -50,9 +51,11 @@ class ReviewService
         int $perPage = 10,
         ReviewOrderByEnum $orderBy = ReviewOrderByEnum::RATING_DESC,
     ): Builder {
-        $langCode           = $user->retailCustomer()->language->code ?? Language::getDefault()->code;
-        $productId          = $filters['productId'] ?? null;
-        $search             = $filters['search'] ?? '';
+        $langCode    = $user->retailCustomer()->language->code ?? Language::getDefault()->code;
+        $productSlug = $filters['productSlug'] ?? null;
+        $search      = $filters['search'] ?? '';
+        $productId   = Product::withSlug($productSlug)->first()->id ?? null;
+
         $meiliSearchFilters = [
             "product_id = $productId",
         ];

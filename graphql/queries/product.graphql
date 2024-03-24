@@ -1,6 +1,6 @@
 extend type Query {
     productDetails(
         slug: String!,
-        imagesPage: Int! = 1,
+        imagesPage: Int = 1,
     ): Product! @loadFromSlug(model: "Lunar\\Models\\Product")
 }

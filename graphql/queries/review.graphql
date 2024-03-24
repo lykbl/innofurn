@@ -7,8 +7,8 @@ extend type Query {
     ): Review! @paginate(builder: "App\\GraphQL\\Queries\\Review\\SearchProductReviews", defaultCount: 5, maxCount: 20)
 }
 
-input SearchProductReviewsFiltersInput{
-    productId: IntID!
+input SearchProductReviewsFiltersInput @validator {
+    productSlug: String!
     search: String
     rating: Int
 }
