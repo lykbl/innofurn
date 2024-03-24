@@ -3,10 +3,4 @@ extend type Query {
         slug: String!,
         imagesPage: Int! = 1,
     ): Product! @loadFromSlug(model: "Lunar\\Models\\Product")
-
-    productReviews(
-        slug: String!,
-        reviewsPage: Int! = 1,
-    ): Product! @loadFromSlug(model: "Lunar\\Models\\Product")
-
 }

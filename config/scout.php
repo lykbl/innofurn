@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Models\Discount;
 use App\Models\ProductVariant;
+use App\Models\Review\Review;
 
 return [
     /*
@@ -142,15 +142,20 @@ return [
         'host'           => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key'            => env('MEILISEARCH_KEY'),
         'index-settings' => [
-             ProductVariant::class => [
-                 'distinctAttribute'    => 'product_id',
-                 'displayedAttributes'  => ['id', 'name', 'on_sale'],
-                 'searchableAttributes' => ['name', 'brand'],
-                 'sortableAttributes'   => ['name', 'prices', 'rating'],
-                 'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand', 'on_sale'],
-//                 'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
-             ],
-            Discount::class => [],
+            ProductVariant::class => [
+                'distinctAttribute'    => 'product_id',
+                'displayedAttributes'  => ['id', 'name', 'on_sale'],
+                'searchableAttributes' => ['name', 'brand'],
+                'sortableAttributes'   => ['name', 'prices', 'rating'],
+                'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand', 'on_sale'],
+//                'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
+            ],
+            Review::class => [
+                'displayedAttributes'  => ['id', 'title', 'body', 'rating'],
+                'searchableAttributes' => ['title', 'body'],
+                'sortableAttributes'   => ['rating', 'created_at'],
+                'filterableAttributes' => ['rating', 'product_variant_id', 'product_id', 'user_id'],
+            ],
         ],
     ],
 
