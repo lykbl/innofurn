@@ -45,13 +45,13 @@ class ReviewService
     }
 
     public function searchProductReviews(
-        User $user,
+        ?User $user,
         array $filters,
         int $page = 1,
         int $perPage = 10,
         ReviewOrderByEnum $orderBy = ReviewOrderByEnum::RATING_DESC,
     ): Builder {
-        $langCode    = $user->retailCustomer()->language->code ?? Language::getDefault()->code;
+        $langCode    = $user?->retailCustomer()?->language->code ?? Language::getDefault()->code;
         $productSlug = $filters['productSlug'] ?? null;
         $search      = $filters['search'] ?? '';
         $productId   = Product::withSlug($productSlug)->first()->id ?? null;

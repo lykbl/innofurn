@@ -12,7 +12,7 @@ class SearchProductReviews extends ReviewQuery
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         return $this->reviewService->searchProductReviews(
-            user: $context->user,
+            user: $context->user ?? null,
             filters: $args['filters'] ?? [],
             page: $args['page'] ?? 1,
             perPage: $args['perPage'] ?? 10,
