@@ -119,21 +119,19 @@ class Product extends BaseProduct implements Translatable
         return $hierarchyQuery->get();
     }
 
-    // TODO move to variant to avoid product query?
-    public function colorOptions(): HasManyDeep
-    {
-        $colors = $this->hasManyDeep(
-            ProductOptionValue::class,
-            [ProductVariant::class, ProductOptionValueProductVariant::class],
-            ['product_id', 'variant_id', 'id'],
-            ['id', 'id', 'value_id'],
-        )->whereHas('option', fn ($query) => $query->where('handle', 'color'))
-            ->select('lunar_product_option_values.*')
-            ->distinct()
-        ;
-
-        return $colors;
-    }
+    //    public function options(): HasManyDeep
+    //    {
+    //        $options = $this->hasManyDeep(
+    //            ProductOption::class,
+    //            [ProductVariant::class, ProductOptionValueProductVariant::class, ProductOptionValue::class],
+    //            ['product_id', 'variant_id', 'product_option_id', 'id'],
+    //            ['id', 'id', 'value_id', 'product_option_id'],
+    //        )
+    //            ->select('lunar_product_options.*')
+    //            ->distinct();
+    //
+    //        return $options;
+    //    }
 
     public static function withSlug(string $slug)
     {

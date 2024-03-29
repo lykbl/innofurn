@@ -24,11 +24,6 @@ enum ProductVariantOrderBy {
     RATING_ASC
 }
 
-input PriceFilterInput {
-    min: Int
-    max: Int
-}
-
 input OptionFilterInput {
     handle: String!
     values: [String!]
@@ -38,10 +33,12 @@ input ProductVariantsFilterInput {
     search: String!
 }
 
+#TODO harden validation
 input ProductVariantsForCollectionFilterInput @validator {
     search: String
     collection: String
-    price: PriceFilterInput
+    maxPrice: Int
+    minPrice: Int
     options: [OptionFilterInput!]
     rating: Int
     onSaleOnly: Boolean

@@ -13,5 +13,6 @@ type Product implements WithUrls {
     reviewsBreakdown: ReviewsBreakdown! @rename(attribute: "reviews_breakdown")
     reviews: [Review!]! @hasMany(type: PAGINATOR, defaultCount: 10, maxCount: 25)
     averageRating: Float!
-    colorOptions: [ProductOptionValue!] @hasManyDeep
+#    options: [ProductOption!]! @hasManyDeep
+#    colorOptions: [ProductOptionValue!] @hasManyDeep
 }

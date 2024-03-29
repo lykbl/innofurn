@@ -36,10 +36,10 @@ class ProductVariantService
             $meiliSearchFilters[] = "collection_hierarchy.$collection->id = '$collectionName'";
         }
 
-        if ($min = $filters['price']['min'] ?? null) {
+        if ($min = $filters['minPrice'] ?? null) {
             $meiliSearchFilters[] = "prices.$currencyCode >= $min";
         }
-        if ($max = $filters['price']['max'] ?? null) {
+        if ($max = $filters['maxPrice'] ?? null) {
             $meiliSearchFilters[] = "prices.$currencyCode <= $max";
         }
         if ($ratingFilter = $filters['rating'] ?? null) {
@@ -51,7 +51,7 @@ class ProductVariantService
                 continue;
             }
 
-            $formattedOptionValues = $values->map(fn ($value) => "'$value'")->join(',');
+            $formattedOptionValues = $values->map(fn ($value) => sprintf("'%s'", addslashes($value)))->join(',');
             $meiliSearchFilters[]  = "options.{$optionFilter['handle']} IN [$formattedOptionValues]";
         }
         if ($filters['onSaleOnly'] ?? false) {
