@@ -15,7 +15,7 @@ class SearchProductReviews extends ReviewQuery
             user: $context->user ?? null,
             filters: $args['filters'] ?? [],
             page: $args['page'] ?? 1,
-            perPage: $args['perPage'] ?? 10,
+            perPage: $args['first'] ?? 10,
             orderBy: isset($args['orderBy']) ? ReviewOrderByEnum::from($args['orderBy']) : ReviewOrderByEnum::RATING_DESC,
         );
     }
