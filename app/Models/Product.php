@@ -137,4 +137,18 @@ class Product extends BaseProduct implements Translatable
     {
         return Product::query()->withWhereHas('urls', fn ($query) => $query->where('slug', $slug));
     }
+
+    public function searchableAs()
+    {
+        return 'products';
+    }
+
+    public function toSearchableArray()
+    {
+        // TODO index this right
+        return [
+            'id' => $this->id,
+            'name'   => $this->translateAttribute('name'),
+       ];
+    }
 }

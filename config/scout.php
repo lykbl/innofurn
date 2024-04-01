@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Review\Review;
 
@@ -149,6 +150,12 @@ return [
                 'sortableAttributes'   => ['name', 'prices', 'rating'],
                 'filterableAttributes' => ['brand', 'collection_slug', 'collection_hierarchy', 'prices', 'rating', 'options', 'brand', 'on_sale'],
 //                'rankingRules' => ["words", "typo", "proximity", "attribute", "sort", "exactness"]
+            ],
+            Product::class => [
+                'displayedAttributes'  => ['id', 'name'],
+                'searchableAttributes' => ['name'],
+                'sortableAttributes'   => ['name'],
+                'filterableAttributes' => [],
             ],
             Review::class => [
                 'displayedAttributes'  => ['id', 'title', 'body', 'rating'],
