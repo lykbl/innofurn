@@ -1,4 +1,5 @@
 type Url {
+    id: IntID!
     languageId: IntID! @rename(attribute: "language_id")
     slug: String!
 }

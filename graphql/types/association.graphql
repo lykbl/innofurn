@@ -1,0 +1,11 @@
+type Association {
+    parent: Product!
+    target: Product!
+    type: AssociationType!
+}
+
+enum AssociationType {
+    CROSS_SELL @enum(value: "cross_sell")
+    UP_SELL @enum(value: "up_sell")
+    ALTERNATE @enum(value: "alternate")
+}
