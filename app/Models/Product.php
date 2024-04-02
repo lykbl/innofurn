@@ -147,8 +147,8 @@ class Product extends BaseProduct implements Translatable
     {
         // TODO index this right
         return [
-            'id' => $this->id,
-            'name'   => $this->translateAttribute('name'),
+            'id'   => $this->id,
+            'name' => $this->translateAttribute('name'),
        ];
     }
 }

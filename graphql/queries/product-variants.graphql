@@ -20,8 +20,8 @@ enum ProductVariantOrderBy {
     NAME_ASC
     PRICE_ASC
     PRICE_DESC
-    RATING_DESC
-    RATING_ASC
+    AVG_RATING_DESC
+    AVG_RATING_ASC
 }
 
 input OptionFilterInput {
