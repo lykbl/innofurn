@@ -1,0 +1,5 @@
+type ProductView {
+    id: IntID!
+    product: Product! @hasOne
+    createdAt: DateTime!
+}

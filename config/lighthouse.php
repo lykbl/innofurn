@@ -32,6 +32,7 @@ return [
             'App\\GraphQL\\Queries\\Cart',
             'App\\GraphQL\\Queries\\Address',
             'App\\GraphQL\\Queries\\PromotionBanner',
+            'App\\GraphQL\\Queries\\ProductView',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\User',
@@ -40,6 +41,7 @@ return [
             'App\\GraphQL\\Mutations\\Checkout',
             'App\\GraphQL\\Mutations\\Address',
             'App\\GraphQL\\Mutations\\Chat',
+            'App\\GraphQL\\Mutations\\ProductView',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Chat',
