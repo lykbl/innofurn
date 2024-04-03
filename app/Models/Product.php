@@ -168,7 +168,7 @@ class Product extends BaseProduct implements Translatable
 
     public function startingPrice(): HasOneThrough
     {
-        $relation =  $this->hasOneThrough(
+        $relation = $this->hasOneThrough(
             Price::class,
             ProductVariant::class,
             'product_id',

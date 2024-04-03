@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\ProductView;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class ProductViewService
 {
-    const MAX_PRODUCT_VIEWS_COUNT = 15;
+    public const MAX_PRODUCT_VIEWS_COUNT = 15;
 
     /**
      * @return Collection<ProductView>
@@ -28,8 +29,7 @@ class ProductViewService
     public function recordProductView(
         int $productId,
         User $user,
-    ): ProductView
-    {
+    ): ProductView {
         $productViewsCount = ProductView::query()
             ->where([
                 ['product_id', '!=', $productId],
