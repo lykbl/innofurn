@@ -9,12 +9,16 @@ use App\Models\Customer;
 use App\Models\CustomerUserPivot;
 use App\Models\NeedsApproval;
 use App\Models\ProductVariant;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
+/* @method static Builder withUnapproved() */
+/* @method static Builder onlyApproved() */
+/* @method static Builder withoutApproved() */
 class Review extends Model
 {
     use NeedsApproval;
