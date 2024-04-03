@@ -7,10 +7,12 @@ namespace App\Models;
 use App\Models\Review\Review;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
+use Lunar\Models\ProductVariant as LunarProductVariant;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -150,5 +152,34 @@ class Product extends BaseProduct implements Translatable
             'id'   => $this->id,
             'name' => $this->translateAttribute('name'),
        ];
+    }
+
+    public function primaryImage(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            \Spatie\MediaLibrary\MediaCollections\Models\Media::class,
+            MediaProductVariant::class,
+            'product_variant_id',
+            'id',
+            'id',
+            'media_id',
+        )->where('lunar_media_product_variant.primary', true);
+    }
+
+    public function startingPrice(): HasOneThrough
+    {
+        $relation =  $this->hasOneThrough(
+            Price::class,
+            ProductVariant::class,
+            'product_id',
+            'priceable_id',
+            'id',
+            'id',
+        )
+            ->where('lunar_prices.priceable_type', LunarProductVariant::class)
+            ->orderBy('price', 'asc')
+        ;
+
+        return $relation;
     }
 }

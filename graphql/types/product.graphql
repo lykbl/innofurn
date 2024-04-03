@@ -16,6 +16,8 @@ type Product implements WithUrls {
     averageRating: Float!
     associations: [Association!]! @hasMany
     inverseAssociations: [Association!]! @hasMany
+    primaryImage: Media
+    startingPrice: Price! @hasOneThrough
 #    options: [ProductOption!]! @hasManyDeep
 #    colorOptions: [ProductOptionValue!] @hasManyDeep
 }
