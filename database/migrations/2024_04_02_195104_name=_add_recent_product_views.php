@@ -12,9 +12,9 @@ return new class extends \Lunar\Base\Migration
     public function up(): void
     {
         Schema::create('product_views', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('product_id')->constrained($this->prefix . 'products');
             $table->foreignId('user_id')->constrained('users');
+            $table->primary(['product_id', 'user_id']);
             $table->timestamps();
         });
     }
