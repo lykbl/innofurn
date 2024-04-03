@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Lunar\Models\Discount;
 use Lunar\Models\Product as BaseProduct;
 use Lunar\Models\ProductVariant as LunarProductVariant;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /** @method Builder withSlug */
@@ -157,7 +157,7 @@ class Product extends BaseProduct implements Translatable
     public function primaryImage(): HasOneThrough
     {
         return $this->hasOneThrough(
-            \Spatie\MediaLibrary\MediaCollections\Models\Media::class,
+            Media::class,
             MediaProductVariant::class,
             'product_variant_id',
             'id',

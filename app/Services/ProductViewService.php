@@ -35,7 +35,8 @@ class ProductViewService
                 ['product_id', '!=', $productId],
                 ['user_id', '=', $user->id],
             ])
-            ->count();
+            ->count()
+        ;
 
         $productViewsToDelete = $productViewsCount - (self::MAX_PRODUCT_VIEWS_COUNT - 1);
         if ($productViewsToDelete > 0) {
@@ -45,7 +46,8 @@ class ProductViewService
                 ])
                 ->oldest()
                 ->limit($productViewsToDelete)
-                ->delete();
+                ->delete()
+            ;
         }
 
         $productView = ProductView::query()
