@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class Addresses implements ResolverInterface
+class MyAddresses implements ResolverInterface
 {
     /**
      * @param mixed          $root
