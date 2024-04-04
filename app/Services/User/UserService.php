@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace App\Services\User;
 
 use App\Exceptions\User\OAuthExistsException;
+use App\GraphQL\Inputs\UpdateDetailsInput;
+use App\GraphQL\Inputs\UpdateMeInput;
 use App\Models\CustomerGroups\CustomerGroup;
+use App\Models\EmailChangeHistory;
 use App\Models\OAuth\OAuthTypes;
 use App\Models\OAuth\OAuthUser;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
@@ -77,6 +81,47 @@ class UserService
         }
 
         Auth::login($user);
+
+        return $user;
+    }
+
+    public function updateMe(
+        User $user,
+        UpdateDetailsInput $input,
+    ): User
+    {
+        $customer = $user->retailCustomer;
+
+        DB::transaction(function () use ($user, $customer, $input) {
+            $user->name = $input->firstName() . " ". $input->lastName();
+            $user->save();
+
+            $customer->title = $input->title();
+            $customer->first_name = $input->firstName();
+            $customer->last_name = $input->lastName();
+            $customer->save();
+        });
+
+        return $user;
+    }
+
+    public function updateEmail(User $user, string $email): User
+    {
+        DB::transaction(function () use ($user, $email) {
+            $user->email = $email;
+            $user->email_verified_at = null;
+            $user->save();
+
+            EmailChangeHistory::where([
+                ['user_id', '=', $user->id],
+                ['deleted_at', '=', null],
+            ])->delete();
+
+            EmailChangeHistory::create([
+                'email' => $email,
+                'user_id' => $user->id,
+            ]);
+        });
 
         return $user;
     }
