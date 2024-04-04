@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\GraphQL\Inputs;
 
 /**
@@ -8,6 +10,6 @@ namespace App\GraphQL\Inputs;
  * @method string email()
  * @method string title()
  */
-class UpdateDetailsInput extends Input {
-
+class UpdateDetailsInput extends Input
+{
 }

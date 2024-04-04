@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\Chat\ChatRoom;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-use Lunar\Hub\Models\Staff;
 
 class UserPolicy
 {
@@ -16,10 +14,10 @@ class UserPolicy
     public function updateEmail(User $user, mixed $args): Response
     {
         $limitReached = $user
-                ->emailChangeHistory()
-                ->withTrashed()
-                ->where('created_at', '>=', now()->subDay())
-                ->count() >= self::MAX_EMAIL_CHANGES_PER_DAY
+            ->emailChangeHistory()
+            ->withTrashed()
+            ->where('created_at', '>=', now()->subDay())
+            ->count() >= self::MAX_EMAIL_CHANGES_PER_DAY
         ;
 
         if ($limitReached) {

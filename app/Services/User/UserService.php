@@ -6,7 +6,6 @@ namespace App\Services\User;
 
 use App\Exceptions\User\OAuthExistsException;
 use App\GraphQL\Inputs\UpdateDetailsInput;
-use App\GraphQL\Inputs\UpdateMeInput;
 use App\Models\CustomerGroups\CustomerGroup;
 use App\Models\EmailChangeHistory;
 use App\Models\OAuth\OAuthTypes;
@@ -88,17 +87,16 @@ class UserService
     public function updateMe(
         User $user,
         UpdateDetailsInput $input,
-    ): User
-    {
+    ): User {
         $customer = $user->retailCustomer;
 
-        DB::transaction(function () use ($user, $customer, $input) {
-            $user->name = $input->firstName() . " ". $input->lastName();
+        DB::transaction(function () use ($user, $customer, $input): void {
+            $user->name = $input->firstName().' '.$input->lastName();
             $user->save();
 
-            $customer->title = $input->title();
+            $customer->title      = $input->title();
             $customer->first_name = $input->firstName();
-            $customer->last_name = $input->lastName();
+            $customer->last_name  = $input->lastName();
             $customer->save();
         });
 
@@ -107,8 +105,8 @@ class UserService
 
     public function updateEmail(User $user, string $email): User
     {
-        DB::transaction(function () use ($user, $email) {
-            $user->email = $email;
+        DB::transaction(function () use ($user, $email): void {
+            $user->email             = $email;
             $user->email_verified_at = null;
             $user->save();
 
@@ -118,7 +116,7 @@ class UserService
             ])->delete();
 
             EmailChangeHistory::create([
-                'email' => $email,
+                'email'   => $email,
                 'user_id' => $user->id,
             ]);
         });
