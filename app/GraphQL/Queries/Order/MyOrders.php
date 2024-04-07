@@ -13,10 +13,10 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 class MyOrders implements ResolverInterface
 {
     /**
-     * @param mixed $root
-     * @param array $args
+     * @param mixed          $root
+     * @param array          $args
      * @param GraphQLContext $context
-     * @param ResolveInfo $resolveInfo
+     * @param ResolveInfo    $resolveInfo
      *
      * @return Collection<Order>
      */
