@@ -6,6 +6,7 @@ type Customer {
     name: String!
     role: String!
     title: String!
+    orders: [Order!]! @hasMany
 #    activeCart: Cart!
 #    activeChatRoom: ChatRoom!
 }

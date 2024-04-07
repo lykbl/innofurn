@@ -33,6 +33,7 @@ return [
             'App\\GraphQL\\Queries\\Address',
             'App\\GraphQL\\Queries\\PromotionBanner',
             'App\\GraphQL\\Queries\\ProductView',
+            'App\\GraphQL\\Queries\\Order',
         ],
         'mutations' => [
             'App\\GraphQL\\Mutations\\User',

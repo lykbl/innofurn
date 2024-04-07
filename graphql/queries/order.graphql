@@ -1,0 +1,5 @@
+extend type Query @guard {
+    myOrders(first: Int! page: Int!, firstProductLines: Int!): [Order!]! @paginate(model: "Order", defaultCount: 10, maxCount: 25)
+
+    orderDetails(id: IntID! @eq, firstProductLines: Int!): Order! @find
+}
