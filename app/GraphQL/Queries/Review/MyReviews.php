@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\GraphQL\Queries\Review;
 
 use App\Models\Review\Review;
-use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
