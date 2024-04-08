@@ -1,0 +1,21 @@
+type Order {
+    id: IntID!
+    customer: Customer! @hasOne
+    user: User! @hasOne
+    status: String! # TODO make into enum
+    subTotal: PriceData! @rename(attribute: "sub_total")
+    discountTotal: PriceData! @rename(attribute: "discount_total")
+    shippingTotal: PriceData! @rename(attribute: "shipping_total")
+    taxTotal: PriceData! @rename(attribute: "tax_total")
+    total: PriceData!
+    notes: String
+    currencyCode: String! @rename(attribute: "currency_code")
+    compareCurrencyCode: String! @rename(attribute: "compare_currency_code")
+    exchangeRate: Float! @rename(attribute: "exchange_rate")
+    placedAt: DateTime @rename(attribute: "placed_at")
+    shippingLines: [ShippingLine!]! @hasMany
+    productLines: [ProductLine!]! @hasMany(type: PAGINATOR, defaultCount: 3, maxCount: 100)
+    billingAddress: OrderAddress! @hasOne
+    shippingAddress: OrderAddress! @hasOne
+    addresses: [OrderAddress!]! @hasMany
+}

@@ -19,6 +19,7 @@ use Lunar\Models\Customer;
 use Lunar\Models\CustomerGroup;
 use Lunar\Models\Discount;
 use Lunar\Models\Order;
+use Lunar\Models\OrderLine;
 use Lunar\Models\Price;
 use Lunar\Models\Product;
 use Lunar\Models\ProductOption;
@@ -73,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
             ProductOptionValue::class => \App\Models\ProductOptionValue::class,
             Country::class            => \App\Models\Country::class,
             Discount::class           => \App\Models\Discount::class,
+            OrderLine::class          => \App\Models\OrderLine::class,
         ]);
 
         ModelManifest::register($models);

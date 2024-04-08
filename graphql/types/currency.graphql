@@ -1,0 +1,9 @@
+type Currency {
+    id: IntID!
+    code: String!
+    name: String!
+    exchangeRate: Float! @rename(attribute: "exchange_rate")
+    decimalPlaces: Int! @rename(attribute: "decimal_places")
+    enabled: Boolean!
+    default: Boolean!
+}

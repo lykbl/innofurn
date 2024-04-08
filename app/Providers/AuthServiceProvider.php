@@ -9,10 +9,12 @@ use App\Models\Address;
 use App\Models\Chat\ChatMessage;
 use App\Models\PaymentIntent;
 use App\Models\Review\Review;
+use App\Models\User;
 use App\Policies\Address\AddressPolicy;
 use App\Policies\ChatPolicy;
 use App\Policies\Checkout\CheckoutPolicy;
 use App\Policies\Review\ReviewPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Review::class        => ReviewPolicy::class,
         PaymentIntent::class => CheckoutPolicy::class,
         ChatMessage::class   => ChatPolicy::class,
+        User::class          => UserPolicy::class,
     ];
 
     /**

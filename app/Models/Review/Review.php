@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\CustomerUserPivot;
 use App\Models\NeedsApproval;
 use App\Models\ProductVariant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -49,6 +50,11 @@ class Review extends Model
             'user_id',
             'customer_id'
         );
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function searchableAs()

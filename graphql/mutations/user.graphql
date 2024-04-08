@@ -7,6 +7,11 @@ extend type Mutation {
 
     "Log out from the current session, showing the user one last time."
     logout: User @guard
+
+    "Update the current user's information."
+    updateDetails(input: UpdateDetailsInput! @spread): User! @guard
+
+    updateEmail(email: Email! @rules(apply: ["required", "email", "unique:users,email"])): User! @guard @can(ability: "updateEmail", model: "App\\Models\\User", injectArgs: true)
 }
 
 # TODO Should this be here?
@@ -16,4 +21,10 @@ input SignUpInput {
 
 input LoginInput {
     email: Email! @rules(apply: ["required", "email"])
+}
+
+input UpdateDetailsInput {
+    firstName: String @rules(apply: ["required", "min:2"])
+    lastName: String @rules(apply: ["required", "min:2"])
+    title: String @rules(apply: ["min:2", "max:2"])
 }

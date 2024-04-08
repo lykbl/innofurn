@@ -1,0 +1,18 @@
+type ProductLine {
+    id: IntID!
+    order: Order! @belongsTo
+    purchasable: ProductVariant! @morphTo # TODO change to purchasable
+    currency: Currency! @hasOneThrough
+    type: String!
+    description: String!
+    option: String
+    identifier: String!
+    unitPrice: PriceData! @rename(attribute: "unit_price")
+    unitQuantity: Int! @rename(attribute: "unit_quantity")
+    quantity: Int!
+    subTotal: PriceData! @rename(attribute: "sub_total")
+    discountTotal: PriceData! @rename(attribute: "discount_total")
+    taxTotal: PriceData! @rename(attribute: "tax_total")
+    total: PriceData!
+    notes: String
+}
