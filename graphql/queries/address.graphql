@@ -1,4 +1,4 @@
 extend type Query @guard {
-    myAddresses: [Address!]! #TODO use directive?
+    myAddresses: [Address!]! @whereAuth(relation: "user")
     address(id: IntID!): Address! @can(ability: "interact", find: "id") @find
 }

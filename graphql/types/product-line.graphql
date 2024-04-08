@@ -1,7 +1,7 @@
 type ProductLine {
     id: IntID!
     order: Order! @belongsTo
-    purchasable: ProductVariant! @morphTo # change to purchasable
+    purchasable: ProductVariant! @morphTo # TODO change to purchasable
     currency: Currency! @hasOneThrough
     type: String!
     description: String!
