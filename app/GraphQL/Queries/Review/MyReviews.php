@@ -9,13 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class UserReviews extends ReviewQuery
+class MyReviews extends ReviewQuery
 {
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $query   = Review::where('user_id', Auth::user()->id);
-        $reviews = $query->get();
-
-        return $reviews;
+        return Review::where('user_id', $context->user()->id);
     }
 }

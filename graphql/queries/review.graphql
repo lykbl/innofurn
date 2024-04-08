@@ -1,5 +1,5 @@
 extend type Query {
-    userReviews: [Review!] @guard
+    myReviews: [Review!] @guard @whereAuth(relation: "user") @paginate(model: "App\\Models\\Review\\Review", defaultCount: 5, maxCount: 20)
 
     searchProductReviews(
         filters: SearchProductReviewsFiltersInput!,
