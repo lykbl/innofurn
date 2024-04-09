@@ -1,3 +1,0 @@
-extend type Mutation {
-    recordProductView(productId: IntID! @rules(apply: ["exists:lunar_products,id"])): Boolean!
-}

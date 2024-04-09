@@ -5,14 +5,13 @@ extend type Query {
     ): [ProductVariant!]!
     @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariantsForCollection", defaultCount: 20, maxCount: 50)
 
+    #TODO fix ide helper error
     findProductVariants(
         search: String!
     ): [ProductVariant!]!
     @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
 
     optionFiltersForCollection(slug: String!): [ProductOption!]!
-
-#    allVariants: [ProductVariant!]! @all #TODO test only remove
 }
 
 enum ProductVariantOrderBy {
