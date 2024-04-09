@@ -28,12 +28,12 @@ class ProductViewService
 
     public function recordProductView(
         int $productId,
-        User $user,
+        int $userId,
     ): ProductView {
         $productViewsCount = ProductView::query()
             ->where([
                 ['product_id', '!=', $productId],
-                ['user_id', '=', $user->id],
+                ['user_id', '=', $userId],
             ])
             ->count()
         ;
@@ -42,7 +42,7 @@ class ProductViewService
         if ($productViewsToDelete > 0) {
             ProductView::query()
                 ->where([
-                    ['user_id', '=', $user->id],
+                    ['user_id', '=', $userId],
                 ])
                 ->oldest()
                 ->limit($productViewsToDelete)
@@ -52,7 +52,7 @@ class ProductViewService
 
         $productView = ProductView::query()
             ->upsert(
-                values: ['product_id' => $productId, 'user_id' => $user->id],
+                values: ['product_id' => $productId, 'user_id' => $userId],
                 uniqueBy: ['product_id', 'user_id'],
                 update: ['created_at' => now()]
             )
