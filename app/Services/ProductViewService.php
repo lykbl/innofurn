@@ -5,26 +5,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\ProductView;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 
 class ProductViewService
 {
     public const MAX_PRODUCT_VIEWS_COUNT = 15;
-
-    /**
-     * @return Collection<ProductView>
-     */
-    public function recentlyViewedProducts(User $user)
-    {
-        $productVariantViews = ProductView::query()
-            ->where('user_id', $user->id)
-            ->orderByDesc('created_at')
-            ->get()
-        ;
-
-        return $productVariantViews;
-    }
 
     public function recordProductView(
         int $productId,
