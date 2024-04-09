@@ -29,7 +29,7 @@ class ProductViewService
     public function recordProductView(
         int $productId,
         int $userId,
-    ): ProductView {
+    ): void {
         $productViewsCount = ProductView::query()
             ->where([
                 ['product_id', '!=', $productId],
@@ -50,14 +50,12 @@ class ProductViewService
             ;
         }
 
-        $productView = ProductView::query()
+        ProductView::query()
             ->upsert(
                 values: ['product_id' => $productId, 'user_id' => $userId],
                 uniqueBy: ['product_id', 'user_id'],
                 update: ['created_at' => now()]
             )
         ;
-
-        return $productView;
     }
 }
