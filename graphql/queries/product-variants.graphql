@@ -9,7 +9,7 @@ extend type Query {
     findProductVariants(
         search: String!
     ): [ProductVariant!]!
-    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: "SCOUT")
+    @paginate(builder: "App\\GraphQL\\Queries\\ProductVariant\\FindProductVariants", defaultCount: 10, maxCount: 30, type: SCOUT)
 
     optionFiltersForCollection(slug: String!): [ProductOption!]!
 }
