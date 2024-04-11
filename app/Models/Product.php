@@ -135,7 +135,7 @@ class Product extends BaseProduct implements Translatable
     //        return $options;
     //    }
 
-    public static function withSlug(string $slug)
+    public static function withSlug(string $slug): Builder
     {
         return Product::query()->withWhereHas('urls', fn ($query) => $query->where('slug', $slug));
     }

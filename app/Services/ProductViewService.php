@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Product;
 use App\Models\ProductView;
 
 class ProductViewService
@@ -11,12 +12,17 @@ class ProductViewService
     public const MAX_PRODUCT_VIEWS_COUNT = 15;
 
     public function recordProductView(
-        int $productId,
+        string $slug,
         int $userId,
-    ): void {
+    ): bool {
+        $product = Product::withSlug($slug)->first();
+        if (!$product) {
+            return false;
+        }
+
         $productViewsCount = ProductView::query()
             ->where([
-                ['product_id', '!=', $productId],
+                ['product_id', '!=', $product->id],
                 ['user_id', '=', $userId],
             ])
             ->count()
@@ -36,10 +42,12 @@ class ProductViewService
 
         ProductView::query()
             ->upsert(
-                values: ['product_id' => $productId, 'user_id' => $userId],
+                values: ['product_id' => $product->id, 'user_id' => $userId],
                 uniqueBy: ['product_id', 'user_id'],
                 update: ['created_at' => now()]
             )
         ;
+
+        return true;
     }
 }

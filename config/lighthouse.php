@@ -41,6 +41,7 @@ return [
             'App\\GraphQL\\Mutations\\Checkout',
             'App\\GraphQL\\Mutations\\Address',
             'App\\GraphQL\\Mutations\\Chat',
+            'App\\GraphQL\\Mutations\\ProductView',
         ],
         'subscriptions' => [
             'App\\GraphQL\\Subscriptions\\Chat',
