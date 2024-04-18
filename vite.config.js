@@ -7,6 +7,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/apollo-client.js',
+                'resources/js/main.js',
             ],
             refresh: true,
             postcss: [
