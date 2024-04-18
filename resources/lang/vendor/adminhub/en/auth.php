@@ -22,6 +22,8 @@ return [
     'permissions.catalogue.customers.description' => 'Allow the staff member to manage customers.',
     'permissions.discounts.name' => 'Manage Discounts',
     'permissions.discounts.description' => 'Allow the staff member to manage discounts',
+    'permissions.catalogue.rooms.name' => 'Manage Room Previews',
+    'permissions.catalogue.rooms.description' => 'Allow the stuff member to manage rooms previews',
     /**
      * Reset password.
      */

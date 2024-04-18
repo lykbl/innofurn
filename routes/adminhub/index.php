@@ -22,5 +22,8 @@ Route::group([
         Route::group([
             'prefix' => 'promotion-banners',
         ], __DIR__.'/includes/promotion-banners.php');
+        Route::group([
+            'prefix' => 'rooms',
+        ], __DIR__.'/includes/rooms.php');
     });
 });

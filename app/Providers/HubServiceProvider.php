@@ -92,7 +92,16 @@ class HubServiceProvider extends ServiceProvider
                 ->handle('hub.promotion-banner-types')
                 ->gate('catalogue:manage-banners')
                 ->route('hub.promotion-banner-types.index');
-        })
+        });
+
+        $roomGroup = $catalogueGroup
+            ->section('hub.rooms')
+            ->name(__('adminhub::menu.sidebar.rooms'))
+            ->handle('hub.rooms')
+            ->gate('catalogue:manage-rooms')
+            ->route('hub.rooms.index')
+            //TODO add icon
+//            ->icon('room')
         ;
     }
 
@@ -106,6 +115,10 @@ class HubServiceProvider extends ServiceProvider
                 ->handle('catalogue:manage-banners')
                 ->description(__('adminhub::auth.permissions.catalogue.banners.description'))
             ;
+            $permission
+                ->name(__('adminhub::auth.permissions.catalogue.rooms.name'))
+                ->handle('catalogue:manage-rooms')
+                ->description(__('adminhub::auth.permissions.catalogue.rooms.description'));
         });
 
         $manifest->addPermission(function ($permission): void {

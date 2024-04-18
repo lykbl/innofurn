@@ -16,6 +16,7 @@ return [
     'sidebar.chats' => 'Chats',
     'sidebar.support' => 'Support',
     'sidebar.issue-tickets' => 'Issue Tickets',
+    'sidebar.rooms' => 'Room previews',
     /**
      * Product side menu.
      */
