@@ -32,8 +32,6 @@ return new class() extends Migration {
             $schema->geometry('geometry');
             $schema->foreignId('room_id')->constrained('rooms');
         });
-
-
     }
 
     /**

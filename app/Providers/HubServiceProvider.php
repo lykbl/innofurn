@@ -100,7 +100,7 @@ class HubServiceProvider extends ServiceProvider
             ->handle('hub.rooms')
             ->gate('catalogue:manage-rooms')
             ->route('hub.rooms.index')
-            //TODO add icon
+            // TODO add icon
 //            ->icon('room')
         ;
     }
