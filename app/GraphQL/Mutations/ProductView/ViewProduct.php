@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\GraphQL\Mutations\ProductView;
 
 use App\Services\ProductViewService;
