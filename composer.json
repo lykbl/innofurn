@@ -28,7 +28,8 @@
         "nuwave/lighthouse": "^6.22",
         "pusher/pusher-php-server": "^7.2",
         "staudenmeir/eloquent-has-many-deep": "^1.7",
-        "staudenmeir/laravel-cte": "^1.0"
+        "staudenmeir/laravel-cte": "^1.0",
+      "ext-zip": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

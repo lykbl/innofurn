@@ -25,6 +25,7 @@
         "laravel-echo": "^1.15.3",
         "react": "^18.2.0",
         "rippleui": "^1.12.1",
+        "three": "^0.163.0",
         "vanilla-picker": "^2.12.2"
     }
 }

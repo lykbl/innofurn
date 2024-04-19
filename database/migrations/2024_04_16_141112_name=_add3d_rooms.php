@@ -15,13 +15,13 @@ return new class() extends Migration {
         Schema::create('rooms', function (Blueprint $schema): void {
             $schema->id();
             $schema->foreignId('product_variant_id')->constrained('lunar_product_variants');
-            $schema->string('title');
+            $schema->json('attribute_data')->nullable();
             $schema->point('camera_position');
             $schema->point('look_at');
             $schema->string('glb_location');
+            $schema->boolean('active');
             $schema->timestamps();
             $schema->softDeletes();
-            $schema->boolean('active');
         });
 
         Schema::create('room_meshes', function (Blueprint $schema): void {
@@ -39,7 +39,7 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
         Schema::dropIfExists('room_meshes');
+        Schema::dropIfExists('rooms');
     }
 };

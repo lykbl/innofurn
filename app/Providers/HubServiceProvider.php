@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\FieldTypes\ColorFieldType;
 use App\Models\PromotionBanner\PromotionBanner;
+use App\Models\Room;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Lunar\Facades\AttributeManifest;
@@ -141,6 +142,7 @@ class HubServiceProvider extends ServiceProvider
     private function extendAttributes(): void
     {
         AttributeManifest::addType(PromotionBanner::class);
+        AttributeManifest::addType(Room::class);
     }
 
     private function registerViewComponents(): void
