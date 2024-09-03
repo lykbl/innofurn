@@ -1,3 +1,6 @@
+## What is it?
+A little ecommerce pet project to play around with GraphQL, Next.js and websockets
+
 # Linking Sail
 Since sail is located in a custom path `bin/sail`, you need to modify your `~/.bashrc` (or something else if you're using a different sh) to something like this:
 `alias sail='[ -f sail ] && bash sail || [ -f sail ] && bash vendor/bin/sail || bash bin/sail'`
